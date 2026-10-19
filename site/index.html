@@ -1,0 +1,851 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TradeSmart</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a jobsite. A tape-measure XP bar rides the top; the page is a run of work stations (deck, quiz, math, toolbelt). One committed dark look. */
+:root{
+  --steel:#1b1f24;      /* page ground, blue-biased charcoal */
+  --plate:#252a31;      /* raised surfaces */
+  --plate-2:#2e343c;
+  --rule:#3b424b;
+  --chalk:#f3f0e7;      /* main text */
+  --muted:#a3aab3;
+  --tape:#ED9F15;       /* tape-measure yellow, the one loud color */
+  --tape-ink:#1b1f24;
+  --line:#F5B942;       /* logo yellow, lighter tint */
+  --go:#46cf86;
+  --stop:#ff6a55;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --hud-h:64px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--steel);color:var(--chalk);font-family:var(--f-body);font-size:18px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;line-height:.95;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--tape)}
+.ico{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- HUD ---------- */
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(27,31,36,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.hud .wrap{display:flex;align-items:center;gap:16px;height:var(--hud-h)}
+.logo{display:flex;align-items:center;gap:10px;flex:none}
+.logo img{display:block}
+.logo .mark{height:38px;width:auto}
+.logo .word{height:20px;width:auto}
+.xp{flex:1;min-width:0;display:flex;align-items:center;gap:12px}
+.lvl{font-family:var(--f-display);font-weight:800;font-size:18px;text-transform:uppercase;white-space:nowrap;color:var(--tape)}
+.tape{position:relative;flex:1;min-width:60px;height:22px;border-radius:4px;background:var(--plate-2);overflow:hidden;border:1px solid var(--rule)}
+.tape-fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--tape);transition:width .6s cubic-bezier(.2,.9,.3,1.2)}
+.tape-ticks{position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,rgba(27,31,36,.55) 0 1px,transparent 1px 10px) bottom/100% 35% no-repeat,
+  repeating-linear-gradient(90deg,rgba(27,31,36,.75) 0 2px,transparent 2px 50px) bottom/100% 70% no-repeat;pointer-events:none;mix-blend-mode:multiply}
+.tape-num{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--chalk);text-shadow:0 1px 2px #000}
+.hud-stat{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:14px;white-space:nowrap;color:var(--muted)}
+.hud-stat b{color:var(--chalk)}
+.icon-btn{display:grid;place-items:center;width:40px;height:40px;border-radius:8px;border:1px solid var(--rule);background:var(--plate);font-size:18px}
+.icon-btn:hover{border-color:var(--muted)}
+@media (max-width:640px){.lvl{font-size:15px}.hud-stat.badges{display:none}.logo .word{display:none}}
+
+/* ---------- XP pops, toasts, level-up ---------- */
+.pop{position:fixed;z-index:80;pointer-events:none;font-family:var(--f-display);font-weight:900;font-size:28px;color:var(--tape);text-shadow:0 2px 0 #000;animation:pop 1s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes pop{0%{transform:translate(-50%,0) scale(.6);opacity:0}15%{transform:translate(-50%,-10px) scale(1.15);opacity:1}100%{transform:translate(-50%,-70px) scale(1);opacity:0}}
+.toasts{position:fixed;z-index:90;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;align-items:flex-end;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;background:var(--plate);border:1px solid var(--tape);border-radius:10px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:toastIn .45s cubic-bezier(.2,.9,.3,1.3)}
+.toast .badge-ico{width:38px;height:38px;border-radius:50%;background:var(--tape);color:var(--tape-ink);display:grid;place-items:center;font-size:20px}
+.toast small{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tape)}
+.toast strong{font-weight:700}
+.toast.out{animation:toastOut .35s ease forwards}
+@keyframes toastIn{from{transform:translateX(120%)}to{transform:none}}
+@keyframes toastOut{to{transform:translateX(120%);opacity:0}}
+.levelup{position:fixed;inset:0;z-index:95;display:grid;place-items:center;pointer-events:none}
+.levelup-card{text-align:center;padding:28px 40px;background:var(--tape);color:var(--tape-ink);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:lvl 2.4s cubic-bezier(.2,.9,.3,1.2) forwards;position:relative;overflow:hidden}
+.levelup-card::before{content:"";position:absolute;inset:0 0 auto 0;height:10px;background:repeating-linear-gradient(-45deg,var(--tape-ink) 0 12px,var(--tape) 12px 24px)}
+.levelup-card::after{content:"";position:absolute;inset:auto 0 0 0;height:10px;background:repeating-linear-gradient(-45deg,var(--tape-ink) 0 12px,var(--tape) 12px 24px)}
+.levelup-card small{font-family:var(--f-mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+.levelup-card h3{font-size:clamp(48px,9vw,96px);text-transform:uppercase}
+@keyframes lvl{0%{transform:scale(.4) rotate(-6deg);opacity:0}12%{transform:scale(1.08) rotate(1deg);opacity:1}20%{transform:scale(1) rotate(0)}85%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.95)}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:94}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:10px;padding:16px 24px;font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:.03em;text-transform:uppercase;background:var(--tape);color:var(--tape-ink);box-shadow:0 5px 0 #a86f08;transition:transform .08s,box-shadow .08s;text-decoration:none}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 0 #a86f08}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #a86f08}
+.btn.ghost{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 2px var(--rule)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 2px var(--muted)}
+
+/* ---------- sections ---------- */
+section{padding-block:72px;border-bottom:1px solid var(--rule)}
+.sec-head{display:grid;gap:14px;margin-bottom:36px;max-width:760px}
+.sec-head h2{font-size:clamp(44px,7vw,80px);text-transform:uppercase}
+.sec-head p{color:var(--muted);font-size:19px;max-width:62ch}
+.xp-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tape-ink);background:var(--tape);border-radius:4px;padding:3px 8px;width:max-content}
+
+/* ---------- hero ---------- */
+.hero{padding-block:56px 72px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;gap:28px}
+.hero h1{font-size:clamp(56px,11vw,140px);text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--tape)}
+.ticker{display:grid;gap:6px;padding:22px 24px;background:var(--plate);border:1px solid var(--rule);border-left:6px solid var(--tape);border-radius:10px;max-width:640px}
+.ticker .amt{font-family:var(--f-display);font-weight:900;font-size:clamp(56px,10vw,104px);line-height:1;font-variant-numeric:tabular-nums;color:var(--tape)}
+.ticker .amt small{font-size:.38em;color:var(--muted);font-weight:800}
+.ticker .who{font-family:var(--f-display);font-weight:800;font-size:28px;text-transform:uppercase;min-height:1.2em}
+.ticker .src{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.hero-lede{font-size:21px;max-width:58ch;color:var(--chalk)}
+.hero-lede b{color:var(--tape)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.chalkline{position:absolute;left:0;right:0;bottom:22px;height:2px;background:var(--line);opacity:.5;transform-origin:left;animation:snap 1.2s .3s cubic-bezier(.2,.9,.3,1) both}
+@keyframes snap{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ---------- deck ---------- */
+.deck-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:40px;align-items:start}
+@media (max-width:860px){.deck-grid{grid-template-columns:minmax(0,1fr)}}
+.deck-area{display:grid;justify-items:center;gap:22px}
+.deck{position:relative;width:min(100%,380px);aspect-ratio:5/7;max-width:100%;perspective:1400px;touch-action:pan-y}
+.card{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.9,.3,1.1);will-change:transform;user-select:none;-webkit-user-select:none}
+.card.dragging{transition:none}
+.card-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.9,.3,1.1)}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;overflow:hidden;padding:22px;display:flex;flex-direction:column;gap:14px;background:var(--plate);border:2px solid var(--rule);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.face.front{transform:rotateY(0deg)}
+.face.back{transform:rotateY(180deg);background:var(--plate-2)}
+.card[data-depth="0"]{cursor:grab}
+.card[data-depth="0"]:active{cursor:grabbing}
+.card[data-depth="1"]{transform:translateY(14px) scale(.95)}
+.card[data-depth="2"]{transform:translateY(28px) scale(.9)}
+.card[data-depth="1"] .face,.card[data-depth="2"] .face{filter:brightness(.75)}
+.shine{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.14) 45%,rgba(237,159,21,.18) 50%,transparent 62%);background-size:250% 100%;background-position:var(--sx,100%) 0}
+.card-top{display:flex;justify-content:space-between;align-items:center}
+.card-ico{width:54px;height:54px;border-radius:12px;background:var(--tape);color:var(--tape-ink);display:grid;place-items:center;font-size:30px}
+.power{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tape);border:1px solid var(--tape);border-radius:999px;padding:4px 10px;text-align:right;max-width:60%}
+.card h3{font-size:44px;text-transform:uppercase}
+.pay{font-family:var(--f-display);font-weight:900;font-size:60px;line-height:1;color:var(--tape);font-variant-numeric:tabular-nums}
+.pay small{display:block;font-family:var(--f-mono);font-weight:500;font-size:13px;color:var(--muted);margin-top:6px}
+.pay small+small{color:var(--line);margin-top:4px}
+.stats{display:grid;gap:10px;margin-top:auto}
+.stat{display:grid;grid-template-columns:90px minmax(0,1fr) 72px;gap:10px;align-items:center;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.stat .bar{height:8px;border-radius:4px;background:var(--steel);overflow:hidden}
+.stat .bar i{display:block;height:100%;background:var(--line);border-radius:4px}
+.stat b{color:var(--chalk);text-align:right;font-weight:600}
+.flip-hint{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:center;letter-spacing:.08em;text-transform:uppercase}
+.back h4{font-family:var(--f-display);font-size:28px;text-transform:uppercase;margin:0;color:var(--tape)}
+.back p{font-size:17px}
+.back dl{display:grid;gap:10px;margin:auto 0 0}
+.back dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.back dd{margin:0;font-weight:600}
+.stamp{position:absolute;top:28px;font-family:var(--f-display);font-weight:900;font-size:46px;text-transform:uppercase;padding:2px 14px;border:5px solid;border-radius:10px;opacity:0;pointer-events:none;z-index:3}
+.stamp.yes{left:22px;color:var(--go);transform:rotate(-14deg)}
+.stamp.no{right:22px;color:var(--stop);transform:rotate(14deg)}
+.deck-btns{display:flex;gap:18px;align-items:center}
+.round{width:72px;height:72px;border-radius:50%;border:2px solid var(--rule);background:var(--plate);display:grid;place-items:center;font-size:30px;transition:transform .12s,border-color .12s}
+.round:hover{transform:scale(1.08)}
+.round:active{transform:scale(.94)}
+.round.no{color:var(--stop)}.round.no:hover{border-color:var(--stop)}
+.round.yes{color:var(--go)}.round.yes:hover{border-color:var(--go)}
+.round.flip{width:56px;height:56px;font-size:22px;color:var(--line)}
+.deck-count{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.deck-done{position:absolute;inset:0;display:grid;place-items:center;text-align:center;gap:14px;border:2px dashed var(--rule);border-radius:18px;padding:24px}
+.deck-done h3{font-size:44px;text-transform:uppercase;color:var(--tape)}
+.belt{background:var(--plate);border:1px solid var(--rule);border-radius:14px;padding:22px;display:grid;gap:14px}
+.belt h3{font-size:30px;text-transform:uppercase}
+.belt ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.belt li{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--steel);border-radius:8px;animation:slot .5s cubic-bezier(.2,.9,.3,1.3)}
+.belt li .mini{flex:none!important;width:30px;height:30px;border-radius:7px;background:var(--tape);color:var(--tape-ink);display:grid;place-items:center;font-size:16px}
+.belt li span{flex:1;min-width:0;font-weight:600}
+.belt li em{font-style:normal;font-family:var(--f-mono);font-size:13px;color:var(--tape)}
+.belt .empty{color:var(--muted);font-size:16px}
+.keys{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.keys kbd{display:inline-block;border:1px solid var(--rule);border-bottom-width:3px;border-radius:5px;padding:1px 7px;color:var(--chalk);background:var(--plate-2);font-family:inherit}
+@keyframes slot{from{transform:translateY(-14px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- quiz ---------- */
+.quiz{background:var(--plate);border:1px solid var(--rule);border-radius:18px;padding:clamp(20px,4vw,40px);display:grid;gap:26px;max-width:880px}
+.q-progress{display:flex;gap:6px}
+.q-progress i{flex:1;height:8px;border-radius:4px;background:var(--steel);transition:background .3s}
+.q-progress i.on{background:var(--tape)}
+.q-num{font-family:var(--f-mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.q-text{font-size:clamp(34px,5vw,54px);text-transform:uppercase}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:600px){.opts{grid-template-columns:minmax(0,1fr)}}
+.opt{text-align:left;display:flex;gap:14px;align-items:center;padding:18px 20px;border-radius:12px;border:2px solid var(--rule);background:var(--steel);font-size:18px;font-weight:600;transition:transform .12s,border-color .12s,background .12s}
+.opt:hover{border-color:var(--tape);transform:translateY(-2px)}
+.opt .k{flex:none;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:var(--plate-2);font-family:var(--f-mono);font-size:14px;color:var(--tape)}
+.opt.picked{background:var(--tape);color:var(--tape-ink);border-color:var(--tape);transform:scale(1.02)}
+.opt.picked .k{background:var(--tape-ink);color:var(--tape)}
+.quiz-q{display:grid;gap:22px;animation:qIn .4s cubic-bezier(.2,.9,.3,1)}
+@keyframes qIn{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+.result{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center;animation:qIn .5s}
+@media (max-width:640px){.result{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}}
+.ring{position:relative;width:220px;height:220px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:16}
+.ring .trk{stroke:var(--steel)}
+.ring svg{filter:drop-shadow(0 0 14px rgba(70,207,134,.45))}
+.ring .val{stroke:var(--go);stroke-linecap:round;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.ring .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;font-size:68px;font-variant-numeric:tabular-nums;color:var(--go)}
+.ring .num small{font-size:.45em}
+.result h3{font-size:clamp(40px,6vw,64px);text-transform:uppercase;color:var(--tape)}
+.result .why{color:var(--muted);margin-top:8px}
+.runners{display:grid;gap:10px;margin-top:18px}
+.runner{display:grid;grid-template-columns:150px minmax(0,1fr) 48px;gap:12px;align-items:center;font-weight:600}
+.runner .bar{height:12px;border-radius:6px;background:var(--steel);overflow:hidden}
+.runner .bar i{display:block;height:100%;width:0;background:var(--line);border-radius:6px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.runner b{font-family:var(--f-mono);font-size:14px;text-align:right}
+@media (max-width:640px){.runner{grid-template-columns:110px minmax(0,1fr) 44px;text-align:left}}
+.quiz-foot{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.result-text{min-width:0;width:100%}
+
+/* ---------- math ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:2px solid var(--rule);background:var(--plate);font-weight:600;font-size:16px;transition:border-color .12s,background .12s}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--tape);color:var(--tape-ink);border-color:var(--tape)}
+.math-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+@media (max-width:860px){.math-grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--plate);border:1px solid var(--rule);border-radius:14px;padding:26px;display:grid;gap:20px;align-content:start}
+.panel h3{font-size:30px;text-transform:uppercase}
+.vs{display:grid;gap:16px}
+.vs-row{display:grid;gap:6px}
+.vs-row .lbl{display:flex;justify-content:space-between;gap:12px;font-weight:600}
+.vs-row .lbl b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.vs-row .bar{height:28px;border-radius:6px;background:var(--steel);overflow:hidden}
+.vs-row .bar i{display:block;height:100%;width:0;border-radius:6px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.vs-row.trade .bar i{background:var(--tape)}
+.vs-row.all .bar i{background:var(--muted)}
+.delta{font-family:var(--f-display);font-weight:900;font-size:clamp(36px,5vw,52px);line-height:1;text-transform:uppercase}
+.delta.up{color:var(--go)}
+.delta.even{color:var(--line)}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:500px){.paths{grid-template-columns:minmax(0,1fr)}}
+.path{border-radius:10px;padding:16px;background:var(--steel);display:grid;gap:8px;align-content:start}
+.path .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.path .big{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,3.2vw,40px);white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}
+.path.college .big{color:var(--stop)}
+.path.app .big{color:var(--go)}
+.path p{font-size:15px;color:var(--muted)}
+.cite{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.cite a{color:var(--line)}
+
+/* ---------- toolbelt ---------- */
+.summary{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px}
+@media (max-width:860px){.summary{grid-template-columns:minmax(0,1fr)}}
+.idcard{position:relative;overflow:hidden;background:var(--tape);color:var(--tape-ink);border-radius:18px;padding:28px;display:grid;gap:18px}
+.idcard::before{content:"";position:absolute;inset:0 0 auto 0;height:12px;background:repeating-linear-gradient(-45deg,var(--tape-ink) 0 14px,var(--tape) 14px 28px)}
+.idcard .eyebrow{color:var(--tape-ink);margin-top:8px}
+.idcard h3{font-size:clamp(48px,7vw,80px);text-transform:uppercase}
+.id-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.id-rows div{border-top:2px solid rgba(27,31,36,.25);padding-top:8px;min-width:0}
+.id-rows small{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.id-rows strong{font-family:var(--f-display);font-weight:900;font-size:30px;text-transform:uppercase;line-height:1.05;overflow-wrap:anywhere}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.bdg{display:grid;justify-items:center;gap:6px;text-align:center;padding:14px 8px;border-radius:12px;background:var(--steel);border:1px solid var(--rule);font-size:14px;font-weight:600;color:var(--muted)}
+.bdg .b-ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--plate-2);color:var(--muted)}
+.bdg.got{color:var(--chalk);border-color:var(--tape)}
+.bdg.got .b-ico{background:var(--tape);color:var(--tape-ink)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);width:40px;height:40px;border-radius:10px;background:var(--plate-2);color:var(--tape);display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:22px}
+.steps strong{display:block}
+.steps p{color:var(--muted);font-size:16px}
+.steps a{color:var(--line)}
+
+footer{padding-block:40px 56px}
+footer h4{font-family:var(--f-display);font-size:22px;text-transform:uppercase;margin:0 0 12px}
+footer ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+footer a{color:var(--line)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<!-- icon sprite (lucide-style strokes) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+    <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
+    <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m15 12-8.37 8.37a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.91-1.91A2 2 0 0 1 19 8.17V7l-2.26-2.26a6 6 0 0 0-4.2-1.76L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.17a2 2 0 0 1 1.42.59L18.5 14.5"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="i-updown" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></symbol>
+    <symbol id="i-pole" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-vol" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.8"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+  </defs>
+</svg>
+
+<header class="hud" aria-label="Your progress">
+  <div class="wrap">
+    <div class="logo"><img class="mark" src="assets/logo-mark-dark.png" alt="" width="44" height="38"><img class="word" src="assets/logo-word-dark.png" alt="TradeSmart" width="144" height="20"></div>
+    <div class="xp">
+      <span class="lvl" id="lvlName">Apprentice</span>
+      <div class="tape" role="progressbar" aria-label="XP toward next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="tape">
+        <div class="tape-fill" id="tapeFill"></div>
+        <div class="tape-ticks"></div>
+        <span class="tape-num" id="xpNum">0 XP</span>
+      </div>
+    </div>
+    <span class="hud-stat badges"><svg class="ico"><use href="#i-award"/></svg><b id="badgeCount">0</b>/6</span>
+    <button class="icon-btn" id="soundBtn" aria-label="Turn sound off" title="Sound"><svg class="ico"><use href="#i-vol"/></svg></button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">For people who don't know what they want to do yet</span>
+      <h1>Get paid to learn a skill <em>nobody can take from you.</em></h1>
+      <div class="ticker" aria-live="polite">
+        <div class="amt" id="tickAmt">$59,270<small> / yr</small></div>
+        <div class="who" id="tickWho">Elevator installer</div>
+        <div class="src">Starting pay at 18: what the newest 10% of workers earn, 2025 · U.S. Bureau of Labor Statistics</div>
+      </div>
+      <p class="hero-lede">A typical food service job pays <b>$31,710</b> a year. Every trade below starts higher than that, most need only a high school diploma, and they pay you while you train. Swipe through them, take the quiz, and level up as you go.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#deck" id="startBtn">Start the deck <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn ghost" href="#quiz">Skip to the quiz</a>
+      </div>
+    </div>
+    <div class="chalkline"></div>
+  </section>
+
+  <!-- DECK -->
+  <section id="deck" data-sec="deck">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="xp-tag">+10 XP per swipe</span>
+        <h2>The trade deck</h2>
+        <p>Ten real careers with real starting pay at 18. Swipe right if it looks interesting, left if it doesn't. Tap a card to flip it and see what the job actually is.</p>
+      </div>
+      <div class="deck-grid">
+        <div class="deck-area">
+          <div class="deck" id="deckEl" aria-live="polite"></div>
+          <div class="deck-btns">
+            <button class="round no" id="noBtn" aria-label="Not for me"><svg class="ico"><use href="#i-x"/></svg></button>
+            <button class="round flip" id="flipBtn" aria-label="Flip card"><svg class="ico"><use href="#i-rotate"/></svg></button>
+            <button class="round yes" id="yesBtn" aria-label="I'm into it"><svg class="ico"><use href="#i-heart"/></svg></button>
+          </div>
+          <div class="deck-count" id="deckCount"></div>
+          <div class="keys">Keys: <kbd>&larr;</kbd> pass &nbsp;<kbd>&rarr;</kbd> like &nbsp;<kbd>Space</kbd> flip</div>
+        </div>
+        <aside class="belt" aria-label="Trades you liked">
+          <span class="eyebrow">Your toolbelt</span>
+          <h3>Trades you're into</h3>
+          <ul id="beltList"></ul>
+          <p class="empty" id="beltEmpty">Nothing here yet. Swipe right on a card to save it.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" data-sec="quiz">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="xp-tag">+15 XP per answer · +100 to finish</span>
+        <h2>Find your trade</h2>
+        <p>Six questions, about a minute. No wrong answers.</p>
+      </div>
+      <div class="quiz" id="quizEl"></div>
+    </div>
+  </section>
+
+  <!-- MATH -->
+  <section id="math" data-sec="math">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="xp-tag">+25 XP per trade you check</span>
+        <h2>Do the math</h2>
+        <p>Pick a trade and compare what it pays at 18 to a food service job. Then look at what the first four years cost on each path.</p>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Pick a trade"></div>
+      <div class="math-grid">
+        <div class="panel">
+          <span class="eyebrow" id="mathEyebrow">Starting pay at 18, 2025</span>
+          <div class="delta" id="delta"></div>
+          <div class="vs">
+            <div class="vs-row trade"><div class="lbl"><span id="tradeLbl"></span><b id="tradeVal"></b></div><div class="bar"><i id="tradeBar"></i></div></div>
+            <div class="vs-row all"><div class="lbl"><span>Food service job</span><b>$31,710</b></div><div class="bar"><i id="allBar"></i></div></div>
+          </div>
+          <p class="cite" id="mathCite"></p>
+        </div>
+        <div class="panel">
+          <h3>The first 4 years</h3>
+          <div class="paths">
+            <div class="path college">
+              <span class="tag">4-year college</span>
+              <span class="big" id="tuitionBig">$47,800</span>
+              <p>In-state tuition and fees at a public 4-year school, four years at $11,950 a year. Housing and food not included.</p>
+            </div>
+            <div class="path app">
+              <span class="tag">Electrical apprenticeship</span>
+              <span class="big">8,000 hrs</span>
+              <p>About 2,000 hours of paid on-the-job training each year of a 4 or 5 year program. Pay goes up as you learn.</p>
+            </div>
+          </div>
+          <p class="cite">College Board, Trends in College Pricing 2025 · BLS Occupational Outlook Handbook, Electricians</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLBELT -->
+  <section id="belt" data-sec="belt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="xp-tag">Your results</span>
+        <h2>Your work card</h2>
+        <p>Everything you earned on this page. Screenshot it and show your counselor.</p>
+      </div>
+      <div class="summary">
+        <div class="idcard">
+          <span class="eyebrow">TradeSmart work card</span>
+          <h3 id="idLevel">Apprentice</h3>
+          <div class="id-rows">
+            <div><small>XP earned</small><strong id="idXp">0</strong></div>
+            <div><small>Top quiz match</small><strong id="idMatch">Take the quiz</strong></div>
+            <div><small>Trades saved</small><strong id="idSaved">0</strong></div>
+            <div><small>Badges</small><strong id="idBadges">0 of 6</strong></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Badges</h3>
+          <div class="badges-grid" id="badgesGrid"></div>
+          <button class="btn ghost" id="resetBtn" style="justify-self:start;font-size:16px;padding:10px 16px">Reset for the next person</button>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:24px">
+        <h3>What to do next</h3>
+        <ol class="steps">
+          <li><div><strong>Ask about CTE at your school</strong><p>Most high schools and career centers run Career and Technical Education programs in these trades. Your counselor can get you in.</p></div></li>
+          <li><div><strong>Look up a registered apprenticeship</strong><p>Search real programs near you at <a href="https://www.apprenticeship.gov" target="_blank" rel="noopener">apprenticeship.gov</a>, run by the U.S. Department of Labor.</p></div></li>
+          <li><div><strong>Get matched on TradeSmart</strong><p>TradeSmart connects students with trade companies that have been checked and approved. Launching across America. <a href="../app.html#signup">Create your profile</a>.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>Sources</h4>
+    <ul>
+      <li>Starting pay is the wage the lowest-paid 10% of workers in each trade earn, the usual range for new workers and apprentices. "With experience" is the median. Both: U.S. Bureau of Labor Statistics, <a href="https://www.bls.gov/ooh/" target="_blank" rel="noopener">Occupational Outlook Handbook</a>, May 2025. Hourly figures divide yearly pay by 2,080 full-time hours.</li>
+      <li>Jobs, growth and openings: BLS projections 2025 to 2035.</li>
+      <li>Food service job ($31,710, median, May 2025): BLS, <a href="https://www.bls.gov/ooh/food-preparation-and-serving/food-and-beverage-serving-and-related-workers.htm" target="_blank" rel="noopener">Food and Beverage Serving and Related Workers</a>.</li>
+      <li>Tuition ($11,950 a year, public 4-year in-state, 2025-26): <a href="https://research.collegeboard.org/trends/college-pricing/highlights" target="_blank" rel="noopener">College Board, Trends in College Pricing 2025</a>.</li>
+      <li>Apprenticeship hours and length: <a href="https://www.bls.gov/ooh/construction-and-extraction/electricians.htm" target="_blank" rel="noopener">BLS, Electricians</a>.</li>
+    </ul>
+  </div>
+</footer>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="levelup" id="levelup" hidden><div class="levelup-card"><small>Level up</small><h3 id="levelupName">Journeyworker</h3></div></div>
+
+<script>
+(function(){
+"use strict";
+/* ===== DATA: BLS Occupational Outlook Handbook, 2025 median pay, projections 2025-35 ===== */
+var BLS="https://www.bls.gov/ooh/";
+var TRADES=[
+ {id:"elev",start:59270,name:"Elevator installer",ico:"updown",pay:109910,hr:52.84,growth:6,open:1900,jobs:24700,train:"Apprenticeship",edu:"High school diploma",
+  power:"Highest pay in the deck",does:"Install, fix and inspect elevators, escalators and moving walkways in hospitals, stadiums and skyscrapers. Part mechanic, part electrician.",
+  url:BLS+"construction-and-extraction/elevator-installers-and-repairers.htm"},
+ {id:"line",start:51470,name:"Power line worker",ico:"pole",pay:95320,hr:45.83,growth:10,open:10900,jobs:131900,train:"Long-term on-the-job training",edu:"High school diploma",
+  power:"10% job growth",does:"Build and repair the power lines that keep cities lit. When a storm knocks out power, you're the one who brings it back.",
+  url:BLS+"installation-maintenance-and-repair/line-installers-and-repairers.htm"},
+ {id:"wind",start:49230,name:"Wind turbine tech",ico:"wind",pay:64120,hr:30.83,growth:30,open:1500,jobs:11800,train:"Long-term on-the-job training",edu:"Postsecondary certificate",
+  power:"Fastest growing: 30%",does:"Climb turbines hundreds of feet up to inspect, repair and keep them spinning. Lots of time outside, lots of travel.",
+  url:BLS+"installation-maintenance-and-repair/wind-turbine-technicians.htm"},
+ {id:"plumb",start:44150,name:"Plumber",ico:"droplet",pay:63800,hr:30.67,growth:7,open:42000,jobs:510600,train:"Apprenticeship",edu:"High school diploma",
+  power:"42,000 openings a year",does:"Install and fix the pipes that bring clean water in and take waste out of homes, hospitals and factories.",
+  url:BLS+"construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm"},
+ {id:"elec",start:42640,name:"Electrician",ico:"zap",pay:63190,hr:30.38,growth:9,open:72700,jobs:821000,train:"Apprenticeship",edu:"High school diploma",
+  power:"Most openings: 72,700/yr",does:"Wire houses, factories, EV chargers and data centers. Read blueprints, troubleshoot circuits, make things turn on.",
+  url:BLS+"construction-and-extraction/electricians.htm"},
+ {id:"diesel",start:44530,name:"Diesel technician",ico:"truck",pay:61770,hr:29.70,growth:4,open:24400,jobs:316000,train:"Long-term on-the-job training",edu:"High school diploma",
+  power:"Big machines",does:"Diagnose and rebuild engines in semis, buses, bulldozers and tractors. Computers and wrenches, both.",
+  url:BLS+"installation-maintenance-and-repair/diesel-service-technicians-and-mechanics.htm"},
+ {id:"hvac",start:40050,name:"HVAC technician",ico:"thermo",pay:61010,hr:29.33,growth:11,open:40600,jobs:440900,train:"Long-term on-the-job training",edu:"Postsecondary certificate",
+  power:"11% job growth",does:"Install and repair heating, AC and refrigeration. When it's 95 degrees out, everyone needs you.",
+  url:BLS+"installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm"},
+ {id:"carp",start:40410,name:"Carpenter",ico:"hammer",pay:60580,hr:29.12,growth:4,open:62800,jobs:889700,train:"Apprenticeship",edu:"High school diploma",
+  power:"Most jobs: 889,700",does:"Frame houses, build stairs, set forms for concrete, finish cabinets. You can point at buildings and say you built that.",
+  url:BLS+"construction-and-extraction/carpenters.htm"},
+ {id:"weld",start:39240,name:"Welder",ico:"flame",pay:53750,hr:25.84,growth:2,open:40300,jobs:437700,train:"Moderate on-the-job training",edu:"High school diploma",
+  power:"40,300 openings a year",does:"Fuse metal for bridges, ships, pipelines and cars using heat that melts steel. Steady hands, real craft.",
+  url:BLS+"production/welders-cutters-solderers-and-brazers.htm"},
+ {id:"auto",start:34660,name:"Auto technician",ico:"car",pay:50620,hr:24.34,growth:5,open:66200,jobs:825800,train:"Short-term on-the-job training",edu:"Postsecondary certificate",
+  power:"66,200 openings a year",does:"Diagnose and fix cars, from brakes to the computer systems in EVs and hybrids. If you love cars, this is it.",
+  url:BLS+"installation-maintenance-and-repair/automotive-service-technicians-and-mechanics.htm"}
+];
+var BY={};TRADES.forEach(function(t){BY[t.id]=t});
+var FOOD=31710; // BLS OOH food and beverage serving workers, median pay May 2025
+var MAX={start:59270,growth:30,open:72700};
+function perHr(y){return "$"+(y/2080).toFixed(2)}
+
+var QUIZ=[
+ {q:"Pick your Saturday",o:[
+   ["Building something in the garage",["carp","weld","auto"]],
+   ["Fixing whatever broke in the house",["plumb","hvac","elec"]],
+   ["Outside all day, the higher up the better",["line","wind","carp"]],
+   ["Taking an engine apart",["diesel","auto","elev"]]]},
+ {q:"How do you feel about heights?",o:[
+   ["Love them",["line","wind","elev"]],
+   ["A ladder is fine",["elec","hvac","carp"]],
+   ["Keep me on the ground",["plumb","weld","auto","diesel"]],
+   ["Never tried, I'd give it a shot",["wind","elev","line","elec"]]]},
+ {q:"Which one feels most satisfying?",o:[
+   ["Flipping a switch you wired and the lights come on",["elec","line","elev"]],
+   ["A huge engine roaring back to life",["diesel","auto","wind"]],
+   ["A clean weld or a perfect joint",["weld","carp"]],
+   ["A leak stopped or a hot room cooled down",["plumb","hvac"]]]},
+ {q:"Where do you want to work?",o:[
+   ["My own bay in a shop",["auto","diesel","weld"]],
+   ["A new job site every week",["carp","elec","plumb","hvac"]],
+   ["On the road, remote places",["wind","line"]],
+   ["Inside big buildings, on complex systems",["elev","elec","hvac"]]]},
+ {q:"Which class would you actually pick?",o:[
+   ["Physics or math puzzles",["elec","elev","wind","line"]],
+   ["Shop class or art",["carp","weld"]],
+   ["Science, how air and water move",["plumb","hvac"]],
+   ["Computers and figuring out what's wrong",["auto","diesel","hvac","elev"]]]},
+ {q:"What matters most to you?",o:[
+   ["The biggest paycheck",["elev","line","plumb"]],
+   ["A field that's growing fast",["wind","hvac","elec","line"]],
+   ["Jobs everywhere I might live",["elec","carp","auto","plumb","weld"]],
+   ["Making things with my own hands",["weld","carp","diesel","auto"]]]}
+];
+// Max points each trade can earn = number of questions where it appears in some option.
+var QMAX={};TRADES.forEach(function(t){QMAX[t.id]=0});
+QUIZ.forEach(function(q){var seen={};q.o.forEach(function(o){o[1].forEach(function(id){seen[id]=1})});Object.keys(seen).forEach(function(id){QMAX[id]++})});
+
+var LEVELS=[{n:"Apprentice",at:0},{n:"Journeyworker",at:200},{n:"Master",at:450}];
+var BADGES=[
+ {id:"first",n:"First swipe",ico:"heart"},
+ {id:"flip3",n:"Flipped 3 cards",ico:"rotate"},
+ {id:"deck",n:"Cleared the deck",ico:"layers"},
+ {id:"quiz",n:"Found my trade",ico:"target"},
+ {id:"math",n:"Did the math",ico:"calc"},
+ {id:"master",n:"Reached Master",ico:"trophy"}
+];
+
+/* ===== STATE ===== */
+var KEY="tradesmart-site-v2";
+var S={xp:0,badges:{},liked:[],idx:0,flips:0,seen:{},checked:{},quiz:null,sound:true};
+try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);for(var k in p)S[k]=p[k]}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ===== helpers ===== */
+var $=function(id){return document.getElementById(id)};
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function money(n){return "$"+Math.round(n).toLocaleString("en-US")}
+function icon(name){return '<svg class="ico"><use href="#i-'+name+'"/></svg>'}
+
+/* ===== sound (WebAudio blips, only after a tap) ===== */
+var AC=null;
+function tone(freqs,dur,type,gain){
+  if(!S.sound)return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    var t0=AC.currentTime;
+    freqs.forEach(function(f,i){
+      var o=AC.createOscillator(),g=AC.createGain();
+      o.type=type||"triangle";o.frequency.value=f;
+      var st=t0+i*dur*0.6;
+      g.gain.setValueAtTime(0.0001,st);g.gain.exponentialRampToValueAtTime(gain||0.12,st+0.01);g.gain.exponentialRampToValueAtTime(0.0001,st+dur);
+      o.connect(g).connect(AC.destination);o.start(st);o.stop(st+dur+0.02);
+    });
+  }catch(e){}
+}
+var SFX={
+  xp:function(){tone([880,1320],0.09,"triangle",0.08)},
+  like:function(){tone([660,990,1320],0.1,"triangle",0.1)},
+  nope:function(){tone([300,220],0.1,"sine",0.08)},
+  flip:function(){tone([520],0.06,"square",0.03)},
+  badge:function(){tone([784,988,1175,1568],0.12,"triangle",0.1)},
+  level:function(){tone([523,659,784,1047,1319],0.16,"triangle",0.12)}
+};
+function syncSound(){$("soundBtn").innerHTML=icon(S.sound?"vol":"mute");$("soundBtn").setAttribute("aria-label",S.sound?"Turn sound off":"Turn sound on")}
+$("soundBtn").addEventListener("click",function(){S.sound=!S.sound;save();syncSound();if(S.sound)SFX.xp()});
+
+/* ===== confetti (canvas, capped particles) ===== */
+var cv=$("confetti"),cx=cv.getContext("2d"),parts=[],raf=0;
+var CCOL=["#ED9F15","#F5B942","#46cf86","#f3f0e7","#ff6a55"];
+function sizeCv(){var d=Math.min(window.devicePixelRatio||1,2);cv.width=innerWidth*d;cv.height=innerHeight*d;cx.setTransform(d,0,0,d,0,0)}
+sizeCv();addEventListener("resize",sizeCv);
+function confetti(x,y,n){
+  if(RM)return;
+  x=x==null?innerWidth/2:x;y=y==null?innerHeight/3:y;n=n||90;
+  for(var i=0;i<n&&parts.length<260;i++){var a=Math.random()*Math.PI*2,v=4+Math.random()*9;
+    parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6,w:6+Math.random()*6,h:8+Math.random()*8,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:CCOL[i%CCOL.length],life:0})}
+  if(!raf)raf=requestAnimationFrame(tick);
+}
+function tick(){
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  for(var i=parts.length-1;i>=0;i--){var p=parts[i];p.vy+=.32;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
+    if(p.y>innerHeight+40||p.life>220){parts.splice(i,1);continue}
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h*Math.abs(Math.cos(p.life*.12)));cx.restore()}
+  raf=parts.length?requestAnimationFrame(tick):0;
+  if(!raf)cx.clearRect(0,0,innerWidth,innerHeight);
+}
+
+/* ===== XP, levels, badges ===== */
+function levelFor(xp){var l=LEVELS[0];LEVELS.forEach(function(L){if(xp>=L.at)l=L});return l}
+function renderHud(){
+  var L=levelFor(S.xp),i=LEVELS.indexOf(L),next=LEVELS[i+1];
+  var pct=next?((S.xp-L.at)/(next.at-L.at))*100:100;
+  $("lvlName").textContent=L.n;$("tapeFill").style.width=pct+"%";
+  $("tape").setAttribute("aria-valuenow",Math.round(pct));
+  $("xpNum").textContent=S.xp+" XP"+(next?" / "+next.at:"");
+  var bc=Object.keys(S.badges).length;$("badgeCount").textContent=bc;
+  renderCard();
+}
+function pop(text,x,y){
+  var el=document.createElement("div");el.className="pop";el.textContent=text;
+  el.style.left=(x==null?innerWidth/2:x)+"px";el.style.top=(y==null?innerHeight/2:y)+"px";
+  document.body.appendChild(el);setTimeout(function(){el.remove()},1000);
+}
+function addXP(n,x,y){
+  var before=levelFor(S.xp);S.xp+=n;var after=levelFor(S.xp);
+  pop("+"+n+" XP",x,y);SFX.xp();save();renderHud();
+  if(after!==before){levelUp(after.n);if(after.n==="Master")badge("master")}
+}
+function levelUp(name){
+  $("levelupName").textContent=name;var lu=$("levelup");lu.hidden=false;
+  var c=lu.firstElementChild;c.style.animation="none";void c.offsetWidth;c.style.animation="";
+  confetti(innerWidth/2,innerHeight/2,160);setTimeout(SFX.level,150);
+  setTimeout(function(){lu.hidden=true},2400);
+}
+function badge(id){
+  if(S.badges[id])return;S.badges[id]=1;save();
+  var b=BADGES.filter(function(x){return x.id===id})[0];
+  var t=document.createElement("div");t.className="toast";
+  t.innerHTML='<span class="badge-ico">'+icon(b.ico)+'</span><div><small>Badge unlocked</small><strong>'+b.n+'</strong></div>';
+  $("toasts").appendChild(t);setTimeout(SFX.badge,250);
+  setTimeout(function(){t.classList.add("out");setTimeout(function(){t.remove()},350)},2800);
+  renderHud();renderBadges();
+}
+function renderBadges(){
+  $("badgesGrid").innerHTML=BADGES.map(function(b){var got=!!S.badges[b.id];
+    return '<div class="bdg'+(got?" got":"")+'"><span class="b-ico">'+icon(b.ico)+'</span>'+b.n+'</div>'}).join("");
+}
+function renderCard(){
+  var L=levelFor(S.xp);$("idLevel").textContent=L.n;$("idXp").textContent=S.xp;
+  $("idSaved").textContent=S.liked.length;$("idBadges").textContent=Object.keys(S.badges).length+" of 6";
+  $("idMatch").textContent=S.quiz?BY[S.quiz.top].name+" "+S.quiz.pct+"%":"Take the quiz";
+}
+
+/* ===== hero ticker ===== */
+(function(){
+  var order=TRADES.slice(),i=0,cur=order[0].start,amt=$("tickAmt"),who=$("tickWho");
+  function show(v){amt.innerHTML=money(v)+"<small> / yr</small>"}
+  function next(){
+    i=(i+1)%order.length;var t=order[i],from=cur,to=t.start,t0=performance.now(),D=900;
+    who.textContent=t.name;
+    if(RM){cur=to;show(to);return}
+    (function step(now){var k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3);show(from+(to-from)*e);if(k<1)requestAnimationFrame(step);else cur=to})(t0);
+  }
+  setInterval(next,2600);
+})();
+$("startBtn").addEventListener("click",function(e){if(!S.seen.start){S.seen.start=1;addXP(10,e.clientX,e.clientY)}});
+
+/* ===== section discovery XP ===== */
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    var k=en.target.getAttribute("data-sec");
+    if(en.isIntersecting&&!S.seen[k]){S.seen[k]=1;var r=$("tape").getBoundingClientRect();addXP(10,r.left+r.width/2,r.bottom+30)}
+  })},{threshold:.35});
+  document.querySelectorAll("[data-sec]").forEach(function(s){io.observe(s)});
+}
+
+/* ===== deck ===== */
+var deckEl=$("deckEl");
+function cardHTML(t){
+  function bar(lbl,v,max,txt){return '<div class="stat"><span>'+lbl+'</span><span class="bar"><i style="width:'+Math.max(4,v/max*100)+'%"></i></span><b>'+txt+'</b></div>'}
+  return '<div class="card-inner">'+
+   '<div class="face front"><div class="shine"></div>'+
+     '<div class="stamp yes">Into it</div><div class="stamp no">Pass</div>'+
+     '<div class="card-top"><span class="card-ico">'+icon(t.ico)+'</span><span class="power">'+t.power+'</span></div>'+
+     '<h3>'+t.name+'</h3>'+
+     '<div class="pay">'+money(t.start)+'<small>starting pay per year · about '+perHr(t.start)+'/hr</small><small>With experience: '+money(t.pay)+'</small></div>'+
+     '<div class="stats">'+bar("Start pay",t.start,MAX.start,"$"+Math.round(t.start/1000)+"K")+bar("Growth",t.growth,MAX.growth,t.growth+"%")+bar("Openings",t.open,MAX.open,t.open.toLocaleString("en-US"))+'</div>'+
+     '<div class="flip-hint">Tap to flip</div>'+
+   '</div>'+
+   '<div class="face back"><h4>What you do</h4><p>'+t.does+'</p>'+
+     '<dl><div><dt>To get in</dt><dd>'+t.edu+'</dd></div><div><dt>How you learn</dt><dd>'+t.train+'</dd></div><div><dt>People doing it now</dt><dd>'+t.jobs.toLocaleString("en-US")+'</dd></div></dl>'+
+     '<div class="flip-hint">Source: BLS · Tap to flip back</div>'+
+   '</div></div>';
+}
+function renderDeck(){
+  deckEl.innerHTML="";
+  var rest=TRADES.slice(S.idx);
+  $("deckCount").textContent=rest.length?("Card "+(S.idx+1)+" of "+TRADES.length):"";
+  if(!rest.length){
+    deckEl.innerHTML='<div class="deck-done"><div style="display:grid;gap:14px;justify-items:center"><h3>Deck cleared</h3><p>You saved '+S.liked.length+' of 10 trades. Now find out which one fits you best.</p><a class="btn" href="#quiz">Take the quiz '+icon("arrow")+'</a><button class="btn ghost" id="redeal" style="font-size:16px;padding:10px 16px">Deal again</button></div></div>';
+    $("redeal").addEventListener("click",function(){S.idx=0;S.liked=[];save();renderDeck();renderBelt();renderCard()});
+    return;
+  }
+  rest.slice(0,3).reverse().forEach(function(t,ri,arr){
+    var depth=arr.length-1-ri,c=document.createElement("div");
+    c.className="card";c.setAttribute("data-depth",depth);c.innerHTML=cardHTML(t);
+    deckEl.appendChild(c);if(depth===0)bindTop(c,t);
+  });
+}
+function topCard(){return deckEl.querySelector('.card[data-depth="0"]')}
+function bindTop(c,t){
+  var sx=0,sy=0,dx=0,dy=0,down=false,moved=false;
+  var yes=c.querySelector(".stamp.yes"),no=c.querySelector(".stamp.no"),shine=c.querySelector(".shine");
+  c.addEventListener("pointerdown",function(e){down=true;moved=false;sx=e.clientX;sy=e.clientY;dx=dy=0;c.classList.add("dragging");c.setPointerCapture(e.pointerId)});
+  c.addEventListener("pointermove",function(e){
+    if(!down){var r=c.getBoundingClientRect();shine.style.setProperty("--sx",(100-((e.clientX-r.left)/r.width)*100)+"%");return}
+    dx=e.clientX-sx;dy=e.clientY-sy;if(Math.abs(dx)>6)moved=true;
+    c.style.transform="translate("+dx+"px,"+dy*0.3+"px) rotate("+dx*0.06+"deg)";
+    yes.style.opacity=Math.max(0,Math.min(1,dx/90));no.style.opacity=Math.max(0,Math.min(1,-dx/90));
+  });
+  function end(e){
+    if(!down)return;down=false;c.classList.remove("dragging");
+    if(dx>110)return swipe(1,e);if(dx<-110)return swipe(-1,e);
+    c.style.transform="";yes.style.opacity=0;no.style.opacity=0;
+    if(!moved)flip();
+  }
+  c.addEventListener("pointerup",end);c.addEventListener("pointercancel",end);
+}
+var busy=false;
+function flip(){
+  var c=topCard();if(!c)return;c.classList.toggle("flipped");SFX.flip();
+  if(c.classList.contains("flipped")){var id=TRADES[S.idx].id;S.flipped=S.flipped||{};
+    if(!S.flipped[id]){S.flipped[id]=1;S.flips++;var r=c.getBoundingClientRect();addXP(5,r.left+r.width/2,r.top+40);if(S.flips>=3)badge("flip3")}}
+}
+function swipe(dir,e){
+  var c=topCard();if(!c||busy)return;busy=true;var t=TRADES[S.idx];
+  c.classList.remove("dragging");
+  c.querySelector(dir>0?".stamp.yes":".stamp.no").style.opacity=1;
+  c.style.transition="transform .38s cubic-bezier(.3,.7,.4,1)";
+  c.style.transform="translate("+(dir*innerWidth)+"px,-40px) rotate("+(dir*28)+"deg)";
+  var r=deckEl.getBoundingClientRect(),px=r.left+r.width/2,py=r.top+r.height/3;
+  if(dir>0){S.liked.push(t.id);SFX.like();confetti(px,py,50)}else SFX.nope();
+  S.idx++;addXP(10,px,py);badge("first");
+  if(S.idx>=TRADES.length)setTimeout(function(){badge("deck");confetti(px,py,140)},380);
+  save();renderBelt();
+  setTimeout(function(){busy=false;renderDeck()},360);
+}
+$("yesBtn").addEventListener("click",function(){swipe(1)});
+$("noBtn").addEventListener("click",function(){swipe(-1)});
+$("flipBtn").addEventListener("click",flip);
+document.addEventListener("keydown",function(e){
+  if(e.target.closest&&e.target.closest("input,textarea,select"))return;
+  var r=deckEl.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+  if(e.key==="ArrowRight"){e.preventDefault();swipe(1)}
+  else if(e.key==="ArrowLeft"){e.preventDefault();swipe(-1)}
+  else if(e.key===" "&&!(e.target.closest&&e.target.closest("button,a"))){e.preventDefault();flip()}
+});
+function renderBelt(){
+  $("beltList").innerHTML=S.liked.map(function(id){var t=BY[id];return '<li><span class="mini">'+icon(t.ico)+'</span><span>'+t.name+'</span><em>'+money(t.start)+'</em></li>'}).join("");
+  $("beltEmpty").hidden=S.liked.length>0;
+}
+
+/* ===== quiz ===== */
+var qi=0,answers=[];
+function renderQuiz(){
+  var el=$("quizEl");
+  if(S.quiz&&qi===0&&!answers.length)return renderResult(false);
+  var q=QUIZ[qi];
+  el.innerHTML='<div class="q-progress">'+QUIZ.map(function(_,i){return '<i class="'+(i<qi?"on":"")+'"></i>'}).join("")+'</div>'+
+   '<div class="quiz-q"><span class="q-num">Question '+(qi+1)+' of '+QUIZ.length+'</span><h3 class="q-text">'+q.q+'</h3>'+
+   '<div class="opts">'+q.o.map(function(o,i){return '<button class="opt" data-i="'+i+'"><span class="k">'+"ABCD"[i]+'</span>'+o[0]+'</button>'}).join("")+'</div></div>';
+  el.querySelectorAll(".opt").forEach(function(b){b.addEventListener("click",function(e){
+    if(el.dataset.lock)return;el.dataset.lock=1;b.classList.add("picked");
+    answers.push(+b.dataset.i);addXP(15,e.clientX,e.clientY);
+    setTimeout(function(){delete el.dataset.lock;qi++;if(qi<QUIZ.length)renderQuiz();else finishQuiz()},420);
+  })});
+}
+function finishQuiz(){
+  var pts={};TRADES.forEach(function(t){pts[t.id]=0});
+  answers.forEach(function(a,i){QUIZ[i].o[a][1].forEach(function(id){pts[id]++})});
+  var raw=TRADES.map(function(t){return {id:t.id,r:pts[t.id]/QMAX[t.id]}})
+    .sort(function(a,b){return b.r-a.r||BY[b.id].start-BY[a.id].start});
+  // Top match always shows 85-99%. Runners-up scale against it and always sit below it.
+  var top=raw[0].r||1,topPct=85+Math.round(Math.min(1,top)*14);
+  var ranked=raw.map(function(x,i){return {id:x.id,pct:i===0?topPct:Math.min(topPct-1-i,Math.max(55,Math.round(topPct*x.r/top)))}});
+  S.quiz={top:ranked[0].id,pct:ranked[0].pct,ranked:ranked.slice(0,4)};save();
+  renderResult(true);
+}
+function renderResult(fresh){
+  var el=$("quizEl"),R=S.quiz,t=BY[R.top],C=2*Math.PI*92;
+  el.innerHTML='<div class="result"><div class="ring"><svg viewBox="0 0 220 220"><circle class="trk" cx="110" cy="110" r="92"/><circle class="val" id="ringVal" cx="110" cy="110" r="92" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><div class="num"><span id="ringNum">0</span><small>%</small></div></div>'+
+   '<div class="result-text"><span class="eyebrow">'+(R.pct>=95?"Elite match":"Strong match")+'</span><h3>'+t.name+'</h3>'+
+   '<p class="why">You\'re a '+R.pct+'% match. Starting pay at 18 is about '+money(t.start)+' a year, and you get in with a '+t.edu.toLowerCase()+'.</p>'+
+   '<div class="runners">'+R.ranked.slice(1).map(function(r){return '<div class="runner"><span>'+BY[r.id].name+'</span><span class="bar"><i data-w="'+r.pct+'"></i></span><b>'+r.pct+'%</b></div>'}).join("")+'</div>'+
+   '<div class="quiz-foot"><a class="btn" href="#math" id="toMath">See the money '+icon("arrow")+'</a><button class="btn ghost" id="retake" style="font-size:16px;padding:10px 16px">Retake</button></div></div></div>';
+  var ring=$("ringVal"),num=$("ringNum");
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    ring.style.strokeDashoffset=C*(1-R.pct/100);
+    el.querySelectorAll(".runner i").forEach(function(i){i.style.width=i.dataset.w+"%"});
+  })});
+  if(RM||!fresh){num.textContent=R.pct}else{
+    var t0=performance.now();(function step(n){var k=Math.min(1,(n-t0)/1600),e=1-Math.pow(1-k,3);num.textContent=Math.round(R.pct*e);if(k<1)requestAnimationFrame(step)})(t0);
+  }
+  if(fresh){
+    setTimeout(function(){var rg=el.querySelector(".ring");if(!rg)return;var r=rg.getBoundingClientRect();confetti(r.left+r.width/2,r.top+r.height/2,180);SFX.level();if(!S.seen.quizDone){S.seen.quizDone=1;addXP(100,r.left+r.width/2,r.top)}},1500);
+    setTimeout(function(){badge("quiz")},2100);
+    selectTrade(R.top,true);
+  }
+  $("retake").addEventListener("click",function(){qi=0;answers=[];S.quiz=null;save();renderCard();renderQuiz()});
+}
+
+/* ===== math ===== */
+var mathSel=null;
+function renderChips(){
+  $("chips").innerHTML=TRADES.map(function(t){return '<button class="chip" data-id="'+t.id+'" aria-pressed="'+(t.id===mathSel)+'">'+icon(t.ico)+t.name+'</button>'}).join("");
+  $("chips").querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(e){selectTrade(b.dataset.id,false,e)})});
+}
+function selectTrade(id,silent,e){
+  mathSel=id;var t=BY[id];renderChips();
+  $("tradeLbl").textContent=t.name+" (starting)";$("tradeVal").textContent=money(t.start);
+  var max=MAX.start*1.05;
+  $("tradeBar").style.width=(t.start/max*100)+"%";$("allBar").style.width=(FOOD/max*100)+"%";
+  var d=t.start-FOOD,el=$("delta");
+  el.className="delta up";el.textContent="+"+money(d)+" a year more";
+  $("mathCite").innerHTML='With experience, '+t.name.toLowerCase()+'s earn a median of '+money(t.pay)+'. Source: <a href="'+t.url+'" target="_blank" rel="noopener">BLS, '+t.name+'</a>, lowest 10% and median pay, May 2025. Food service: BLS, food and beverage serving workers median.';
+  if(!silent&&!S.checked[id]){S.checked[id]=1;save();addXP(25,e&&e.clientX,e&&e.clientY);if(Object.keys(S.checked).length>=3)badge("math")}
+}
+
+/* ===== reset ===== */
+$("resetBtn").addEventListener("click",function(){
+  var snd=S.sound;S={xp:0,badges:{},liked:[],idx:0,flips:0,seen:{},checked:{},quiz:null,sound:snd};save();
+  qi=0;answers=[];renderAll();window.scrollTo({top:0,behavior:RM?"auto":"smooth"});
+});
+
+function renderAll(){syncSound();renderDeck();renderBelt();renderQuiz();selectTrade(S.quiz?S.quiz.top:"elec",true);renderBadges();renderHud()}
+renderAll();
+})();
+</script>
