@@ -44,6 +44,17 @@ a.logo:hover,a.swipe-header-logo:hover{opacity:.85;}
 .logo .lm,.phone-logo .lm,.swipe-header-logo .lm{height:1.9em;width:auto;display:block;}
 .logo .lw,.phone-logo .lw,.swipe-header-logo .lw{height:1em;width:auto;display:block;}
 .nav-r{display:flex;gap:8px;align-items:center;}
+.nav-acct{display:inline-flex;align-items:center;gap:8px;max-width:200px;}
+.nav-acct #navName{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.nav-av{width:24px;height:24px;border-radius:50%;background:var(--orange-g);color:var(--on-orange);display:grid;place-items:center;font-size:12px;font-weight:900;flex:none;}
+/* ── Profile ── */
+#profile{background:var(--bg);}
+.pf-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:24px;max-width:520px;margin:32px auto 0;}
+.pf-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.pf-av{width:56px;height:56px;border-radius:50%;background:var(--orange-g);color:var(--on-orange);display:grid;place-items:center;font-size:24px;font-weight:900;flex:none;}
+.pf-name{font-size:22px;font-weight:900;}
+.pf-email{font-size:14px;color:var(--sub);overflow-wrap:anywhere;}
+.pf-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
 .nav-ghost{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);background:transparent;color:var(--sub);transition:.15s;}
 .nav-ghost:hover{color:#fff;border-color:var(--border2);}
 .nav-solid{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--orange-g);color:var(--on-orange);transition:.15s;}
@@ -564,9 +575,13 @@ textarea{resize:vertical;min-height:90px;}
   <!-- NAV -->
   <nav class="lnd-nav">
     <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
-    <div class="nav-r">
+    <div class="nav-r" id="navOut">
       <button class="nav-ghost" onclick="openLogin('student')">Student Login</button>
       <button class="nav-solid" onclick="openLogin('business')">Business Login</button>
+    </div>
+    <div class="nav-r" id="navIn" style="display:none">
+      <button class="nav-ghost nav-acct" id="navAcct" onclick="openProfile()"><span class="nav-av" id="navAv"></span><span id="navName">Profile</span></button>
+      <button class="nav-solid" id="navMain" onclick="goAccountHome()">My Matches</button>
     </div>
   </nav>
 
@@ -927,7 +942,7 @@ textarea{resize:vertical;min-height:90px;}
     <div class="po-benefits" id="poBenefits"></div>
 
     <div class="po-actions">
-      <button class="btn btn-primary btn-full" id="poCta" onclick="go('studentSetup')">Find companies hiring →</button>
+      <button class="btn btn-primary btn-full" id="poCta" onclick="goFindCompanies()">Find companies hiring →</button>
       <button class="btn btn-dark btn-full btn-sm" onclick="go('quiz')">Back to my results</button>
     </div>
     <div class="po-src" id="poSrc"></div>
@@ -1193,6 +1208,26 @@ textarea{resize:vertical;min-height:90px;}
 <!-- ══════════════════════════════════════
      BUSINESS HOME (approved businesses)
 ══════════════════════════════════════ -->
+<div id="profile" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="goHome()">← Home</button>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 20px 48px">
+    <div class="pf-card">
+      <div class="pf-head"><div class="pf-av" id="pfAv"></div><div style="min-width:0"><div class="pf-name" id="pfName">Your profile</div><div class="pf-email" id="pfEmail"></div></div></div>
+      <div id="pfBody"><div class="adm-empty">Loading your profile...</div></div>
+      <div class="pf-actions">
+        <button class="btn btn-primary btn-full" onclick="go('swipeFeed')">Keep swiping →</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="go('connections')">My matches</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="qzStart()">Retake the quiz</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="signOut()">Sign out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div id="bizHome" class="screen">
   <div class="top-nav">
     <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
@@ -1489,6 +1524,56 @@ async function loadAccount(force){
   acct={role:'none'};return acct;
 }
 function signOut(){setAuthSession(null);goHome();}
+
+// Who is signed in, for the homepage bar. Students and businesses stay signed in until Sign out.
+let navTarget=null;
+async function refreshNav(){
+  const out=document.getElementById('navOut'),inn=document.getElementById('navIn');
+  if(!out||!inn)return;
+  let a=null;
+  if(authSession()&&backendReady()){try{a=await loadAccount();}catch(e){a=acct;}}
+  const name=a&&a.role==='student'?String(a.student.name||'').split(' ')[0]:a&&a.role==='business'?a.business.business_name:adminSession()?'Admin':'';
+  if(!name){out.style.display='';inn.style.display='none';navTarget=null;return;}
+  navTarget=a&&a.role==='student'?'student':a&&a.role==='business'?'business':'admin';
+  document.getElementById('navName').textContent=name;
+  document.getElementById('navAv').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('navMain').textContent=navTarget==='student'?'My Matches':'Dashboard';
+  out.style.display='none';inn.style.display='';
+}
+function goAccountHome(){
+  const t=navTarget||(acct&&acct.role==='student'?'student':acct&&acct.role==='business'?'business':null);
+  if(t==='student')go('connections');
+  else if(t==='business')go('bizHome');
+  else if(t==='admin')go('admin');
+  else{setAuthSession(null);openLogin('student');}
+}
+async function openProfile(){
+  if(navTarget==='business'){go('bizHome');return;}
+  if(navTarget==='admin'){go('admin');return;}
+  go('profile');
+  const s=authSession();
+  document.getElementById('pfEmail').textContent=s&&s.user?s.user.email:'';
+  try{
+    const rows=await api('students?select=name,school,grade,city,zip,quiz_best&user_id=eq.'+encodeURIComponent(s.user.id));
+    const p=rows&&rows[0];
+    if(!p){document.getElementById('pfBody').innerHTML='<div class="adm-empty">No student profile on this account yet.</div>';return;}
+    document.getElementById('pfName').textContent=p.name;
+    document.getElementById('pfAv').textContent=String(p.name||'?').charAt(0).toUpperCase();
+    const row=(k,v)=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--muted)">Not given</span>'}</dd>`;
+    document.getElementById('pfBody').innerHTML='<dl class="adm-dl">'+row('Best trade match',p.quiz_best)+row('School',p.school)+row('Grade',p.grade)+row('City',p.city)+row('ZIP code',p.zip)+'</dl>';
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;refreshNav();openLogin('student');return;}
+    document.getElementById('pfBody').innerHTML='<div class="adm-empty">Could not load your profile. Check your connection.</div>';
+  }
+}
+// After the quiz: signed-in students go straight to swiping, everyone else to sign-up
+async function goFindCompanies(){
+  if(authSession()&&backendReady()){
+    try{const a=await loadAccount();if(a&&a.role==='student'){go('swipeFeed');return;}}catch(e){}
+  }
+  go('studentSetup');
+}
+
 // After a student or business clicks the confirm link in their email, Supabase sends them
 // back here with the new session in the address hash.
 async function handleAuthRedirect(){
@@ -1527,7 +1612,7 @@ function go(screenId){
   if(screenId==='likedMap')loadLikedMap();
   if(screenId==='admin')loadAdmin();
   if(screenId==='adminLogin')prepAdminLogin();
-  if(screenId==='landing')document.getElementById('landing').scrollTop=0;
+  if(screenId==='landing'){document.getElementById('landing').scrollTop=0;refreshNav();}
 }
 
 function goHome(){
@@ -2465,6 +2550,8 @@ function switchTab(idx){
 let loginRole='student',loginMode='signin';
 function showLoginNote(html){const n=document.getElementById('loginNote');n.innerHTML=html;n.style.display='block';}
 function openLogin(role,mode){
+  // Already signed in as this kind of account: go to the account instead of the login form
+  if(!mode&&authSession()&&acct&&acct.role===role){goAccountHome();return;}
   loginRole=role;loginMode=mode||'signin';
   const biz=role==='business',up=loginMode==='signup';
   document.getElementById('lt_student').classList.toggle('on',!biz);
@@ -2529,8 +2616,23 @@ const ADMIN_SESSION_KEY='ts_admin_session';
 let adminRows={biz:[],stu:[]};
 let adminView='biz';
 
+// The admin login is kept until Sign out; an expired access token is renewed with the refresh token.
 function adminSession(){
-  try{const x=JSON.parse(sessionStorage.getItem(ADMIN_SESSION_KEY)||'null');return x&&x.expires_at>Date.now()?x:null;}catch(e){return null;}
+  try{return JSON.parse(localStorage.getItem(ADMIN_SESSION_KEY)||'null');}catch(e){return null;}
+}
+function clearAdminSession(){try{localStorage.removeItem(ADMIN_SESSION_KEY);sessionStorage.removeItem(ADMIN_SESSION_KEY);}catch(e){}}
+async function adminToken(){
+  const s=adminSession();if(!s)return null;
+  if(s.expires_at>Date.now())return s.access_token;
+  if(!s.refresh_token){clearAdminSession();return null;}
+  const c=window.TS_CONFIG;
+  const r=await fetch(c.supabaseUrl.replace(/\/$/,'')+'/auth/v1/token?grant_type=refresh_token',{method:'POST',
+    headers:{'Content-Type':'application/json',apikey:c.supabaseAnonKey},body:JSON.stringify({refresh_token:s.refresh_token})});
+  if(!r.ok){if(r.status>=400&&r.status<500)clearAdminSession();return null;}
+  const t=await r.json();
+  const n=Object.assign({},s,{access_token:t.access_token,refresh_token:t.refresh_token||s.refresh_token,expires_at:Date.now()+((t.expires_in||3600)-60)*1000});
+  try{localStorage.setItem(ADMIN_SESSION_KEY,JSON.stringify(n));}catch(e){}
+  return n.access_token;
 }
 function prepAdminLogin(){
   document.getElementById('adminEmailRow').style.display=backendReady()?'':'none';
@@ -2553,11 +2655,11 @@ async function adminLogin(){
         headers:{'Content-Type':'application/json',apikey:c.supabaseAnonKey},body:JSON.stringify({email,password:pw})});
       if(!r.ok){err.textContent='Incorrect email or password';return;}
       const t=await r.json();
-      const sess={access_token:t.access_token,email,expires_at:Date.now()+((t.expires_in||3600)-60)*1000};
+      const sess={access_token:t.access_token,refresh_token:t.refresh_token,email,expires_at:Date.now()+((t.expires_in||3600)-60)*1000};
       const a=await fetch(base+'/rest/v1/admins?select=user_id',{headers:{apikey:c.supabaseAnonKey,Authorization:'Bearer '+sess.access_token}});
       const rows=a.ok?await a.json():[];
       if(!rows.length){err.textContent='This account is not set up as an admin';return;}
-      sessionStorage.setItem(ADMIN_SESSION_KEY,JSON.stringify(sess));
+      localStorage.setItem(ADMIN_SESSION_KEY,JSON.stringify(sess));
     }else{
       err.textContent='Admin sign-in needs the database. Check site/config.js.';return;
     }
@@ -2568,7 +2670,7 @@ async function adminLogin(){
   }finally{btn.disabled=false;}
 }
 function adminSignOut(){
-  sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  clearAdminSession();
   adminRows={biz:[],stu:[]};
   goHome();
 }
@@ -2576,10 +2678,10 @@ function adminNotice(html,isErr){
   document.getElementById('adminNotice').innerHTML=html?`<div class="adm-notice${isErr?' err':''}">${html}</div>`:'';
 }
 async function adminFetch(path,opts){
-  const c=window.TS_CONFIG,sess=adminSession();
-  if(!sess)throw new Error('expired');
+  const c=window.TS_CONFIG,token=await adminToken();
+  if(!token)throw new Error('expired');
   const r=await fetch(c.supabaseUrl.replace(/\/$/,'')+'/rest/v1/'+path,Object.assign({},opts,{
-    headers:Object.assign({apikey:c.supabaseAnonKey,Authorization:'Bearer '+sess.access_token,'Content-Type':'application/json'},(opts||{}).headers)}));
+    headers:Object.assign({apikey:c.supabaseAnonKey,Authorization:'Bearer '+token,'Content-Type':'application/json'},(opts||{}).headers)}));
   if(r.status===401)throw new Error('expired');
   if(!r.ok)throw new Error('status '+r.status);
   return r.status===204?null:r.json();
@@ -2607,7 +2709,7 @@ async function loadAdmin(){
     renderAdminStats();
     if(adminView==='money')loadMoney();else renderAdminList();
   }catch(e){
-    if(e.message==='expired'){sessionStorage.removeItem(ADMIN_SESSION_KEY);go('adminLogin');document.getElementById('adminErr').textContent='Your session ended. Sign in again.';return;}
+    if(e.message==='expired'){clearAdminSession();go('adminLogin');document.getElementById('adminErr').textContent='Your session ended. Sign in again.';return;}
     adminNotice('<strong>Could not load the dashboard.</strong> The database did not respond ('+esc(e.message)+'). Try Refresh in a moment.',true);
   }finally{btn.disabled=false;}
 }
@@ -2638,12 +2740,12 @@ function usd(cents){return (cents<0?'-':'')+'$'+(Math.abs(cents)/100).toLocaleSt
 async function loadMoney(){
   const el=document.getElementById('admMoney');
   el.innerHTML='<div class="adm-empty">Loading Stripe numbers...</div>';
-  const c=window.TS_CONFIG,sess=adminSession();
-  if(!sess){go('adminLogin');return;}
+  const c=window.TS_CONFIG,token=await adminToken();
+  if(!token){go('adminLogin');return;}
   let d;
   try{
-    const r=await fetch(c.supabaseUrl.replace(/\/$/,'')+'/functions/v1/stripe-summary?days='+moneyDays,{headers:{apikey:c.supabaseAnonKey,Authorization:'Bearer '+sess.access_token}});
-    if(r.status===401){sessionStorage.removeItem(ADMIN_SESSION_KEY);go('adminLogin');document.getElementById('adminErr').textContent='Your session ended. Sign in again.';return;}
+    const r=await fetch(c.supabaseUrl.replace(/\/$/,'')+'/functions/v1/stripe-summary?days='+moneyDays,{headers:{apikey:c.supabaseAnonKey,Authorization:'Bearer '+token}});
+    if(r.status===401){clearAdminSession();go('adminLogin');document.getElementById('adminErr').textContent='Your session ended. Sign in again.';return;}
     if(r.status===404){el.innerHTML='<div class="adm-notice"><strong>Stripe is not connected yet.</strong> The secure Stripe function has not been set up on Supabase, so there are no numbers to show.</div>';return;}
     d=await r.json();
   }catch(e){
@@ -2811,6 +2913,7 @@ const HERO_PLAY_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="curr
   // Make sure landing is shown
   document.getElementById('landing').scrollTop=0;
   startHeroVideo();
+  refreshNav();
   startPhone();
   // Links from the other TradeSmart pages: app.html#signup, #quiz, #business, #login
   const h=location.hash.slice(1);
