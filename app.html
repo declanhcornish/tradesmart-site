@@ -393,6 +393,18 @@ textarea{resize:vertical;min-height:90px;}
 #admin{background:var(--bg);}
 .admin-body{flex:1;overflow-y:auto;padding:28px 6% 60px;}
 .adm-wrap{max-width:1100px;margin:0 auto;}
+/* Maps (Leaflet, loaded only when a map opens). Tiles are inverted to match the dark theme. */
+.ts-map{width:100%;height:280px;border-radius:12px;overflow:hidden;border:1px solid var(--border2);background:#0B0D14;margin-top:14px;}
+.ts-map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9);}
+.ts-map .leaflet-container{background:#0B0D14;font-family:inherit;}
+.ts-map .leaflet-popup-content-wrapper,.ts-map .leaflet-popup-tip{background:#14161F;color:#fff;}
+.ts-map .leaflet-popup-content{margin:12px 14px;font-size:13px;line-height:1.45;}
+.ts-map .leaflet-control-attribution{background:rgba(6,8,18,.75);color:var(--sub);}
+.ts-map .leaflet-control-attribution a{color:var(--sub);}
+.map-note{font-size:13px;color:var(--sub);margin-top:8px;}
+.map-btn{display:inline-flex;align-items:center;gap:8px;}
+.lm-body{flex:1;overflow-y:auto;padding:20px 6% 40px;}
+.lm-body .ts-map{height:min(56vh,520px);margin-top:16px;}
 .adm-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
 .adm-h{font-size:28px;font-weight:900;letter-spacing:-.5px;}
 .adm-sub{font-size:14px;color:var(--sub);margin-top:4px;}
@@ -487,6 +499,7 @@ textarea{resize:vertical;min-height:90px;}
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-cash" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
   <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0zM20 3v4m2-2h-4"/></symbol>
@@ -807,8 +820,9 @@ textarea{resize:vertical;min-height:90px;}
         </div>
         <div class="fg"><label>City</label><input type="text" id="setupCity" placeholder="City, State"></div>
       </div>
+      <div class="fg"><label>Home ZIP Code</label><input type="text" id="setupZip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="48201" autocomplete="postal-code"></div>
       <div class="fg"><label>Why are you interested in trades?</label><textarea id="setupWhy" placeholder="Tell companies a little about yourself..."></textarea></div>
-      <div class="setup-privacy" style="font-size:13px;color:var(--sub);line-height:1.5;margin:4px 0 8px">Companies see your first name, grade, city, quiz result and what you write above. Your email, phone and school stay private.</div>
+      <div class="setup-privacy" style="font-size:13px;color:var(--sub);line-height:1.5;margin:4px 0 8px">Companies see your first name, grade, city, quiz result and what you write above. Your email, phone, school and ZIP code stay private. Your ZIP is only used to show you companies hiring near you.</div>
       <button class="btn btn-primary btn-full" id="setupBtn" onclick="submitSetup()" style="margin-top:8px">Start Swiping →</button>
       <div class="login-note" id="setupNote"></div>
     </div>
@@ -836,6 +850,18 @@ textarea{resize:vertical;min-height:90px;}
     <button class="sw-btn sw-like" onclick="tapLike()" title="Like" aria-label="Like"><svg class="ic ic-fill" aria-hidden="true"><use href="#i-heart"/></svg></button>
     <button class="sw-btn sw-superlike" onclick="go('paywall')" title="Get more swipes" aria-label="Get more swipes"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg></button>
   </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     STUDENT MAP (companies they liked)
+══════════════════════════════════════ -->
+<div id="likedMap" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('swipeFeed')">← Swipe</button>
+  </div>
+  <div class="lm-body"><div class="adm-wrap" id="lmBody" style="max-width:760px"></div></div>
 </div>
 
 
@@ -927,6 +953,7 @@ textarea{resize:vertical;min-height:90px;}
       </div>
     </div>
     <p class="pw-free">Students are always free to view their matches and messages.</p>
+    <div style="text-align:center;margin-top:12px"><button class="btn btn-ghost btn-sm map-btn" onclick="go('likedMap')"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg> See your map</button></div>
   </div>
   </div>
 </div>
@@ -961,6 +988,20 @@ textarea{resize:vertical;min-height:90px;}
         </div>
         <div class="fg"><label>City</label><input type="text" id="a_location" placeholder="City, State"></div>
       </div>
+      <div class="row">
+        <div class="fg"><label>Business ZIP Code</label><input type="text" id="a_zip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="48226" autocomplete="postal-code"></div>
+        <div class="fg"><label>How far will you hire from?</label>
+          <select id="a_radius">
+            <option value="10">Within 10 miles</option>
+            <option value="25" selected>Within 25 miles</option>
+            <option value="50">Within 50 miles</option>
+            <option value="100">Within 100 miles</option>
+            <option value="150">Within 150 miles</option>
+            <option value="300">Within 300 miles</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-sub" style="margin:-4px 0 12px;font-size:13px">Students only see your company if they live inside this distance. They see your city, never your ZIP.</div>
       <div class="fg"><label>Starting Pay for Apprentices</label><input type="text" id="a_pay" placeholder="$18–$24/hr"></div>
       <div class="fg"><label>Card Text for Students (optional)</label><input type="text" id="a_desc" maxlength="200" placeholder="Residential and commercial wiring, apprentices start on real jobs"></div>
       <div class="fg"><label>Why do you want to hire young workers?</label><textarea id="a_why" placeholder="Tell us what makes your company a great place to start a trade career..."></textarea></div>
@@ -1137,7 +1178,7 @@ function tradeKey(t){
 function tradeLabel(co){return tradeIcon(co.tradeKey)+' '+esc(co.tradeKey!=='X'?TRADES[co.tradeKey].name:(co.trade||'Skilled trades'));}
 function toCompany(row){
   const k=tradeKey(row.trade);
-  return {id:row.id,name:row.business_name,trade:row.trade,tradeKey:k,pay:row.starting_pay,city:row.city,description:row.description,...TRADE_STYLE[k]};
+  return {id:row.id,name:row.business_name,trade:row.trade,tradeKey:k,pay:row.starting_pay,city:row.city,miles:row.distance_miles,description:row.description,...TRADE_STYLE[k]};
 }
 function cardPhoto(co){
   const list=TRADE_PHOTOS[co.tradeKey];
@@ -1215,6 +1256,17 @@ async function flushOutbox(){
   writeOutbox(left);
 }
 const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ZIP_RE=/^\d{5}$/;
+const ZIP_UNKNOWN='We could not find that ZIP code. Use the 5-digit ZIP of a street address (not a PO box).';
+// Is this a ZIP the database can place? (public.zip_known, US Census ZIP centers)
+async function zipKnown(zip){
+  const r=await fetch(apiBase()+'/rest/v1/rpc/zip_known',{method:'POST',
+    headers:{'Content-Type':'application/json',apikey:anonKey(),Authorization:'Bearer '+anonKey()},body:JSON.stringify({p_zip:zip})});
+  if(!r.ok)throw new Error('status '+r.status);
+  return (await r.json())===true;
+}
+const RADII=[10,25,50,100,150,300];
+function radiusOptions(sel){return RADII.map(n=>`<option value="${n}" ${n===sel?'selected':''}>Within ${n} miles</option>`).join('');}
 function esc(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 // ─── STATE ───
@@ -1276,11 +1328,11 @@ async function loadAccount(force){
   if(acct&&!force)return acct;
   const s=authSession();
   if(!s){acct=null;return null;}
-  const stu=await api('students?select=id,name&user_id=eq.'+encodeURIComponent(s.user.id));
+  const stu=await api('students?select=id,name,zip&user_id=eq.'+encodeURIComponent(s.user.id));
   if(stu&&stu.length){acct={role:'student',student:stu[0]};return acct;}
   const bid=await api('rpc/my_business_id',{method:'POST',body:'{}'});
   if(bid){
-    const b=await api('business_applications?select=id,business_name,trade,city,starting_pay,description&id=eq.'+encodeURIComponent(bid));
+    const b=await api('business_applications?select=id,business_name,trade,city,zip,hire_radius_miles,starting_pay,description&id=eq.'+encodeURIComponent(bid));
     if(b&&b.length){acct={role:'business',business:b[0]};return acct;}
   }
   acct={role:'none'};return acct;
@@ -1321,6 +1373,7 @@ function go(screenId){
   if(screenId==='swipeFeed')initSwipeFeed();
   if(screenId==='connections')renderConnections();
   if(screenId==='bizHome')loadBizHome();
+  if(screenId==='likedMap')loadLikedMap();
   if(screenId==='admin')loadAdmin();
   if(screenId==='adminLogin')prepAdminLogin();
   if(screenId==='landing')document.getElementById('landing').scrollTop=0;
@@ -1427,17 +1480,19 @@ function resetQuiz(){
 // database copies it into public.students (see handle_new_student in supabase/schema.sql).
 async function submitSetup(){
   const v=id=>document.getElementById(id).value.trim();
-  const name=v('setupName'),email=v('setupEmail'),school=v('setupSchool'),grade=v('setupGrade'),pw=document.getElementById('setupPw').value;
+  const name=v('setupName'),email=v('setupEmail'),school=v('setupSchool'),grade=v('setupGrade'),zip=v('setupZip'),pw=document.getElementById('setupPw').value;
   const note=document.getElementById('setupNote');note.style.display='none';
-  if(!name||!email||!school||!grade||!pw){alert('Please fill in your name, email, password, school, and grade.');return;}
+  if(!name||!email||!school||!grade||!zip||!pw){alert('Please fill in your name, email, password, school, grade, and ZIP code.');return;}
   if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
+  if(!ZIP_RE.test(zip)){alert('Please enter your 5-digit ZIP code.');return;}
   if(pw.length<8){alert('Please choose a password with at least 8 characters.');return;}
   if(!backendReady()){alert('Accounts are not set up yet. Please try again later.');return;}
   const btn=document.getElementById('setupBtn');btn.disabled=true;
   const q=getState().quizResult||{};
-  const data={role:'student',name,phone:v('setupPhone'),school,grade,city:v('setupCity'),why:v('setupWhy'),
+  const data={role:'student',name,phone:v('setupPhone'),school,grade,city:v('setupCity'),zip,why:v('setupWhy'),
     quiz_best:q.best?TRADES[q.best].name:'',quiz_scores:q.scores||null};
   try{
+    if(!await zipKnown(zip))throw new Error(ZIP_UNKNOWN);
     const r=await authCall('signup?redirect_to='+encodeURIComponent(confirmRedirect()),{email,password:pw,data});
     if(!r.ok)throw new Error(r.d.msg||r.d.error_description||'Sign-up failed ('+r.status+')');
     document.getElementById('setupPw').value='';
@@ -1480,21 +1535,45 @@ async function initSwipeFeed(){
       feedMessage('No student profile on this account','Sign in with the email you used for your TradeSmart profile.','<button class="btn btn-primary" style="margin-top:16px" onclick="signOut();openLogin(\'student\')">Switch account</button>');
       return;
     }
+    if(!a.student.zip){showZipPrompt('');return;}
+    // Only approved companies whose hiring radius reaches this student's ZIP, nearest first
     const [rows,mine]=await Promise.all([
-      publicApi('approved_businesses?select=*&order=business_name.asc'),
+      api('rpc/nearby_businesses',{method:'POST',body:'{}'}),
       api('likes?select=business_id&from_side=eq.student')]);
     rows.forEach(r=>{bizById[r.id]=toCompany(r);});
     const seen=new Set((mine||[]).map(l=>l.business_id));
     swipeCards=rows.filter(r=>!seen.has(r.id)).map(toCompany);
     if(!rows.length){
-      feedMessage('No approved companies in your area yet','Every company is reviewed by the TradeSmart team before it shows up here. Check back soon.',
-        '<button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="go(\'connections\')">View your matches</button>');
+      feedMessage('No trade companies hiring near you yet','We show companies whose hiring area reaches ZIP '+esc(a.student.zip)+'. Every company is reviewed by the TradeSmart team before it shows up here. Check back soon.',
+        '<button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="go(\'connections\')">View your matches</button><button class="btn btn-ghost btn-sm map-btn" style="margin-top:8px" onclick="go(\'likedMap\')">'+ic('map')+' See your map</button><button class="nav-ghost btn-sm" style="margin-top:8px" onclick="showZipPrompt(acct.student.zip)">Change ZIP code</button>');
     }else buildStack();
     checkNewMatches();
   }catch(e){
     if(e.message==='signed_out'){acct=null;initSwipeFeed();return;}
     console.warn(e);
     feedMessage('Could not load companies','Check your connection and try again.','<button class="btn btn-primary" style="margin-top:16px" onclick="initSwipeFeed()">Try again</button>');
+  }
+}
+
+// Students from before ZIPs were asked, or changing their ZIP
+function showZipPrompt(cur){
+  feedMessage('What is your ZIP code?','We use it to show you trade companies hiring near you. Companies never see it.',
+    `<div class="fg" style="width:100%;max-width:260px;margin:8px 0 0"><input type="text" id="feedZip" inputmode="numeric" maxlength="5" placeholder="5-digit ZIP" autocomplete="postal-code" value="${esc(cur||'')}" onkeypress="if(event.key==='Enter')saveStudentZip()" aria-label="ZIP code"></div>
+    <button class="btn btn-primary" id="feedZipBtn" onclick="saveStudentZip()">Show companies near me</button>
+    <div class="login-note" id="feedZipNote"></div>`);
+}
+async function saveStudentZip(){
+  const zip=document.getElementById('feedZip').value.trim(),note=document.getElementById('feedZipNote');
+  note.style.display='none';
+  if(!ZIP_RE.test(zip)){note.textContent='Please enter your 5-digit ZIP code.';note.style.display='block';return;}
+  const btn=document.getElementById('feedZipBtn');btn.disabled=true;
+  try{
+    const ok=await api('rpc/set_my_zip',{method:'POST',body:JSON.stringify({p_zip:zip})});
+    if(!ok){note.textContent=ZIP_UNKNOWN;note.style.display='block';btn.disabled=false;return;}
+    acct.student.zip=zip;initSwipeFeed();
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;initSwipeFeed();return;}
+    note.textContent='Could not save your ZIP code. Check your connection and try again.';note.style.display='block';btn.disabled=false;
   }
 }
 
@@ -1511,7 +1590,7 @@ function cardHTML(co){
         ${co.description?`<div class="card-tagline">${esc(co.description)}</div>`:''}
         <div class="card-pills">
           ${co.pay?`<div class="card-pill pay">${ic('cash')} ${esc(co.pay)}</div>`:''}
-          ${co.city?`<div class="card-pill">${ic('pin')} ${esc(co.city)}</div>`:''}
+          ${co.city||co.miles!=null?`<div class="card-pill">${ic('pin')} ${esc([co.city,co.miles==null?'':co.miles<1?'under 1 mi':co.miles+' mi'].filter(Boolean).join(' · '))}</div>`:''}
         </div>
       </div>`;
 }
@@ -1521,7 +1600,7 @@ function buildStack(){
   stack.innerHTML='';
   if(cardIdx>=swipeCards.length){
     feedMessage("You've seen every approved company",'New companies show up here as soon as the TradeSmart team approves them. Check your matches to see who liked you back.',
-      '<button class="btn btn-primary" style="margin-top:16px" onclick="go(\'connections\')">View Matches</button>');
+      '<button class="btn btn-primary" style="margin-top:16px" onclick="go(\'connections\')">View Matches</button><button class="btn btn-ghost btn-sm map-btn" style="margin-top:8px" onclick="go(\'likedMap\')">'+ic('map')+' See your map</button>');
     return;
   }
   // Show up to 3 cards (back to front)
@@ -1889,24 +1968,146 @@ async function loadBizHome(){
       </div>`;
     el.innerHTML=`
       <div class="adm-h">${esc(b.business_name)}</div>
-      <div class="adm-sub">Your listing is live in the student swipe feed.</div>
-      <div class="adm-card" style="margin:16px 0 24px">
+      <div class="adm-sub">${b.zip?'Your listing is live for students within '+esc(b.hire_radius_miles)+' miles of ZIP '+esc(b.zip)+'.':'Add your ZIP code below. Until then, students cannot see your listing.'}</div>
+      <div class="adm-card" style="margin:16px 0 16px">
         <dl class="adm-dl">
           <dt>Trade</dt><dd>${esc(b.trade||'Not given')}</dd>
           <dt>City</dt><dd>${esc(b.city||'Not given')}</dd>
           <dt>Starting pay</dt><dd>${esc(b.starting_pay||'Not given')}</dd>
           <dt>Card text</dt><dd>${esc(b.description||'Not given')}</dd>
         </dl>
-        <div class="adm-money-note">To change your listing, email the TradeSmart team.</div>
+        <div class="adm-money-note">To change these details, email the TradeSmart team.</div>
+      </div>
+      <div class="adm-card" style="margin:0 0 24px">
+        <div class="adm-sec-h" style="margin:0 0 4px">Hiring area</div>
+        <div class="adm-money-note" style="margin-bottom:12px">Students who live inside this distance see your listing. They see your city, never your ZIP.</div>
+        <div class="row">
+          <div class="fg"><label>Business ZIP Code</label><input type="text" id="bizZip" inputmode="numeric" maxlength="5" placeholder="5-digit ZIP" value="${esc(b.zip||'')}" autocomplete="postal-code"></div>
+          <div class="fg"><label>How far will you hire from?</label><select id="bizRadius" onchange="resizeBizCircle()">${radiusOptions(b.hire_radius_miles||25)}</select></div>
+        </div>
+        ${b.zip?'<div class="ts-map" id="bizMap" role="img" aria-label="Map of your hiring area"></div>':'<div class="map-note">Save your ZIP code to see your hiring area on a map.</div>'}
+        <div class="adm-actions"><button class="adm-btn approve" id="bizAreaBtn" onclick="saveHiringArea()">Save hiring area</button></div>
       </div>
       <div class="adm-sec-h">Students who liked you (${bizStudents.length})</div>
       <div class="adm-money-note" style="margin-bottom:12px">Like a student back to match and start messaging. Students' email, phone and school stay private.</div>
       ${bizStudents.length?'<div class="adm-list">'+bizStudents.map(card).join('')+'</div>'
         :'<div class="adm-empty">No students have liked your listing yet. When a student swipes right on you, they show up here.</div>'}`;
+    if(b.zip)drawBizMap();
   }catch(e){
     if(e.message==='signed_out'){acct=null;openLogin('business');return;}
     console.warn(e);
     el.innerHTML='<div class="adm-notice err"><strong>Could not load your dashboard.</strong> Check your connection and try again.</div>';
+  }
+}
+// ─── MAPS (Leaflet from cdnjs, OpenStreetMap tiles; loaded the first time a map opens) ───
+let leafletP=null;
+function loadLeaflet(){
+  if(window.L)return Promise.resolve(window.L);
+  return leafletP=leafletP||new Promise((res,rej)=>{
+    const css=document.createElement('link');css.rel='stylesheet';
+    css.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';document.head.appendChild(css);
+    const js=document.createElement('script');js.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    js.onload=()=>res(window.L);js.onerror=()=>{leafletP=null;rej(new Error('map_load'));};document.head.appendChild(js);
+  });
+}
+const MI=1609.344;
+function makeMap(el,lat,lng){
+  const map=L.map(el,{scrollWheelZoom:false}).setView([lat,lng],9);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+  return map;
+}
+function homeDot(map,lat,lng){
+  if(!map.getPane('home'))map.createPane('home').style.zIndex=450; // above company pins
+  return L.circleMarker([lat,lng],{radius:6,color:'#0B0D14',weight:2,fillColor:'#fff',fillOpacity:1,pane:'home'}).addTo(map);
+}
+let bizMap=null,bizCircle=null;
+async function drawBizMap(){
+  const el=document.getElementById('bizMap');if(!el)return;
+  if(bizMap){bizMap.remove();bizMap=null;bizCircle=null;}
+  try{
+    const [loc]=await Promise.all([api('rpc/my_business_location',{method:'POST',body:'{}'}),loadLeaflet()]);
+    if(!loc||!document.body.contains(el)){if(el)el.outerHTML='<div class="map-note">Could not place your ZIP code on the map.</div>';return;}
+    bizMap=makeMap(el,loc.lat,loc.lng);
+    homeDot(bizMap,loc.lat,loc.lng);
+    bizCircle=L.circle([loc.lat,loc.lng],{radius:(acct.business.hire_radius_miles||25)*MI,color:'#ED9F15',weight:2,fillColor:'#ED9F15',fillOpacity:.12}).addTo(bizMap);
+    resizeBizCircle();
+  }catch(e){
+    console.warn(e);
+    if(document.body.contains(el))el.outerHTML='<div class="map-note">The map could not load. Check your connection and refresh.</div>';
+  }
+}
+// The circle follows the dropdown right away, before Save
+function resizeBizCircle(){
+  if(!bizCircle)return;
+  bizCircle.setRadius(+document.getElementById('bizRadius').value*MI);
+  bizMap.fitBounds(bizCircle.getBounds(),{padding:[16,16]});
+}
+
+let likedMapObj=null;
+async function loadLikedMap(){
+  const el=document.getElementById('lmBody');
+  if(likedMapObj){likedMapObj.remove();likedMapObj=null;}
+  el.innerHTML='<div class="adm-empty">Loading your map</div>';
+  try{
+    const a=authSession()?await loadAccount():null;
+    if(!a||a.role!=='student'){
+      el.innerHTML=`<div class="conn-empty"><h3 style="font-size:22px;font-weight:800">Log in to see your map</h3>
+        <p>Your map shows the companies you liked near you.</p>
+        <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="openLogin('student')">Log In</button></div>`;
+      return;
+    }
+    const [d]=await Promise.all([api('rpc/my_liked_map',{method:'POST',body:'{}'}),loadLeaflet()]);
+    if(!d){
+      el.innerHTML=`<div class="conn-empty"><h3 style="font-size:22px;font-weight:800">Add your ZIP code first</h3>
+        <p>Your map is centered on your home ZIP code.</p>
+        <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="go('swipeFeed')">Add ZIP code</button></div>`;
+      return;
+    }
+    const list=d.businesses||[];
+    const far=list.reduce((m,b)=>Math.max(m,b.miles),0);
+    const radius=RADII.find(r=>r>=Math.max(25,far))||300;
+    el.innerHTML=`
+      <div class="adm-h">Your map</div>
+      <div class="adm-sub">${list.length?'Companies you liked within '+radius+' miles of home':'You have not liked any companies near you yet. Swipe right on a company and it shows up here.'}</div>
+      <div class="ts-map" id="lmMap" role="img" aria-label="Map of the companies you liked"></div>
+      <div class="map-note">The white dot is your home ZIP. Orange pins are companies you matched with, outlined pins are still waiting. Company pins show the general area, not an exact address.</div>
+      ${list.length?'<div class="adm-list" style="margin-top:16px">'+list.map(b=>`
+        <div class="adm-card"><div class="adm-card-top">
+          <div><div class="adm-name">${esc(b.name)}</div>
+          <div class="adm-meta">${esc([b.trade,b.city,b.miles<1?'under 1 mi away':'about '+b.miles+' mi away'].filter(Boolean).join(' · '))}</div></div>
+          <span class="adm-pill ${b.matched?'approved':'pending'}">${b.matched?'Matched':'Waiting'}</span>
+        </div></div>`).join('')+'</div>':''}`;
+    const h=d.home;
+    likedMapObj=makeMap(document.getElementById('lmMap'),h.lat,h.lng);
+    const circle=L.circle([h.lat,h.lng],{radius:radius*MI,color:'#ED9F15',weight:2,fillColor:'#ED9F15',fillOpacity:.08,interactive:false}).addTo(likedMapObj);
+    homeDot(likedMapObj,h.lat,h.lng).bindPopup('Home');
+    list.forEach(b=>{
+      L.circleMarker([b.lat,b.lng],{radius:9,color:'#ED9F15',weight:2,fillColor:b.matched?'#ED9F15':'#14161F',fillOpacity:1})
+        .addTo(likedMapObj)
+        .bindPopup(`<strong>${esc(b.name)}</strong><br>${esc([b.trade,b.city].filter(Boolean).join(' · '))}<br>${b.matched?'Matched. You can message them.':'Waiting for them to like you back.'}`);
+    });
+    likedMapObj.fitBounds(circle.getBounds(),{padding:[12,12]});
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;loadLikedMap();return;}
+    console.warn(e);
+    el.innerHTML='<div class="conn-empty"><h3 style="font-size:22px;font-weight:800">Could not load your map</h3><p>Check your connection and try again.</p><button class="btn btn-primary btn-sm" onclick="loadLikedMap()">Try again</button></div>';
+  }
+}
+
+async function saveHiringArea(){
+  const zip=document.getElementById('bizZip').value.trim(),radius=+document.getElementById('bizRadius').value;
+  if(!ZIP_RE.test(zip)){showCheckoutNote('Please enter your 5-digit ZIP code.');return;}
+  const btn=document.getElementById('bizAreaBtn');btn.disabled=true;
+  try{
+    const ok=await api('rpc/set_my_hiring_area',{method:'POST',body:JSON.stringify({p_zip:zip,p_radius:radius})});
+    if(!ok){btn.disabled=false;showCheckoutNote(ZIP_UNKNOWN);return;}
+    acct.business.zip=zip;acct.business.hire_radius_miles=radius;
+    await loadBizHome();
+    showCheckoutNote('Saved. Students within '+radius+' miles of '+zip+' can now see your listing.');
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;openLogin('business');return;}
+    console.warn(e);btn.disabled=false;
+    showCheckoutNote('Your hiring area did not save. Check your connection and try again.');
   }
 }
 async function bizLikeBack(studentId,btn){
@@ -1998,15 +2199,20 @@ function showCheckoutNote(text){
 
 // ─── COMPANY APPLY ───
 async function submitApplication(){
-  const ids=['a_name','a_bizname','a_email','a_phone','a_trade','a_location','a_pay','a_desc','a_why'];
+  const ids=['a_name','a_bizname','a_email','a_phone','a_trade','a_location','a_zip','a_pay','a_desc','a_why'];
   const v=id=>document.getElementById(id).value.trim();
-  const name=v('a_name'),biz=v('a_bizname'),email=v('a_email');
-  if(!name||!biz||!email){alert('Please fill in your name, business name, and email.');return;}
+  const name=v('a_name'),biz=v('a_bizname'),email=v('a_email'),zip=v('a_zip'),radius=+v('a_radius');
+  if(!name||!biz||!email||!zip){alert('Please fill in your name, business name, email, and ZIP code.');return;}
   if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
+  if(!ZIP_RE.test(zip)){alert('Please enter your business\'s 5-digit ZIP code.');return;}
   const btn=document.getElementById('applyBtn');btn.disabled=true;
-  await saveRecord('business_applications',{contact_name:name,business_name:biz,email,phone:v('a_phone')||null,trade:v('a_trade')||null,city:v('a_location')||null,starting_pay:v('a_pay')||null,description:v('a_desc')||null,why:v('a_why')||null});
+  // If the database cannot be reached the application still saves (outbox), so only a definite "unknown" stops it
+  if(backendReady()){let known=true;try{known=await zipKnown(zip);}catch(e){}
+    if(!known){btn.disabled=false;alert(ZIP_UNKNOWN);return;}}
+  await saveRecord('business_applications',{contact_name:name,business_name:biz,email,phone:v('a_phone')||null,trade:v('a_trade')||null,city:v('a_location')||null,zip,hire_radius_miles:radius,starting_pay:v('a_pay')||null,description:v('a_desc')||null,why:v('a_why')||null});
   btn.disabled=false;
   ids.forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('a_radius').value='25';
   alert('Application received. The TradeSmart team will review it and reach out by email. Once approved, create your business login with this same email.');
   go('landing');
 }
@@ -2259,6 +2465,8 @@ function renderAdminList(){
           <dt>Email</dt><dd>${opt(r.email,'mailto:'+encodeURIComponent(r.email))}</dd>
           <dt>Phone</dt><dd>${opt(r.phone,r.phone?'tel:'+r.phone.replace(/[^\d+]/g,''):'')}</dd>
           <dt>Starting pay</dt><dd>${opt(r.starting_pay)}</dd>
+          <dt>ZIP</dt><dd>${opt(r.zip)}</dd>
+          <dt>Hires within</dt><dd>${r.hire_radius_miles?esc(r.hire_radius_miles)+' miles':opt('')}</dd>
         </dl>
         ${r.why?`<div class="adm-why">${esc(r.why)}</div>`:''}
         <div class="adm-actions">
@@ -2269,8 +2477,8 @@ function renderAdminList(){
   }else{
     const rows=adminRows.stu.filter(r=>admMatches(r,q));
     if(!rows.length){el.innerHTML=`<div class="adm-empty">${adminRows.stu.length?'No students match this search.':'No student sign-ups yet.'}</div>`;return;}
-    el.innerHTML=`<div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>School</th><th>Grade</th><th>City</th><th>Best trade</th><th>Signed up</th></tr></thead><tbody>`+
-      rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${opt(r.email,'mailto:'+encodeURIComponent(r.email))}</td><td>${opt(r.phone,r.phone?'tel:'+r.phone.replace(/[^\d+]/g,''):'')}</td><td>${esc(r.school)}</td><td>${esc(r.grade)}</td><td>${opt(r.city)}</td><td>${opt(r.quiz_best)}</td><td>${fmtDate(r.created_at)}</td></tr>`).join('')+
+    el.innerHTML=`<div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>School</th><th>Grade</th><th>City</th><th>ZIP</th><th>Best trade</th><th>Signed up</th></tr></thead><tbody>`+
+      rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${opt(r.email,'mailto:'+encodeURIComponent(r.email))}</td><td>${opt(r.phone,r.phone?'tel:'+r.phone.replace(/[^\d+]/g,''):'')}</td><td>${esc(r.school)}</td><td>${esc(r.grade)}</td><td>${opt(r.city)}</td><td>${opt(r.zip)}</td><td>${opt(r.quiz_best)}</td><td>${fmtDate(r.created_at)}</td></tr>`).join('')+
       '</tbody></table></div>';
   }
 }
@@ -2289,8 +2497,8 @@ async function admReview(id,status,btn){
 }
 function admExport(){
   const biz=adminView==='biz';
-  const cols=biz?['created_at','status','business_name','contact_name','email','phone','trade','city','starting_pay','why','reviewed_at']
-                :['created_at','name','email','phone','school','grade','city','quiz_best','why'];
+  const cols=biz?['created_at','status','business_name','contact_name','email','phone','trade','city','zip','hire_radius_miles','starting_pay','why','reviewed_at']
+                :['created_at','name','email','phone','school','grade','city','zip','quiz_best','why'];
   const rows=adminRows[adminView];
   const cell=v=>{v=v==null?'':String(typeof v==='object'?JSON.stringify(v):v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
   const csv=[cols.join(',')].concat(rows.map(r=>cols.map(c=>cell(r[c])).join(','))).join('\n');
