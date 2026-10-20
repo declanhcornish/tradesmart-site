@@ -55,6 +55,77 @@ a.logo:hover,a.swipe-header-logo:hover{opacity:.85;}
 .pf-name{font-size:22px;font-weight:900;}
 .pf-email{font-size:14px;color:var(--sub);overflow-wrap:anywhere;}
 .pf-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.nav-av,.pf-av{overflow:hidden;}
+.nav-av img,.pf-av img{width:100%;height:100%;object-fit:cover;display:block;}
+button.pf-av{border:none;cursor:pointer;padding:0;font-family:inherit;position:relative;}
+button.pf-av::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.18);}
+.pf-photo{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:-6px 0 18px;}
+.pf-photo-note{font-size:13px;color:var(--sub);}
+/* ── Signed-in student app: home, trades, tab bar, points ── */
+#home,#trades,#tradeDetail{background:var(--bg);}
+.hub-body{flex:1;overflow-y:auto;}
+.hub-wrap{max-width:760px;margin:0 auto;padding:24px 18px 40px;}
+.hub-hello{font-size:28px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}
+.hub-sub{font-size:14px;color:var(--sub);margin-bottom:20px;}
+.pts-card{border-radius:22px;padding:22px;background:linear-gradient(135deg,rgba(237,159,21,.18),rgba(0,209,102,.10));border:1px solid rgba(237,159,21,.35);margin-bottom:22px;}
+.pts-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+.pts-num{font-size:48px;font-weight:900;letter-spacing:-2px;line-height:1;color:var(--orange);font-variant-numeric:tabular-nums;}
+.pts-lbl{font-size:13px;color:#C9D6E6;margin-top:4px;}
+.pts-level{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;padding:6px 12px;border-radius:100px;background:rgba(0,0,0,.3);color:#fff;}
+.pts-bar{height:10px;border-radius:10px;background:rgba(0,0,0,.35);overflow:hidden;margin:16px 0 6px;}
+.pts-bar i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,#ED9F15,#00D166);transition:width 1s cubic-bezier(.16,1,.3,1);}
+.pts-next{font-size:12px;color:#C9D6E6;}
+.pts-swap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);}
+.pts-swipes{font-size:14px;color:#C9D6E6;}
+.pts-swipes strong{color:#fff;font-size:18px;}
+.hub-h{font-size:18px;font-weight:900;margin:6px 0 12px;}
+.earn-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.earn{display:flex;align-items:center;gap:12px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:14px;}
+.earn.done{opacity:.6;}
+.earn-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(237,159,21,.12);color:var(--orange);flex:none;}
+.earn.done .earn-ic{background:rgba(0,209,102,.12);color:var(--green);}
+.earn-txt{flex:1;min-width:0;}
+.earn-t{font-size:15px;font-weight:800;}
+.earn-s{font-size:12.5px;color:var(--sub);margin-top:2px;}
+.earn-pts{font-size:13px;font-weight:900;color:var(--orange);white-space:nowrap;}
+.earn.done .earn-pts{color:var(--green);}
+.earn button{flex:none;}
+.hub-links{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.hub-link{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:16px 10px;text-align:center;cursor:pointer;color:#fff;font:inherit;font-size:13px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.hub-link .ic{width:22px;height:22px;color:var(--orange);}
+.tg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.tg-card{position:relative;border-radius:18px;overflow:hidden;min-height:150px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;border:1px solid var(--border);background:var(--s1) center/cover no-repeat;color:#fff;text-align:left;font:inherit;}
+.tg-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,18,.15),rgba(6,8,18,.92));}
+.tg-card>*{position:relative;}
+.tg-name{font-size:17px;font-weight:900;}
+.tg-pay{font-size:13px;color:var(--orange2);font-weight:700;margin-top:2px;}
+.tg-badge{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:100px;background:rgba(0,0,0,.55);display:inline-flex;align-items:center;gap:4px;}
+.tg-badge.done{color:var(--green);}
+.tg-badge.new{color:var(--orange);}
+.td-hero{border-radius:20px;overflow:hidden;min-height:170px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;background:var(--s1) center/cover no-repeat;margin-bottom:18px;}
+.td-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,18,.1),rgba(6,8,18,.9));}
+.td-hero>*{position:relative;}
+.td-title{font-size:30px;font-weight:900;letter-spacing:-.5px;}
+.td-pay{font-size:18px;font-weight:800;color:var(--orange);}
+.td-desc{font-size:15px;color:#C9D6E6;line-height:1.6;margin-bottom:16px;}
+.td-stats{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:6px 16px;margin-bottom:18px;}
+.td-stats .tp-stat:last-child{border-bottom:none;}
+.td-vs{border-radius:18px;padding:18px;background:linear-gradient(135deg,rgba(0,168,84,.16),rgba(255,59,59,.08));border:1px solid rgba(0,209,102,.3);margin-bottom:16px;}
+.td-vs-row{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:6px 0;}
+.td-vs-row strong{font-variant-numeric:tabular-nums;}
+.td-vs-gap{font-size:28px;font-weight:900;color:var(--green);margin:6px 0 12px;}
+.td-src{font-size:11.5px;color:var(--sub);line-height:1.55;}
+.td-src a{color:var(--sub);}
+#tabBar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:repeat(5,1fr);background:rgba(6,8,18,.96);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+body.has-tabs #tabBar{display:grid;}
+body.has-tabs .screen.active{bottom:calc(60px + env(safe-area-inset-bottom,0px));}
+.tab{background:none;border:none;color:var(--sub);font:inherit;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;cursor:pointer;}
+.tab .ic{width:22px;height:22px;}
+.tab.on{color:var(--orange);}
+.pts-toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-140%);z-index:90;background:linear-gradient(135deg,#ED9F15,#F5B942);color:#14100A;font-weight:900;font-size:15px;padding:10px 18px;border-radius:100px;box-shadow:0 12px 34px rgba(237,159,21,.45);transition:transform .45s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+.pts-toast.show{transform:translate(-50%,0);}
+.pts-toast span{font-weight:700;opacity:.8;margin-left:6px;}
+@media(max-width:520px){.tg-grid{grid-template-columns:1fr 1fr;gap:10px;}.tg-card{min-height:130px;padding:12px;}.tg-name{font-size:15px;}.hub-links{grid-template-columns:repeat(3,1fr);}}
 .nav-ghost{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);background:transparent;color:var(--sub);transition:.15s;}
 .nav-ghost:hover{color:#fff;border-color:var(--border2);}
 .nav-solid{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--orange-g);color:var(--on-orange);transition:.15s;}
@@ -564,6 +635,9 @@ textarea{resize:vertical;min-height:90px;}
   <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
   <symbol id="i-hardhat" viewBox="0 0 24 24"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></symbol>
   <symbol id="i-brick" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0zM20 3v4m2-2h-4"/></symbol>
 </svg>
 
@@ -908,6 +982,7 @@ textarea{resize:vertical;min-height:90px;}
   </div>
 </div><!-- /quiz -->
 
+
 <!-- ══════════════════════════════════════
      PAYOFF: trade vs college by age 22
 ══════════════════════════════════════ -->
@@ -943,12 +1018,11 @@ textarea{resize:vertical;min-height:90px;}
 
     <div class="po-actions">
       <button class="btn btn-primary btn-full" id="poCta" onclick="goFindCompanies()">Find companies hiring →</button>
-      <button class="btn btn-dark btn-full btn-sm" onclick="go('quiz')">Back to my results</button>
+      <button class="btn btn-dark btn-full btn-sm" id="poBackBtn" onclick="go(poBack)">Back to my results</button>
     </div>
     <div class="po-src" id="poSrc"></div>
   </div>
 </div>
-
 
 
 <!-- ══════════════════════════════════════
@@ -1208,6 +1282,42 @@ textarea{resize:vertical;min-height:90px;}
 <!-- ══════════════════════════════════════
      BUSINESS HOME (approved businesses)
 ══════════════════════════════════════ -->
+<div id="home" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost nav-acct" onclick="openProfile()"><span class="nav-av" id="homeAv"></span><span id="homeName">Profile</span></button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="homeBody"><div class="adm-empty">Loading...</div></div></div>
+</div>
+
+<div id="trades" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('home')">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap">
+    <div class="hub-hello">Explore the trades</div>
+    <div class="hub-sub">What the work is like, what it pays, how long training takes, and how you stack up against college. Each trade you explore earns 5 points.</div>
+    <div class="tg-grid" id="tradesGrid"></div>
+  </div></div>
+</div>
+
+<div id="tradeDetail" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('trades')">← All trades</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="tdBody"></div></div>
+</div>
+
+<nav id="tabBar" aria-label="TradeSmart sections">
+  <button class="tab" data-tab="home" onclick="go('home')"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Home</button>
+  <button class="tab" data-tab="swipe" onclick="go('swipeFeed')"><svg class="ic" aria-hidden="true"><use href="#i-swipe"/></svg>Swipe</button>
+  <button class="tab" data-tab="trades" onclick="go('trades')"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg>Trades</button>
+  <button class="tab" data-tab="matches" onclick="go('connections')"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg>Matches</button>
+  <button class="tab" data-tab="profile" onclick="openProfile()"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Profile</button>
+</nav>
+
 <div id="profile" class="screen">
   <div class="top-nav">
     <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
@@ -1215,7 +1325,13 @@ textarea{resize:vertical;min-height:90px;}
   </div>
   <div style="flex:1;overflow-y:auto;padding:0 20px 48px">
     <div class="pf-card">
-      <div class="pf-head"><div class="pf-av" id="pfAv"></div><div style="min-width:0"><div class="pf-name" id="pfName">Your profile</div><div class="pf-email" id="pfEmail"></div></div></div>
+      <div class="pf-head"><button class="pf-av" id="pfAv" onclick="pfPick()" aria-label="Change profile photo"></button><div style="min-width:0"><div class="pf-name" id="pfName">Your profile</div><div class="pf-email" id="pfEmail"></div></div></div>
+      <div class="pf-photo">
+        <input type="file" id="pfFile" accept="image/*" hidden onchange="pfUpload(this)">
+        <button class="btn btn-dark btn-sm" onclick="pfPick()">Change photo</button>
+        <button class="btn btn-dark btn-sm" id="pfRemove" onclick="pfRemovePhoto()" style="display:none">Remove photo</button>
+        <span class="pf-photo-note" id="pfPhotoNote"></span>
+      </div>
       <div id="pfBody"><div class="adm-empty">Loading your profile...</div></div>
       <div class="pf-actions">
         <button class="btn btn-primary btn-full" onclick="go('swipeFeed')">Keep swiping →</button>
@@ -1523,7 +1639,73 @@ async function loadAccount(force){
   }
   acct={role:'none'};return acct;
 }
-function signOut(){setAuthSession(null);goHome();}
+function signOut(){if(avatarURL){URL.revokeObjectURL(avatarURL);avatarURL=null;}setAuthSession(null);goHome();}
+
+// ─── PROFILE PHOTO (private Supabase Storage: avatars/<user id>/avatar.jpg, owner only) ───
+let avatarURL=null;
+const avatarPath=uid=>'avatars/'+uid+'/avatar.jpg';
+async function loadAvatar(force){
+  if(avatarURL&&!force)return avatarURL;
+  const s=authSession();if(!s||!s.user)return null;
+  const token=await authToken();if(!token)return null;
+  const r=await fetch(apiBase()+'/storage/v1/object/authenticated/'+avatarPath(s.user.id)+'?v='+Date.now(),
+    {headers:{apikey:anonKey(),Authorization:'Bearer '+token},cache:'no-store'});
+  if(avatarURL){URL.revokeObjectURL(avatarURL);avatarURL=null;}
+  if(!r.ok)return null;
+  avatarURL=URL.createObjectURL(await r.blob());
+  return avatarURL;
+}
+function paintAvatar(el,name,url){
+  if(!el)return;
+  if(url)el.innerHTML='<img src="'+url+'" alt="">';
+  else el.textContent=String(name||'?').charAt(0).toUpperCase();
+}
+function paintAllAvatars(){
+  const nm=(acct&&acct.student&&acct.student.name)||'';
+  paintAvatar(document.getElementById('navAv'),nm,avatarURL);
+  paintAvatar(document.getElementById('pfAv'),nm,avatarURL);
+  const rm=document.getElementById('pfRemove');if(rm)rm.style.display=avatarURL?'':'none';
+}
+function pfNote(t){document.getElementById('pfPhotoNote').textContent=t||'';}
+function pfPick(){document.getElementById('pfFile').click();}
+// Center-crop to a 512px square JPEG. Re-encoding also drops hidden photo data like GPS location.
+async function squareJpeg(file,size){
+  let img;
+  try{img=await createImageBitmap(file,{imageOrientation:'from-image'});}
+  catch(e){img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(file);});}
+  const w=img.width,h=img.height,side=Math.min(w,h);
+  const c=document.createElement('canvas');c.width=c.height=size;
+  c.getContext('2d').drawImage(img,(w-side)/2,(h-side)/2,side,side,0,0,size,size);
+  return new Promise(res=>c.toBlob(res,'image/jpeg',0.85));
+}
+async function pfUpload(input){
+  const f=input.files&&input.files[0];input.value='';
+  if(!f)return;
+  if(!/^image\//.test(f.type)){pfNote('Choose a photo (JPG, PNG or WebP).');return;}
+  if(f.size>20e6){pfNote('That photo is too large. Choose one under 20 MB.');return;}
+  pfNote('Uploading...');
+  try{
+    let blob;
+    try{blob=await squareJpeg(f,512);}catch(e){pfNote('That photo type is not supported here. Try a JPG or PNG.');return;}
+    const token=await authToken();if(!token)throw new Error('signed_out');
+    const s=authSession();
+    const r=await fetch(apiBase()+'/storage/v1/object/'+avatarPath(s.user.id),{method:'POST',
+      headers:{apikey:anonKey(),Authorization:'Bearer '+token,'Content-Type':'image/jpeg','x-upsert':'true','cache-control':'0'},body:blob});
+    if(!r.ok)throw new Error('status '+r.status);
+    await loadAvatar(true);paintAllAvatars();pfNote('Photo saved.');award('photo','Added a profile photo');
+  }catch(e){pfNote(e.message==='signed_out'?'Your login ended. Log in again to change your photo.':'Could not upload the photo. Try again.');}
+}
+async function pfRemovePhoto(){
+  pfNote('Removing...');
+  try{
+    const token=await authToken();if(!token)throw new Error('signed_out');
+    const s=authSession();
+    const r=await fetch(apiBase()+'/storage/v1/object/'+avatarPath(s.user.id),{method:'DELETE',headers:{apikey:anonKey(),Authorization:'Bearer '+token}});
+    if(!r.ok&&r.status!==404)throw new Error('status '+r.status);
+    if(avatarURL){URL.revokeObjectURL(avatarURL);avatarURL=null;}
+    paintAllAvatars();pfNote('Photo removed.');
+  }catch(e){pfNote('Could not remove the photo. Try again.');}
+}
 
 // Who is signed in, for the homepage bar. Students and businesses stay signed in until Sign out.
 let navTarget=null;
@@ -1537,12 +1719,13 @@ async function refreshNav(){
   navTarget=a&&a.role==='student'?'student':a&&a.role==='business'?'business':'admin';
   document.getElementById('navName').textContent=name;
   document.getElementById('navAv').textContent=name.charAt(0).toUpperCase();
-  document.getElementById('navMain').textContent=navTarget==='student'?'My Matches':'Dashboard';
+  if(navTarget==='student')loadAvatar().then(u=>{if(u)paintAvatar(document.getElementById('navAv'),name,u);}).catch(()=>{});
+  document.getElementById('navMain').textContent=navTarget==='student'?'My TradeSmart':'Dashboard';
   out.style.display='none';inn.style.display='';
 }
 function goAccountHome(){
   const t=navTarget||(acct&&acct.role==='student'?'student':acct&&acct.role==='business'?'business':null);
-  if(t==='student')go('connections');
+  if(t==='student')go('home');
   else if(t==='business')go('bizHome');
   else if(t==='admin')go('admin');
   else{setAuthSession(null);openLogin('student');}
@@ -1559,6 +1742,8 @@ async function openProfile(){
     if(!p){document.getElementById('pfBody').innerHTML='<div class="adm-empty">No student profile on this account yet.</div>';return;}
     document.getElementById('pfName').textContent=p.name;
     document.getElementById('pfAv').textContent=String(p.name||'?').charAt(0).toUpperCase();
+    pfNote('');
+    loadAvatar().then(()=>paintAllAvatars()).catch(()=>{});
     const row=(k,v)=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--muted)">Not given</span>'}</dd>`;
     document.getElementById('pfBody').innerHTML='<dl class="adm-dl">'+row('Best trade match',p.quiz_best)+row('School',p.school)+row('Grade',p.grade)+row('City',p.city)+row('ZIP code',p.zip)+'</dl>';
   }catch(e){
@@ -1572,6 +1757,160 @@ async function goFindCompanies(){
     try{const a=await loadAccount();if(a&&a.role==='student'){go('swipeFeed');return;}}catch(e){}
   }
   go('studentSetup');
+}
+
+// ─── SIGNED-IN STUDENT APP: home, explore trades, points, tab bar ───
+const isStudent=()=>!!(acct&&acct.role==='student'&&authSession());
+// Points come from the database (award_points / my_points / redeem_points in supabase/schema.sql)
+const LEVELS=[{name:'Apprentice',min:0},{name:'Journeyman',min:150},{name:'Master',min:300}];
+const SWAP_COST=25,SWAP_SWIPES=5;
+let myPts=null;
+async function loadPoints(){try{myPts=await api('rpc/my_points',{method:'POST',body:'{}'});}catch(e){myPts=myPts||null;}return myPts;}
+function pointsToast(n,label){
+  let el=document.getElementById('ptsToast');
+  if(!el){el=document.createElement('div');el.id='ptsToast';el.className='pts-toast';el.setAttribute('role','status');document.body.appendChild(el);}
+  el.innerHTML='+'+n+' points<span>'+esc(label)+'</span>';
+  el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2600);
+}
+async function award(ev,label){
+  if(!isStudent())return 0;
+  try{
+    const n=await api('rpc/award_points',{method:'POST',body:JSON.stringify({ev})});
+    if(n>0){pointsToast(n,label);myPts=null;}
+    return n||0;
+  }catch(e){return 0;}
+}
+// Trade guides reuse the homepage trade sections (Andy Carver's 2026 union wage sheets)
+const GUIDE_KEYS=['E','P','H','W','C',null,null,null];
+const GUIDE_PHOTOS=['photo-1621905251189-08b45d6a269e','photo-1676210133055-eab6ef033ce3','photo-1705579605238-24a90c8799c5','photo-1698664683348-f9f35b809821','photo-1779031242515-205111711b23','photo-1751054770504-c69daeec4721','photo-1685464196387-854858ce0f4f','photo-1773432114474-c1afba22a339']; // excavator, laborer shoveling concrete, finishing a concrete slab (Unsplash, free license)
+function guide(i){
+  const p=document.querySelector('#tradePanels .trade-panel[data-idx="'+i+'"]');
+  if(!p)return null;
+  return {i,key:GUIDE_KEYS[i],name:p.querySelector('.tp-h').textContent,pay:p.querySelector('.tp-pay').innerText.replace(/\s+/g,' ').trim(),
+    desc:p.querySelector('.tp-desc').textContent,stats:p.querySelector('.trade-panel-right').innerHTML,
+    badge:p.querySelector('.tp-badge').innerHTML,photo:GUIDE_PHOTOS[i]};
+}
+function guideCount(){return document.querySelectorAll('#tradePanels .trade-panel').length;}
+const photoUrl=(id,w)=>`url('https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w||700}&q=60')`;
+function payoffNumbers(k){
+  const d=PAYOFF[k];if(!d)return null;
+  const perYear=2080/d.stepHrs;let sum=0;
+  for(let n=0;n<4*perYear;n++)sum+=d.steps[n]*d.stepHrs;
+  return {earned:sum,spent:COLLEGE_PER_YEAR*4,gap:sum+COLLEGE_PER_YEAR*4};
+}
+function levelFor(earned){
+  let cur=LEVELS[0],next=null;
+  for(let i=0;i<LEVELS.length;i++){if(earned>=LEVELS[i].min){cur=LEVELS[i];next=LEVELS[i+1]||null;}}
+  return {cur,next};
+}
+async function renderHome(){
+  const body=document.getElementById('homeBody');
+  if(!authSession()){openLogin('student');return;}
+  let a=null;try{a=await loadAccount();}catch(e){}
+  if(!a||a.role!=='student'){body.innerHTML='<div class="adm-empty">Log in with your student account to see your home.</div>';return;}
+  const first=String(a.student.name||'').split(' ')[0]||'there';
+  document.getElementById('homeName').textContent=first;
+  paintAvatar(document.getElementById('homeAv'),first,avatarURL);
+  loadAvatar().then(u=>{if(u)paintAvatar(document.getElementById('homeAv'),first,u);}).catch(()=>{});
+  await award('daily','Daily check-in');
+  const pt=(await loadPoints())||{balance:0,earned:0,events:[]};
+  const ev=new Set(pt.events||[]),today='daily:'+new Date().toISOString().slice(0,10);
+  const {cur,next}=levelFor(pt.earned);
+  const pct=next?Math.min(100,Math.round((pt.earned-cur.min)/(next.min-cur.min)*100)):100;
+  const swipes=getState().swipesLeft;
+  const tradesDone=[...Array(guideCount()).keys()].filter(i=>ev.has('trade:'+i)).length;
+  const payKeys=['E','P','H','W','C'],paysDone=payKeys.filter(k=>ev.has('payoff:'+k)).length;
+  const qb=getState().quizResult;
+  const item=(done,icon,t,sub,pts,btn)=>`<div class="earn${done?' done':''}"><div class="earn-ic">${ic(done?'check':icon)}</div><div class="earn-txt"><div class="earn-t">${t}</div><div class="earn-s">${sub}</div></div><div class="earn-pts">${done?'Done':pts}</div>${!done&&btn?btn:''}</div>`;
+  body.innerHTML=`
+    <div class="hub-hello">Hey, ${esc(first)}</div>
+    <div class="hub-sub">Do things in TradeSmart to earn points, then trade points for more swipes.</div>
+    <div class="pts-card">
+      <div class="pts-top">
+        <div><div class="pts-num" id="ptsNum">0</div><div class="pts-lbl">points to spend</div></div>
+        <div class="pts-level">${ic('trophy')} ${cur.name}</div>
+      </div>
+      <div class="pts-bar"><i id="ptsBar"></i></div>
+      <div class="pts-next">${next?(next.min-pt.earned)+' more points to reach '+next.name:'Top level reached. Keep earning for swipes.'} · ${pt.earned} earned all time</div>
+      <div class="pts-swap">
+        <div class="pts-swipes"><strong>${swipes}</strong> swipes left</div>
+        <button class="btn btn-primary btn-sm" onclick="redeemPoints()" ${pt.balance<SWAP_COST?'disabled':''}>Trade ${SWAP_COST} points for ${SWAP_SWIPES} swipes</button>
+      </div>
+    </div>
+    <div class="hub-h">Earn points</div>
+    <div class="earn-list">
+      ${item(ev.has(today),'sparkles','Daily check-in','Open TradeSmart each day','+10')}
+      ${item(ev.has('quiz'),'target','Take the trade quiz',qb?'Your last match: '+esc(TRADES[qb.best]?TRADES[qb.best].name:''):'Find the trade that fits you','+25','<button class="btn btn-dark btn-sm" onclick="qzStart()">Start</button>')}
+      ${item(tradesDone>=guideCount(),'briefcase','Explore every trade',tradesDone+' of '+guideCount()+' explored','+5 each','<button class="btn btn-dark btn-sm" onclick="go(\'trades\')">Explore</button>')}
+      ${item(paysDone>=payKeys.length,'cash','See you vs. college',paysDone+' of '+payKeys.length+' trades compared','+10 each','<button class="btn btn-dark btn-sm" onclick="go(\'trades\')">Compare</button>')}
+      ${item(ev.has('photo'),'user','Add a profile photo','Show companies who you are','+15','<button class="btn btn-dark btn-sm" onclick="openProfile()">Add</button>')}
+    </div>
+    <div class="hub-h">Jump back in</div>
+    <div class="hub-links">
+      <button class="hub-link" onclick="go('swipeFeed')">${ic('swipe')}Swipe companies</button>
+      <button class="hub-link" onclick="go('trades')">${ic('briefcase')}Explore trades</button>
+      <button class="hub-link" onclick="go('connections')">${ic('message')}My matches</button>
+    </div>`;
+  countPts(document.getElementById('ptsNum'),pt.balance);
+  requestAnimationFrame(()=>{const b=document.getElementById('ptsBar');if(b)b.style.width=pct+'%';});
+}
+function countPts(el,to){
+  const t0=performance.now();
+  (function tick(now){const p=Math.min((now-t0)/900,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick);})(t0);
+  setTimeout(()=>{el.textContent=to;},950); // final value even if animation frames are paused
+}
+async function redeemPoints(){
+  try{
+    const ok=await api('rpc/redeem_points',{method:'POST',body:'{}'});
+    if(!ok){showCheckoutNote('You need '+SWAP_COST+' points to trade for swipes.');return;}
+    const s=getState();s.swipesLeft=(s.swipesLeft||0)+SWAP_SWIPES;saveState(s);
+    showCheckoutNote(SWAP_SWIPES+' swipes added. Go find your match.');
+    myPts=null;renderHome();
+  }catch(e){showCheckoutNote(e.message==='signed_out'?'Log in again to use your points.':'Could not trade points right now. Try again.');}
+}
+async function renderTrades(){
+  const grid=document.getElementById('tradesGrid');
+  if(isStudent()&&!myPts)await loadPoints();
+  const ev=new Set((myPts&&myPts.events)||[]);
+  grid.innerHTML=[...Array(guideCount()).keys()].map(i=>{
+    const g=guide(i);if(!g)return '';
+    const done=ev.has('trade:'+i);
+    return `<button class="tg-card" style="background-image:${photoUrl(g.photo,500)}" onclick="openTrade(${i})">
+      ${isStudent()?`<span class="tg-badge ${done?'done':'new'}">${done?ic('check')+' Explored':'+5 points'}</span>`:''}
+      <div class="tg-name">${esc(g.name)}</div><div class="tg-pay">${esc(g.pay.split(' an hour')[0])}/hr journeyman</div></button>`;
+  }).join('');
+}
+function openTrade(i){
+  const g=guide(i);if(!g)return;
+  go('tradeDetail');
+  document.getElementById('tradeDetail').querySelector('.hub-body').scrollTop=0;
+  const n=g.key?payoffNumbers(g.key):null;
+  const vs=n?`<div class="td-vs">
+      <div class="hub-h" style="margin-top:0">You vs. a 4-year college, by age 22</div>
+      <div class="td-vs-row"><span>You as an apprentice, 4 years</span><strong style="color:var(--green)">+${fmtUSD(n.earned)}</strong></div>
+      <div class="td-vs-row"><span>Friend at a public 4-year college</span><strong style="color:var(--red)">-${fmtUSD(n.spent)}</strong></div>
+      <div class="td-vs-gap">${fmtUSD(n.gap)} ahead</div>
+      <button class="btn btn-primary btn-full" onclick="showPayoff('${g.key}','tradeDetail')">See the full comparison · +10 points</button>
+    </div>`:`<div class="td-vs"><div class="hub-h" style="margin-top:0">You vs. college</div><div class="td-desc" style="margin:0">The wage sheet we have for this trade does not list apprentice pay steps, so we can't calculate the 4-year comparison yet. Journeyman pay is above.</div></div>`;
+  document.getElementById('tdBody').innerHTML=`
+    <div class="td-hero" style="background-image:${photoUrl(g.photo,1100)}"><div class="tp-badge" style="align-self:flex-start;margin-bottom:10px">${g.badge}</div><div class="td-title">${esc(g.name)}</div><div class="td-pay">${esc(g.pay)}</div></div>
+    <div class="hub-h">What the work is like</div>
+    <div class="td-desc">${esc(g.desc)}</div>
+    <div class="hub-h">Pay and training time</div>
+    <div class="td-stats">${g.stats}</div>
+    ${vs}
+    <button class="btn btn-dark btn-full btn-sm" onclick="${isStudent()?"go('swipeFeed')":"qzStart()"}" style="margin-bottom:16px">${isStudent()?'Swipe companies hiring now':'Take the quiz'}</button>`;
+  // The source line lives inside the stats block; keep it readable at the bottom
+  const src=document.querySelector('#tdBody .td-stats .tp-src');if(src){src.className='td-src';src.style.padding='12px 0 6px';}
+  const statH=document.querySelector('#tdBody .td-stats .tp-stat-h');if(statH)statH.remove();
+  award('trade:'+i,'Explored '+g.name);
+}
+// Bottom tabs for signed-in students
+const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
+function updateTabBar(screenId){
+  const show=isStudent()&&TAB_FOR[screenId]!==undefined;
+  document.body.classList.toggle('has-tabs',show);
+  document.querySelectorAll('#tabBar .tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===TAB_FOR[screenId]));
 }
 
 // After a student or business clicks the confirm link in their email, Supabase sends them
@@ -1590,7 +1929,7 @@ async function handleAuthRedirect(){
 async function routeSignedIn(){
   try{
     const a=await loadAccount(true);
-    if(a.role==='student'){go('swipeFeed');showCheckoutNote('Signed in. Your matches and messages are saved to your account.');return;}
+    if(a.role==='student'){go('home');showCheckoutNote('Signed in. Your points, matches and messages are saved to your account.');return;}
     if(a.role==='business'){go('bizHome');return;}
     const email=(authSession()||{}).user.email||'this email';
     setAuthSession(null);
@@ -1603,6 +1942,8 @@ async function routeSignedIn(){
 function go(screenId){
   // The dashboard needs a signed-in admin
   if(screenId==='admin'&&!adminSession())screenId='adminLogin';
+  // Logged-in students never see the sign-up form again
+  if(screenId==='studentSetup'&&isStudent())screenId='home';
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
   if(screenId!=='messaging')stopChatPoll();
@@ -1613,6 +1954,9 @@ function go(screenId){
   if(screenId==='admin')loadAdmin();
   if(screenId==='adminLogin')prepAdminLogin();
   if(screenId==='landing'){document.getElementById('landing').scrollTop=0;refreshNav();}
+  if(screenId==='home')renderHome();
+  if(screenId==='trades')renderTrades();
+  updateTabBar(screenId);
 }
 
 function goHome(){
@@ -1666,6 +2010,10 @@ function qzShowResults(){
 
   const s=getState();
   s.quizResult={best:bestKey,scores:qzState.scores,pct};
+  if(isStudent()){
+    award('quiz','Took the quiz');
+    api('rpc/set_my_quiz',{method:'POST',body:JSON.stringify({best:TRADES[bestKey].name,scores:qzState.scores})}).catch(()=>{});
+  }
   saveState(s);
 
   document.getElementById('qzProgFill').style.width='100%';
@@ -1723,6 +2071,7 @@ const fmtUSD=n=>(n<0?'-':'')+'$'+Math.round(Math.abs(n)).toLocaleString('en-US')
 function countTo(el,to,ms,sign){
   const t0=performance.now();
   (function tick(now){const p=Math.min((now-t0)/ms,1),e=1-Math.pow(1-p,3);el.textContent=(sign||'')+fmtUSD(to*e);if(p<1)requestAnimationFrame(tick);})(t0);
+  setTimeout(()=>{el.textContent=(sign||'')+fmtUSD(to);},ms+50);
 }
 function poConfetti(){
   const box=document.getElementById('poConfetti');box.innerHTML='';
@@ -1739,9 +2088,12 @@ function poConfetti(){
   setTimeout(()=>{box.innerHTML='';},4200);
 }
 let poTimers=[];
-function showPayoff(){
+let poBack='quiz';
+function showPayoff(forceKey,back){
   const r=(getState().quizResult||{});
-  const k=PAYOFF[r.best]?r.best:'E';
+  const k=PAYOFF[forceKey]?forceKey:PAYOFF[r.best]?r.best:'E';
+  poBack=back||'quiz';
+  document.getElementById('poBackBtn').textContent=poBack==='tradeDetail'?'Back to the trade':'Back to my results';
   const d=PAYOFF[k];
   // Cumulative pay at the end of each year (ages 19 to 22)
   const perYear=2080/d.stepHrs, years=[];let sum=0;
@@ -1783,6 +2135,7 @@ function showPayoff(){
     document.getElementById('poGap').classList.add('show');
     countTo(document.getElementById('poGapNum'),gap,1400);
     poConfetti();
+    award('payoff:'+k,'You vs. college');
   },2200));
 }
 
@@ -1815,7 +2168,7 @@ async function submitSetup(){
     const r=await authCall('signup?redirect_to='+encodeURIComponent(confirmRedirect()),{email,password:pw,data});
     if(!r.ok)throw new Error(r.d.msg||r.d.error_description||'Sign-up failed ('+r.status+')');
     document.getElementById('setupPw').value='';
-    if(r.d.access_token){setAuthSession(r.d);go('swipeFeed');return;}
+    if(r.d.access_token){setAuthSession(r.d);try{await loadAccount(true);}catch(e){}go('home');return;}
     const user=r.d.user||r.d;
     note.innerHTML=(user.identities&&user.identities.length===0)
       ?'That email already has a TradeSmart account. <a href="#" onclick="openLogin(\'student\');return false">Log in instead</a>.'
@@ -2597,7 +2950,7 @@ async function submitLogin(){
     pwEl.value='';
     setAuthSession(r.d);
     const a=await loadAccount(true);
-    if(a.role==='student'){go('swipeFeed');return;}
+    if(a.role==='student'){go('home');return;}
     if(a.role==='business'){go('bizHome');return;}
     setAuthSession(null);
     showLoginNote(loginRole==='business'
