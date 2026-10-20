@@ -502,6 +502,9 @@ textarea{resize:vertical;min-height:90px;}
   <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-cash" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-hardhat" viewBox="0 0 24 24"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></symbol>
+  <symbol id="i-brick" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/></symbol>
   <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0zM20 3v4m2-2h-4"/></symbol>
 </svg>
 
@@ -528,7 +531,7 @@ textarea{resize:vertical;min-height:90px;}
       <div class="lnd-badge">Trade careers across America</div>
       <h1 class="lnd-h1">Make <em>$100K+</em><br>in a trade.</h1>
       <p class="lnd-p">Start right out of high school. No degree, no debt. Take a 60-second quiz and swipe on trade companies hiring apprentices.</p>
-      <p class="lnd-src">Top 10% of electricians and plumbers earn over $108,000 a year. Source: U.S. Bureau of Labor Statistics, May 2025.</p>
+      <p class="lnd-src">Union electricians in Michigan make $50.44 an hour, about $104,900 a year before benefits. Source: IBEW Local 252 wage letter, 2026.</p>
       <div class="lnd-ctas">
         <button class="btn btn-primary" onclick="qzStart()">Take the Quiz →</button>
         <button class="btn btn-ghost" onclick="go('companyApply')">Hire a Student</button>
@@ -600,86 +603,144 @@ textarea{resize:vertical;min-height:90px;}
       <button class="trade-tab" data-idx="2" role="tab" aria-selected="false" onclick="switchTab(2)"><svg class="ic" aria-hidden="true"><use href="#i-snowflake"/></svg> HVAC</button>
       <button class="trade-tab" data-idx="3" role="tab" aria-selected="false" onclick="switchTab(3)"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg> Welding</button>
       <button class="trade-tab" data-idx="4" role="tab" aria-selected="false" onclick="switchTab(4)"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg> Carpentry</button>
+      <button class="trade-tab" data-idx="5" role="tab" aria-selected="false" onclick="switchTab(5)"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg> Operators</button>
+      <button class="trade-tab" data-idx="6" role="tab" aria-selected="false" onclick="switchTab(6)"><svg class="ic" aria-hidden="true"><use href="#i-hardhat"/></svg> Laborers</button>
+      <button class="trade-tab" data-idx="7" role="tab" aria-selected="false" onclick="switchTab(7)"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg> Cement Masons</button>
     </div>
     <div id="tradePanels">
       <div class="trade-panel active" data-idx="0">
         <div class="trade-panel-left">
           <div class="tp-badge" style="background:rgba(245,197,24,.12);color:#F5C518"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> Electrical</div>
           <div class="tp-h">Electricians</div>
-          <div class="tp-pay">$63,190 <span class="tp-pay-lbl">median pay per year</span></div>
+          <div class="tp-pay">$50.44 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
           <div class="tp-desc">Install and repair the wiring, lighting and power systems in homes, businesses and factories. Most electricians learn through a paid apprenticeship.</div>
         </div>
         <div class="trade-panel-right">
           <div class="tp-stat-h">Quick Stats</div>
-          <div class="tp-stat"><span>Median pay</span><strong>$63,190/yr</strong></div>
-          <div class="tp-stat"><span>Top 10% earn</span><strong>$108,510+</strong></div>
-          <div class="tp-stat"><span>Training</span><strong>4 or 5 year apprenticeship</strong></div>
-          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+9%</strong></div>
-          <div class="tp-src">Source: <a href="https://www.bls.gov/ooh/construction-and-extraction/electricians.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, electricians, May 2025 pay.</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$50.44/hr, about $104,900/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$89.39/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$20.18/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$45.40/hr</strong></div>
+          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+9% (BLS)</strong></div>
+          <div class="tp-src">Source: IBEW Local 252 wage letter, Ann Arbor and Jackson, Michigan, effective June 1, 2026. Union scale, pay varies by region. Job growth: <a href="https://www.bls.gov/ooh/construction-and-extraction/electricians.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>.</div>
         </div>
       </div>
       <div class="trade-panel" data-idx="1">
         <div class="trade-panel-left">
           <div class="tp-badge" style="background:rgba(0,168,232,.12);color:#00A8E8"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg> Plumbing</div>
-          <div class="tp-h">Plumbers</div>
-          <div class="tp-pay">$63,800 <span class="tp-pay-lbl">median pay per year</span></div>
-          <div class="tp-desc">Install and repair the pipes that carry water and gas in homes and commercial buildings. Most plumbers learn through a paid apprenticeship.</div>
+          <div class="tp-h">Plumbers and Pipefitters</div>
+          <div class="tp-pay">$47.54 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
+          <div class="tp-desc">Install and repair the pipes that carry water, gas and steam in homes and commercial buildings. Most plumbers learn through a paid apprenticeship.</div>
         </div>
         <div class="trade-panel-right">
           <div class="tp-stat-h">Quick Stats</div>
-          <div class="tp-stat"><span>Median pay</span><strong>$63,800/yr</strong></div>
-          <div class="tp-stat"><span>Top 10% earn</span><strong>$108,420+</strong></div>
-          <div class="tp-stat"><span>Training</span><strong>4 or 5 year apprenticeship</strong></div>
-          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+7%</strong></div>
-          <div class="tp-src">Source: <a href="https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, plumbers, pipefitters and steamfitters, May 2025 pay.</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$47.54/hr, about $98,900/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$74.28/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$21.39/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$42.79/hr</strong></div>
+          <div class="tp-stat"><span>Training</span><strong>5 year apprenticeship, raises every 6 months</strong></div>
+          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+7% (BLS)</strong></div>
+          <div class="tp-src">Source: Plumbers and Pipefitters Local 333 wage sheet, Lansing, Michigan, effective June 1, 2026 to May 31, 2027. Union scale, pay varies by region. Job growth: <a href="https://www.bls.gov/ooh/construction-and-extraction/plumbers-pipefitters-and-steamfitters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>.</div>
         </div>
       </div>
       <div class="trade-panel" data-idx="2">
         <div class="trade-panel-left">
           <div class="tp-badge" style="background:rgba(0,212,255,.12);color:#00D4FF"><svg class="ic" aria-hidden="true"><use href="#i-snowflake"/></svg> HVAC</div>
           <div class="tp-h">HVAC Technicians</div>
-          <div class="tp-pay">$61,010 <span class="tp-pay-lbl">median pay per year</span></div>
+          <div class="tp-pay">$47.54 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
           <div class="tp-desc">Install and service heating, cooling and refrigeration systems. Techs are needed in every season, for heat in winter and cooling in summer.</div>
         </div>
         <div class="trade-panel-right">
           <div class="tp-stat-h">Quick Stats</div>
-          <div class="tp-stat"><span>Median pay</span><strong>$61,010/yr</strong></div>
-          <div class="tp-stat"><span>Top 10% earn</span><strong>$95,210+</strong></div>
-          <div class="tp-stat"><span>Training</span><strong>6 month to 2 year program, or apprenticeship</strong></div>
-          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+11%</strong></div>
-          <div class="tp-src">Source: <a href="https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, HVACR mechanics and installers, May 2025 pay.</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$47.54/hr, about $98,900/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$74.28/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$21.39/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$42.79/hr</strong></div>
+          <div class="tp-stat"><span>Training</span><strong>5 year apprenticeship, raises every 6 months</strong></div>
+          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+11% (BLS)</strong></div>
+          <div class="tp-src">Source: Plumbers and Pipefitters Local 333 wage sheet, Lansing, Michigan, effective June 1, 2026. Local 333 represents HVAC workers along with plumbers and pipefitters. Union scale, pay varies by region. Job growth: <a href="https://www.bls.gov/ooh/installation-maintenance-and-repair/heating-air-conditioning-and-refrigeration-mechanics-and-installers.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>.</div>
         </div>
       </div>
       <div class="trade-panel" data-idx="3">
         <div class="trade-panel-left">
           <div class="tp-badge" style="background:rgba(237,159,21,.12);color:var(--orange2)"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg> Welding</div>
-          <div class="tp-h">Welders</div>
-          <div class="tp-pay">$53,750 <span class="tp-pay-lbl">median pay per year</span></div>
-          <div class="tp-desc">Join and cut metal for buildings, bridges, ships and vehicles. Welders who earn certifications can move into specialty work.</div>
+          <div class="tp-h">Pipe Welders</div>
+          <div class="tp-pay">$47.54 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
+          <div class="tp-desc">Weld the steel pipe that carries steam, gas and water in plants, hospitals and big buildings. Certified pipe welders are some of the best paid welders.</div>
         </div>
         <div class="trade-panel-right">
           <div class="tp-stat-h">Quick Stats</div>
-          <div class="tp-stat"><span>Median pay</span><strong>$53,750/yr</strong></div>
-          <div class="tp-stat"><span>Top 10% earn</span><strong>$77,530+</strong></div>
-          <div class="tp-stat"><span>Training</span><strong>Technical training plus months on the job</strong></div>
-          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+2%</strong></div>
-          <div class="tp-src">Source: <a href="https://www.bls.gov/ooh/production/welders-cutters-solderers-and-brazers.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, welders, cutters, solderers and brazers, May 2025 pay.</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$47.54/hr, about $98,900/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$74.28/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$21.39/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$42.79/hr</strong></div>
+          <div class="tp-stat"><span>Training</span><strong>5 year apprenticeship, raises every 6 months</strong></div>
+          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+2% (BLS)</strong></div>
+          <div class="tp-src">Source: Plumbers and Pipefitters Local 333 wage sheet, Lansing, Michigan, effective June 1, 2026. Union pipe welders work under this journeyman rate. Union scale, pay varies by region. Job growth: <a href="https://www.bls.gov/ooh/production/welders-cutters-solderers-and-brazers.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>.</div>
         </div>
       </div>
       <div class="trade-panel" data-idx="4">
         <div class="trade-panel-left">
           <div class="tp-badge" style="background:rgba(200,134,10,.12);color:#C8860A"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg> Carpentry</div>
           <div class="tp-h">Carpenters</div>
-          <div class="tp-pay">$60,580 <span class="tp-pay-lbl">median pay per year</span></div>
+          <div class="tp-pay">$37.22 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
           <div class="tp-desc">Frame houses, build stairs and install cabinets and trim. Carpenters leave behind work they can see and be proud of.</div>
         </div>
         <div class="trade-panel-right">
           <div class="tp-stat-h">Quick Stats</div>
-          <div class="tp-stat"><span>Median pay</span><strong>$60,580/yr</strong></div>
-          <div class="tp-stat"><span>Top 10% earn</span><strong>$99,910+</strong></div>
-          <div class="tp-stat"><span>Training</span><strong>Paid apprenticeship, several years</strong></div>
-          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+4%</strong></div>
-          <div class="tp-src">Source: <a href="https://www.bls.gov/ooh/construction-and-extraction/carpenters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, carpenters, May 2025 pay.</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$37.22/hr, about $77,400/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$66.43/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$26.05/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$35.36/hr</strong></div>
+          <div class="tp-stat"><span>Training</span><strong>4 year apprenticeship, raises every 6 months</strong></div>
+          <div class="tp-stat"><span>Job growth, 2025 to 2035</span><strong>+4% (BLS)</strong></div>
+          <div class="tp-src">Source: Central Midwest Regional Council of Carpenters wage sheet, Northwest Ohio, effective May 2026. Union scale, pay varies by region. Job growth: <a href="https://www.bls.gov/ooh/construction-and-extraction/carpenters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>.</div>
+        </div>
+      </div>
+      <div class="trade-panel" data-idx="5">
+        <div class="trade-panel-left">
+          <div class="tp-badge" style="background:rgba(237,159,21,.12);color:var(--orange2)"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg> Operators</div>
+          <div class="tp-h">Operating Engineers</div>
+          <div class="tp-pay">$47.29 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
+          <div class="tp-desc">Run the cranes, excavators, bulldozers and concrete pumps that move earth and lift steel on job sites.</div>
+        </div>
+        <div class="trade-panel-right">
+          <div class="tp-stat-h">Quick Stats</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$47.29/hr, about $98,400/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$64.74/hr</strong></div>
+          <div class="tp-stat"><span>Large crane operators</span><strong>$48.54/hr</strong></div>
+          <div class="tp-src">Source: Operating Engineers Local 18 wage sheet, Ohio, commercial building, Group A, effective May 1, 2026. Union scale, pay varies by region.</div>
+        </div>
+      </div>
+      <div class="trade-panel" data-idx="6">
+        <div class="trade-panel-left">
+          <div class="tp-badge" style="background:rgba(163,170,179,.14);color:#C9D6E6"><svg class="ic" aria-hidden="true"><use href="#i-hardhat"/></svg> Laborers</div>
+          <div class="tp-h">Construction Laborers</div>
+          <div class="tp-pay">$35.10 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
+          <div class="tp-desc">Set up job sites, handle concrete, build scaffolding and keep every crew moving. Often the fastest way onto a construction job.</div>
+        </div>
+        <div class="trade-panel-right">
+          <div class="tp-stat-h">Quick Stats</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$35.10/hr, about $73,000/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$53.17/hr</strong></div>
+          <div class="tp-stat"><span>Laborer foreman</span><strong>$1.50/hr more</strong></div>
+          <div class="tp-src">Source: Laborers Local 500 wage sheet, Toledo, Ohio, Group A, effective July 1, 2026. Union scale, pay varies by region.</div>
+        </div>
+      </div>
+      <div class="trade-panel" data-idx="7">
+        <div class="trade-panel-left">
+          <div class="tp-badge" style="background:rgba(200,200,200,.12);color:#D9DEE5"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg> Cement Masons</div>
+          <div class="tp-h">Cement Masons</div>
+          <div class="tp-pay">$38.64 <span class="tp-pay-lbl">an hour, journeyman base pay</span></div>
+          <div class="tp-desc">Pour, level and finish the concrete for floors, sidewalks, bridges and foundations.</div>
+        </div>
+        <div class="trade-panel-right">
+          <div class="tp-stat-h">Quick Stats</div>
+          <div class="tp-stat"><span>Journeyman base pay</span><strong>$38.64/hr, about $80,400/yr</strong></div>
+          <div class="tp-stat"><span>Total package with benefits</span><strong>$65.07/hr</strong></div>
+          <div class="tp-stat"><span>Apprentices start at</span><strong>$23.18/hr</strong></div>
+          <div class="tp-stat"><span>Top apprentice step</span><strong>$34.78/hr</strong></div>
+          <div class="tp-src">Source: Cement Masons and Plasterers Local 886 wage sheet, Toledo, Ohio, effective July 1, 2026. Union scale, pay varies by region.</div>
         </div>
       </div>
     </div>
@@ -2510,10 +2571,10 @@ function admExport(){
 
 // ─── HOMEPAGE PHONE ───
 // Real swipe cards, rendered with the same cardHTML as the feed. Shows approved companies when
-// there are any; until then, one card per trade with BLS median pay (May 2025), no made-up companies.
+// there are any; until then, one card per trade with union journeyman pay from 2026 wage sheets, no made-up companies.
 const PHONE_PREVIEW=[
-  {k:'E',pay:'$63,190/yr median'},{k:'W',pay:'$53,750/yr median'},{k:'P',pay:'$63,800/yr median'},
-  {k:'H',pay:'$61,010/yr median'},{k:'C',pay:'$60,580/yr median'}
+  {k:'E',pay:'$50.44/hr union scale'},{k:'W',pay:'$47.54/hr union scale'},{k:'P',pay:'$47.54/hr union scale'},
+  {k:'H',pay:'$47.54/hr union scale'},{k:'C',pay:'$37.22/hr union scale'}
 ].map((t,i)=>({id:'preview-'+i,name:TRADES[t.k].name+' apprenticeships',tradeKey:t.k,trade:TRADES[t.k].name,pay:t.pay,
   description:'Companies approved by TradeSmart show up here. Swipe right to like.',...TRADE_STYLE[t.k]}));
 let phoneCards=PHONE_PREVIEW,phoneIdx=0,phoneTimer=null;
