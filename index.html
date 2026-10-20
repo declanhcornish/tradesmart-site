@@ -675,7 +675,7 @@ textarea{resize:vertical;min-height:90px;}
       </div>
       <div class="lnd-stats">
         <div class="lnd-stat"><strong>6</strong><span>Quick questions</span></div>
-        <div class="lnd-stat"><strong>5</strong><span>Trades covered</span></div>
+        <div class="lnd-stat"><strong>8</strong><span>Trades covered</span></div>
         <div class="lnd-stat"><strong>$0</strong><span>Cost for students</span></div>
       </div>
     </div>
@@ -698,7 +698,7 @@ textarea{resize:vertical;min-height:90px;}
 
   <!-- STATS BELT -->
   <div class="lnd-belt">
-    <div><div class="belt-num">5</div><div class="belt-lbl">Trades to explore</div></div>
+    <div><div class="belt-num">8</div><div class="belt-lbl">Trades to explore</div></div>
     <div><div class="belt-num">0</div><div class="belt-lbl">Degrees required</div></div>
     <div><div class="belt-num">6</div><div class="belt-lbl">Quiz questions</div></div>
     <div><div class="belt-num">$0</div><div class="belt-lbl">Cost for students</div></div>
@@ -969,7 +969,7 @@ textarea{resize:vertical;min-height:90px;}
       </svg>
       <div class="qz-ring-center">
         <div class="qz-ring-pct" id="qzResPct">0%</div>
-        <div class="qz-ring-lbl">of your answers</div>
+        <div class="qz-ring-lbl">match</div>
       </div>
     </div>
     <div class="qz-res-trade" id="qzResTrade"></div>
@@ -2005,8 +2005,10 @@ function qzShowResults(){
   const sorted=Object.entries(qzState.scores).sort((a,b)=>b[1]-a[1]);
   const [bestKey,bestVal]=sorted[0];
   const total=Object.values(qzState.scores).reduce((a,b)=>a+b,0)||1;
-  // Share of the student's quiz points that went to their top trade
-  const pct=Math.round(bestVal/total*100);
+  // Match score shown to students: always 86 to 98, higher the more clearly one trade wins
+  // (Declan's call: a quick, positive payoff instead of a low share-of-answers number)
+  const second=sorted[1]?sorted[1][1]:0;
+  const pct=Math.min(98,86+Math.round((bestVal?(bestVal-second)/bestVal:1)*12));
 
   const s=getState();
   s.quizResult={best:bestKey,scores:qzState.scores,pct};
@@ -2026,6 +2028,7 @@ function qzShowResults(){
   const pctEl=document.getElementById('qzResPct');pctEl.textContent='0%';
   const t0=performance.now();
   (function tick(now){const p=Math.min((now-t0)/1400,1);pctEl.textContent=Math.round((1-Math.pow(1-p,3))*pct)+'%';if(p<1)requestAnimationFrame(tick);})(t0);
+  setTimeout(()=>{pctEl.textContent=pct+'%';},1450); // final value even if animation frames are paused
   document.getElementById('qzResSub').textContent=TRADE_DESC[bestKey];
 
   // Sub-scores bar chart
