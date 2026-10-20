@@ -197,6 +197,54 @@ textarea{resize:vertical;min-height:90px;}
    QUIZ
 ════════════════════════════════ */
 #quiz{background:var(--bg);}
+/* ── PAYOFF (trade vs college) ── */
+#payoff{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,209,102,.10),transparent 60%),var(--bg);overflow-y:auto;}
+.po-wrap{max-width:760px;margin:0 auto;padding:48px 20px 64px;position:relative;z-index:1;}
+.po-eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);text-align:center;margin-bottom:10px;}
+.po-h{font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-1px;line-height:1.08;text-align:center;margin:0 0 28px;}
+.po-h .ic{width:.9em;height:.9em;vertical-align:-.08em;color:var(--orange);}
+.po-duel{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-bottom:28px;}
+.po-card{border-radius:20px;padding:22px 18px;text-align:center;border:1px solid var(--border);background:var(--s1);}
+.po-you{border-color:rgba(0,209,102,.45);box-shadow:0 0 50px rgba(0,209,102,.14);}
+.po-them{border-color:rgba(255,59,59,.35);}
+.po-card-lbl{font-size:13px;font-weight:700;color:var(--sub);margin-bottom:8px;}
+.po-num{font-size:clamp(30px,5.6vw,46px);font-weight:900;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;line-height:1.05;}
+.po-pos{color:var(--green);text-shadow:0 0 28px rgba(0,209,102,.35);}
+.po-neg{color:var(--red);}
+.po-card-sub{font-size:13px;color:var(--sub);margin-top:8px;}
+.po-vs{align-self:center;font-size:13px;font-weight:900;color:var(--muted);text-transform:uppercase;}
+.po-race{display:flex;flex-direction:column;gap:10px;background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:22px;}
+.po-row{display:grid;grid-template-columns:62px 1fr 1fr;align-items:center;gap:0;}
+.po-age{font-size:12px;font-weight:700;color:var(--sub);}
+.po-side{height:26px;display:flex;align-items:center;position:relative;}
+.po-side.left{justify-content:flex-end;border-right:2px solid var(--border2);padding-right:0;}
+.po-bar{height:22px;border-radius:6px;width:0;transition:width .9s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;font-size:11px;font-weight:800;white-space:nowrap;overflow:visible;}
+.po-bar.red{background:linear-gradient(270deg,rgba(255,59,59,.9),rgba(255,59,59,.5));justify-content:flex-start;border-radius:6px 0 0 6px;color:#fff;padding-left:8px;}
+.po-bar.green{background:linear-gradient(90deg,#00A854,#00D166);justify-content:flex-end;border-radius:0 6px 6px 0;color:#04140b;padding-right:8px;}
+.po-race-key{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;padding:0 0 4px 62px;}
+.po-gap{text-align:center;padding:26px 18px;border-radius:20px;background:linear-gradient(135deg,rgba(0,168,84,.18),rgba(237,159,21,.14));border:1px solid rgba(0,209,102,.35);margin-bottom:34px;transform:scale(.92);opacity:0;transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s;}
+.po-gap.show{transform:scale(1);opacity:1;}
+.po-gap-lbl{font-size:14px;font-weight:700;color:#C9D6E6;}
+.po-gap-num{font-size:clamp(44px,9vw,76px);font-weight:900;letter-spacing:-2px;color:var(--green);text-shadow:0 0 40px rgba(0,209,102,.45);font-variant-numeric:tabular-nums;}
+.po-sec-h{font-size:20px;font-weight:900;margin:0 0 12px;}
+.po-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px;}
+.po-ben{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.po-ben-num{font-size:24px;font-weight:900;color:var(--orange);font-variant-numeric:tabular-nums;}
+.po-ben-lbl{font-size:13px;color:#C9D6E6;margin-top:4px;line-height:1.45;}
+.po-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+.po-src{font-size:11.5px;color:var(--sub);line-height:1.55;}
+.po-src a{color:var(--sub);}
+.po-confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5;}
+.po-confetti i{position:absolute;top:-12px;width:8px;height:14px;border-radius:2px;opacity:.95;animation:poFall linear forwards;}
+@keyframes poFall{to{transform:translateY(110vh) rotate(720deg);opacity:.9;}}
+@media(max-width:640px){
+  .po-duel{grid-template-columns:1fr;}
+  .po-vs{margin:-4px 0;text-align:center;}
+  .po-bar{font-size:10px;}
+  .po-benefits{grid-template-columns:1fr;}
+  .po-row{grid-template-columns:48px 1fr 1fr;}
+  .po-race-key{padding-left:48px;}
+}
 .qz-nav{display:flex;align-items:center;gap:16px;padding:16px 24px;position:sticky;top:0;z-index:10;background:rgba(6,8,18,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .qz-back{background:transparent;border:none;color:var(--sub);font-size:15px;cursor:pointer;padding:0;font-family:var(--font);transition:.15s;}
 .qz-back:hover{color:#fff;}
@@ -839,11 +887,53 @@ textarea{resize:vertical;min-height:90px;}
     <div class="qz-res-sub" id="qzResSub"></div>
     <div class="qz-sub-scores" id="qzSubScores"></div>
     <div class="qz-res-actions">
-      <button class="btn btn-primary btn-full" onclick="go('studentSetup')">Find matching companies →</button>
+      <button class="btn btn-primary btn-full" onclick="showPayoff()">See what you'd make →</button>
       <button class="btn btn-dark btn-full btn-sm" onclick="resetQuiz()">Retake quiz</button>
     </div>
   </div>
 </div><!-- /quiz -->
+
+<!-- ══════════════════════════════════════
+     PAYOFF: trade vs college by age 22
+══════════════════════════════════════ -->
+<div id="payoff" class="screen">
+  <div class="po-confetti" id="poConfetti" aria-hidden="true"></div>
+  <div class="po-wrap">
+    <div class="po-eyebrow">Your path vs. a 4-year college, by age 22</div>
+    <h1 class="po-h" id="poTitle"></h1>
+
+    <div class="po-duel">
+      <div class="po-card po-you">
+        <div class="po-card-lbl" id="poYouLbl"></div>
+        <div class="po-num po-pos" id="poYouNum">$0</div>
+        <div class="po-card-sub">earned while you train</div>
+      </div>
+      <div class="po-vs">vs</div>
+      <div class="po-card po-them">
+        <div class="po-card-lbl">Friend at a 4-year college</div>
+        <div class="po-num po-neg" id="poThemNum">$0</div>
+        <div class="po-card-sub">spent on tuition, housing and food</div>
+      </div>
+    </div>
+
+    <div class="po-race" id="poRace" aria-label="Year by year comparison"></div>
+
+    <div class="po-gap" id="poGap">
+      <div class="po-gap-lbl">At 22, you're ahead by</div>
+      <div class="po-gap-num" id="poGapNum">$0</div>
+    </div>
+
+    <div class="po-sec-h">And that's just the paycheck</div>
+    <div class="po-benefits" id="poBenefits"></div>
+
+    <div class="po-actions">
+      <button class="btn btn-primary btn-full" id="poCta" onclick="go('studentSetup')">Find companies hiring →</button>
+      <button class="btn btn-dark btn-full btn-sm" onclick="go('quiz')">Back to my results</button>
+    </div>
+    <div class="po-src" id="poSrc"></div>
+  </div>
+</div>
+
 
 
 <!-- ══════════════════════════════════════
@@ -1526,6 +1616,89 @@ function qzShowResults(){
   setTimeout(()=>{
     res.scrollIntoView({behavior:'smooth'});
   },200);
+}
+
+// ─── PAYOFF: trade vs college by age 22 ───
+// Trade side: apprentice base pay from 2026 union wage sheets Andy Carver sent (pre-tax, 40 hrs/week).
+// College side: College Board, Trends in College Pricing 2025, public 4-year in-state sticker price
+// for 2025-26: tuition and fees $11,950 + housing and food $13,900 = $25,850 a year.
+const COLLEGE_PER_YEAR=25850;
+const LOCAL333={steps:[21.39,23.77,26.15,28.52,30.90,33.28,35.66,38.03],stepHrs:1040,pension:11.68,health:12.35,
+  src:'Plumbers and Pipefitters Local 333 wage sheet, Lansing, Michigan, June 2026: apprentice raises every 6 months, employer pension $11.68/hr and health $12.35/hr for journeymen.'};
+const PAYOFF={
+  E:{job:'electrician',steps:[20.18,25.22,30.26,35.31],stepHrs:2080,pension:12.09,health:15.25,
+     src:'IBEW Local 252 wage letter, Ann Arbor and Jackson, Michigan, June 2026. Assumes one apprentice raise a year (40% to 70% of journeyman pay). Employer pension $12.09/hr (defined benefit plus defined contribution) and health $15.25/hr, paid for apprentices too.'},
+  P:{job:'plumber',...LOCAL333},
+  H:{job:'HVAC tech',...LOCAL333},
+  W:{job:'pipe welder',...LOCAL333},
+  C:{job:'carpenter',steps:[26.05,26.05,29.78,29.78,33.50,33.50,35.36,35.36],stepHrs:1040,pension:18.28,health:9.69,
+     src:'Central Midwest Regional Council of Carpenters wage sheet, Northwest Ohio, May 2026: apprentice raises every 6 months, employer pension $18.28/hr (pension plus supplemental) and health $9.69/hr, paid for apprentices too.'}
+};
+const fmtUSD=n=>(n<0?'-':'')+'$'+Math.round(Math.abs(n)).toLocaleString('en-US');
+function countTo(el,to,ms,sign){
+  const t0=performance.now();
+  (function tick(now){const p=Math.min((now-t0)/ms,1),e=1-Math.pow(1-p,3);el.textContent=(sign||'')+fmtUSD(to*e);if(p<1)requestAnimationFrame(tick);})(t0);
+}
+function poConfetti(){
+  const box=document.getElementById('poConfetti');box.innerHTML='';
+  const colors=['#00D166','#ED9F15','#F5B942','#ffffff','#00A854'];
+  for(let i=0;i<70;i++){
+    const c=document.createElement('i');
+    c.style.left=Math.random()*100+'%';
+    c.style.background=colors[i%colors.length];
+    c.style.animationDuration=(1.6+Math.random()*1.6)+'s';
+    c.style.animationDelay=(Math.random()*.5)+'s';
+    c.style.transform='rotate('+Math.random()*360+'deg)';
+    box.appendChild(c);
+  }
+  setTimeout(()=>{box.innerHTML='';},4200);
+}
+let poTimers=[];
+function showPayoff(){
+  const r=(getState().quizResult||{});
+  const k=PAYOFF[r.best]?r.best:'E';
+  const d=PAYOFF[k];
+  // Cumulative pay at the end of each year (ages 19 to 22)
+  const perYear=2080/d.stepHrs, years=[];let sum=0;
+  for(let y=0;y<4;y++){for(let s=0;s<perYear;s++)sum+=d.steps[y*perYear+s]*d.stepHrs;years.push(sum);}
+  const earned=years[3], spent=COLLEGE_PER_YEAR*4, gap=earned+spent;
+  poTimers.forEach(clearTimeout);poTimers=[];
+  const art=/^(electrician|HVAC)/.test(d.job)?'an':'a';
+  document.getElementById('poTitle').innerHTML=tradeIcon(k)+' You as '+art+' '+d.job+' apprentice';
+  document.getElementById('poYouLbl').textContent='You, '+d.job+' apprentice';
+  document.getElementById('poCta').textContent='Find companies hiring '+d.job+'s →';
+  ['poYouNum','poThemNum','poGapNum'].forEach(id=>document.getElementById(id).textContent='$0');
+  document.getElementById('poGap').classList.remove('show');
+  // Race: red (college spending) grows left, green (earnings) grows right, same scale
+  const max=earned;
+  document.getElementById('poRace').innerHTML='<div class="po-race-key"><span style="color:var(--red)">College spent</span><span style="color:var(--green)">You earned</span></div>'+
+    years.map((v,i)=>`<div class="po-row"><div class="po-age">Age ${19+i}</div>
+      <div class="po-side left"><div class="po-bar red" id="poR${i}"><span>-${fmtUSD(COLLEGE_PER_YEAR*(i+1)/1000).replace('$','$')}K</span></div></div>
+      <div class="po-side"><div class="po-bar green" id="poG${i}"><span>${fmtUSD(v/1000)}K</span></div></div></div>`).join('');
+  const benefits=[
+    [fmtUSD(d.pension*2080),'a year paid into your pension by your employer as a journeyman'],
+    [fmtUSD(d.pension*2080*30),'into your retirement over a 30-year career, before any investment growth'],
+    [fmtUSD(d.health*2080),'a year toward your health insurance, paid by your employer']
+  ];
+  document.getElementById('poBenefits').innerHTML=benefits.map(([n,l])=>`<div class="po-ben"><div class="po-ben-num">${n}</div><div class="po-ben-lbl">${l}</div></div>`).join('');
+  document.getElementById('poSrc').innerHTML='Sources: '+esc(d.src)+' Pay is before taxes at 40 hours a week. College: <a href="https://research.collegeboard.org/trends/college-pricing/highlights" target="_blank" rel="noopener">College Board, Trends in College Pricing 2025</a>, average 2025-26 sticker price at a public 4-year in-state school, tuition and fees $11,950 plus housing and food $13,900 a year. Many students pay less after grants. Union scale, pay varies by region.';
+  go('payoff');
+  document.getElementById('payoff').scrollTop=0;
+  // Sequence: counters, then the race year by year, then the gap and confetti
+  countTo(document.getElementById('poYouNum'),earned,1800,'+');
+  countTo(document.getElementById('poThemNum'),-spent,1800);
+  // Hide a bar's dollar label when the bar is too short to hold it (small phones), checked once it has grown
+  const fitLabel=b=>{const s=b.querySelector('span');s.style.visibility=s.offsetWidth>b.clientWidth-10?'hidden':'';};
+  document.querySelectorAll('#poRace .po-bar').forEach(b=>{b.querySelector('span').style.visibility='hidden';b.addEventListener('transitionend',()=>fitLabel(b));});
+  years.forEach((v,i)=>poTimers.push(setTimeout(()=>{
+    document.getElementById('poG'+i).style.width=Math.max(8,v/max*100)+'%';
+    document.getElementById('poR'+i).style.width=Math.max(8,COLLEGE_PER_YEAR*(i+1)/max*100)+'%';
+  },500+i*380)));
+  poTimers.push(setTimeout(()=>{
+    document.getElementById('poGap').classList.add('show');
+    countTo(document.getElementById('poGapNum'),gap,1400);
+    poConfetti();
+  },2200));
 }
 
 function resetQuiz(){
