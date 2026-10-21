@@ -94,6 +94,9 @@ button.pf-av::after{content:'';position:absolute;inset:0;border-radius:50%;box-s
 .hub-link{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:16px 10px;text-align:center;cursor:pointer;color:#fff;font:inherit;font-size:13px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:8px;}
 .hub-link .ic{width:22px;height:22px;color:var(--orange);}
 .tg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.tg-cat{grid-column:1/-1;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin:14px 0 2px;}
+.tg-cat span{color:var(--sub);margin-left:6px;}
+@media(min-width:900px){.tg-grid{grid-template-columns:repeat(3,1fr);}}
 .tg-card{position:relative;border-radius:18px;overflow:hidden;min-height:150px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;border:1px solid var(--border);background:var(--s1) center/cover no-repeat;color:#fff;text-align:left;font:inherit;}
 .tg-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,18,.15),rgba(6,8,18,.92));}
 .tg-card>*{position:relative;}
@@ -675,7 +678,7 @@ textarea{resize:vertical;min-height:90px;}
       </div>
       <div class="lnd-stats">
         <div class="lnd-stat"><strong>6</strong><span>Quick questions</span></div>
-        <div class="lnd-stat"><strong>8</strong><span>Trades covered</span></div>
+        <div class="lnd-stat"><strong>24</strong><span>Trades covered</span></div>
         <div class="lnd-stat"><strong>$0</strong><span>Cost for students</span></div>
       </div>
     </div>
@@ -698,7 +701,7 @@ textarea{resize:vertical;min-height:90px;}
 
   <!-- STATS BELT -->
   <div class="lnd-belt">
-    <div><div class="belt-num">8</div><div class="belt-lbl">Trades to explore</div></div>
+    <div><div class="belt-num">24</div><div class="belt-lbl">Trades to explore</div></div>
     <div><div class="belt-num">0</div><div class="belt-lbl">Degrees required</div></div>
     <div><div class="belt-num">6</div><div class="belt-lbl">Quiz questions</div></div>
     <div><div class="belt-num">$0</div><div class="belt-lbl">Cost for students</div></div>
@@ -881,6 +884,7 @@ textarea{resize:vertical;min-height:90px;}
         </div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:22px"><button class="btn btn-ghost" onclick="go('trades')">See all 24 trades →</button></div>
   </section>
 
   <!-- BUSINESS PITCH -->
@@ -1013,7 +1017,7 @@ textarea{resize:vertical;min-height:90px;}
       <div class="po-gap-num" id="poGapNum">$0</div>
     </div>
 
-    <div class="po-sec-h">And that's just the paycheck</div>
+    <div class="po-sec-h" id="poSecH">And that's just the paycheck</div>
     <div class="po-benefits" id="poBenefits"></div>
 
     <div class="po-actions">
@@ -1780,17 +1784,73 @@ async function award(ev,label){
     return n||0;
   }catch(e){return 0;}
 }
+
+// ─── MORE TRADES (Explore Trades + vs college) ───
+// Pay from the U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, May 2025:
+// p10 = what the lowest-paid 10% earn (starting pay), median = typical pay once trained.
+// school: true when the usual path starts with a training program (year 1 has no pay in the comparison).
+const BLS_TRADES=[
+ {id:'roofing',cat:'Building & Construction',name:'Roofers',job:'roofer',icon:'home',p10:37460,median:55440,growth:5,school:false,training:'1 to 12 months of on-the-job training, no degree needed',desc:'Install and repair roofs on homes and commercial buildings, from shingles to metal and flat roofs.',url:'https://www.bls.gov/ooh/construction-and-extraction/roofers.htm',photo:'photo-1635424824849-1b09bdcc55b1'},
+ {id:'masonry',cat:'Building & Construction',name:'Brick and Stone Masons',job:'mason',icon:'brick',p10:39670,median:58270,growth:1,school:false,training:'High school diploma, then an apprenticeship or training on the job',desc:'Build walls, chimneys, patios and buildings out of brick, block and stone.',url:'https://www.bls.gov/ooh/construction-and-extraction/brickmasons-blockmasons-and-stonemasons.htm',photo:'photo-1704005445445-2747074be8ac'},
+ {id:'drywall',cat:'Building & Construction',name:'Drywall and Plaster',job:'drywall finisher',icon:'hammer',p10:38460,median:59780,growth:2,school:false,training:'1 to 12 months of on-the-job training, no degree needed',desc:'Hang, tape and finish the walls and ceilings inside homes, offices and stores.',url:'https://www.bls.gov/ooh/construction-and-extraction/drywall-and-ceiling-tile-installers-and-tapers.htm',photo:'photo-1768839725085-829e6ac7ac26'},
+ {id:'glazing',cat:'Building & Construction',name:'Glaziers',job:'glazier',icon:'home',p10:37300,median:57080,growth:2,school:false,training:'High school diploma, then a paid apprenticeship',desc:'Install the glass in windows, storefronts, skylights and glass walls on big buildings.',url:'https://www.bls.gov/ooh/construction-and-extraction/glaziers.htm',photo:'photo-1780429483856-aefcf0ab9e26'},
+ {id:'iron',cat:'Building & Construction',name:'Ironworkers',job:'ironworker',icon:'hardhat',p10:43310,median:61910,growth:1,school:false,training:'High school diploma, then a paid apprenticeship',desc:'Raise the steel frames of skyscrapers, bridges and stadiums and set the rebar that makes concrete strong.',url:'https://www.bls.gov/ooh/construction-and-extraction/structural-iron-and-steel-workers.htm',photo:'photo-1614127938540-a1139bee1841'},
+ {id:'elevator',cat:'Building & Construction',name:'Elevator Mechanics',job:'elevator mechanic',icon:'zap',p10:59270,median:109910,growth:6,school:false,training:'High school diploma, then a paid apprenticeship',desc:'Install, fix and inspect elevators, escalators and moving walkways. One of the highest-paid trades.',url:'https://www.bls.gov/ooh/construction-and-extraction/elevator-installers-and-repairers.htm',photo:'photo-1592256410394-51c948ec13d5'},
+ {id:'auto',cat:'Mechanical & Automotive',name:'Auto Technicians',job:'auto technician',icon:'wrench',p10:34660,median:50620,growth:5,school:true,training:'A certificate program at a technical school, then training on the job',desc:'Find and fix problems in cars and light trucks, from engines and brakes to the computers that run them.',url:'https://www.bls.gov/ooh/installation-maintenance-and-repair/automotive-service-technicians-and-mechanics.htm',photo:'photo-1625047509248-ec889cbff17f'},
+ {id:'diesel',cat:'Mechanical & Automotive',name:'Diesel and Heavy Equipment',job:'diesel technician',icon:'truck',p10:44530,median:61770,growth:4,school:false,training:'High school diploma, then more than a year of on-the-job training',desc:'Keep semi trucks, buses and big earthmoving machines running.',url:'https://www.bls.gov/ooh/installation-maintenance-and-repair/diesel-service-technicians-and-mechanics.htm',photo:'photo-1708449474154-e76585464b5e'},
+ {id:'machinist',cat:'Mechanical & Automotive',name:'Machinists and CNC',job:'machinist',icon:'sparkles',p10:39200,median:59620,growth:-1,school:false,training:'High school diploma, then more than a year of on-the-job training',desc:'Run lathes, mills and CNC machines that cut metal into precise parts for cars, planes and factories.',url:'https://www.bls.gov/ooh/production/machinists-and-tool-and-die-makers.htm',photo:'photo-1666634157070-6fd830fb5672'},
+ {id:'aircraft',cat:'Mechanical & Automotive',name:'Aircraft Mechanics',job:'aircraft mechanic',icon:'wrench',p10:48780,median:80180,growth:6,school:true,training:'An FAA-approved aviation maintenance program',desc:'Inspect and repair airplanes and helicopters so they are safe to fly.',url:'https://www.bls.gov/ooh/installation-maintenance-and-repair/aircraft-and-avionics-equipment-mechanics-and-technicians.htm',photo:'photo-1485310818226-f01c4269687f'},
+ {id:'millwright',cat:'Industrial & Energy',name:'Millwrights',job:'millwright',icon:'wrench',p10:45760,median:64100,growth:14,school:false,training:'High school diploma, then training on the job',desc:'Install, move and repair the heavy machinery inside factories and plants.',url:'https://www.bls.gov/ooh/installation-maintenance-and-repair/industrial-machinery-mechanics-and-maintenance-workers-and-millwrights.htm',photo:'photo-1595856898575-9d187bd32fd6'},
+ {id:'boiler',cat:'Industrial & Energy',name:'Boilermakers',job:'boilermaker',icon:'flame',p10:50490,median:76410,growth:-2,school:false,training:'High school diploma, then a paid apprenticeship',desc:'Build and repair the huge boilers and tanks that hold water, steam and fuel in power plants and factories.',url:'https://www.bls.gov/ooh/construction-and-extraction/boilermakers.htm',photo:'photo-1693347682239-54e2d92b07e6'},
+ {id:'power',cat:'Industrial & Energy',name:'Power Plant Operators',job:'power plant operator',icon:'zap',p10:64160,median:105080,growth:-4,school:false,training:'High school diploma, then more than a year of on-the-job training',desc:'Run the control rooms and equipment that make electricity for whole cities.',url:'https://www.bls.gov/ooh/production/power-plant-operators-distributors-and-dispatchers.htm',photo:'photo-1738918937796-743064feefa1'},
+ {id:'culinary',cat:'Service & Culinary',name:'Chefs and Cooks',job:'chef',icon:'flame',p10:37900,median:62470,growth:7,school:false,training:'High school diploma, then years of kitchen experience',desc:'Cook, plan menus and run restaurant and hotel kitchens. Head chefs lead whole teams.',url:'https://www.bls.gov/ooh/food-preparation-and-serving/chefs-and-head-cooks.htm',photo:'photo-1783943432141-0ecea1ed213b'},
+ {id:'cosmo',cat:'Service & Culinary',name:'Cosmetology',job:'cosmetologist',icon:'sparkles',p10:27040,median:35880,growth:7,school:true,training:'A state-licensed cosmetology program, then a state license',desc:'Cut, color and style hair and care for skin. Many cosmetologists build their own clients and run their own chair.',url:'https://www.bls.gov/ooh/personal-care-and-service/barbers-hairstylists-and-cosmetologists.htm',photo:'photo-1634449571010-02389ed0f9b0'},
+ {id:'emt',cat:'Service & Culinary',name:'EMTs and Paramedics',job:'EMT',icon:'heart',p10:34130,median:48150,growth:6,school:true,training:'A state-approved EMT certificate program, then a state license',desc:'Respond to 911 calls and give emergency care on the way to the hospital.',url:'https://www.bls.gov/ooh/healthcare/emts-and-paramedics.htm',photo:'photo-1782835431484-be5708521297'}
+];
+// Union-scale trades already on the homepage, by guide index (0-7)
+const GUIDE_CATS=['Building & Construction','Building & Construction','Building & Construction','Industrial & Energy','Building & Construction','Building & Construction','Building & Construction','Building & Construction'];
+const GUIDE_JOBS=[null,null,null,null,null,'equipment operator','construction laborer','cement mason'];
+// Year-by-year pay for a BLS trade: starting pay rising evenly to the median by year 4.
+// Trades that start with a training program earn nothing in year 1, then ramp over years 2 to 4.
+function blsYears(t){
+  const a=t.p10,m=t.median;
+  return t.school?[0,a,(a+m)/2,m]:[a,a+(m-a)/3,a+2*(m-a)/3,m];
+}
+function blsPayoff(t,i){
+  return {job:t.job,steps:blsYears(t).map(v=>v/2080),stepHrs:2080,pension:null,health:null,icon:t.icon,median:t.median,growth:t.growth,training:t.training,school:t.school,model:true,
+    src:'U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, May 2025 pay for '+t.name.toLowerCase()+': starting pay (lowest 10%) '+fmtUSD(t.p10)+', typical pay (median) '+fmtUSD(t.median)+'. Estimate: pay rises evenly from starting to typical pay by year 4'+(t.school?', after a first year in a training program (program cost not included)':'')+'.'};
+}
+// Equipment operators and laborers: BLS pay (their union sheets have no apprentice steps). Cement masons: Local 886 apprentice steps.
+const BLS_EXISTING={5:{name:'operating engineers',job:'equipment operator',icon:'truck',p10:41550,median:59600,growth:4,school:false,training:'High school diploma, then 1 to 12 months of on-the-job training'},
+                    6:{name:'construction laborers',job:'construction laborer',icon:'hardhat',p10:34820,median:46680,growth:6,school:false,training:'Short on-the-job training'}};
 // Trade guides reuse the homepage trade sections (Andy Carver's 2026 union wage sheets)
-const GUIDE_KEYS=['E','P','H','W','C',null,null,null];
+const GUIDE_KEYS=['E','P','H','W','C','G5','G6','G7'];
 const GUIDE_PHOTOS=['photo-1621905251189-08b45d6a269e','photo-1676210133055-eab6ef033ce3','photo-1705579605238-24a90c8799c5','photo-1698664683348-f9f35b809821','photo-1779031242515-205111711b23','photo-1751054770504-c69daeec4721','photo-1685464196387-854858ce0f4f','photo-1773432114474-c1afba22a339']; // excavator, laborer shoveling concrete, finishing a concrete slab (Unsplash, free license)
 function guide(i){
+  if(i>=8){
+    const t=BLS_TRADES[i-8];if(!t)return null;
+    const row=(k,v)=>`<div class="tp-stat"><span>${k}</span><strong>${v}</strong></div>`;
+    return {i,key:'G'+i,name:t.name,cat:t.cat,model:true,pay:fmtUSD(t.median)+' a year, typical pay',payShort:fmtUSD(t.median)+'/yr typical',desc:t.desc,photo:t.photo,
+      badge:ic(t.icon)+' '+t.cat,
+      stats:row('Starting pay',fmtUSD(t.p10)+'/yr')+row('Typical pay (median)',fmtUSD(t.median)+'/yr')+row('Training',esc(t.training))+row('Job growth, 2025 to 2035',(t.growth>0?'+':'')+t.growth+'%')+
+        `<div class="tp-src">Source: <a href="${t.url}" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a>, May 2025 pay. Starting pay is what the lowest-paid 10% earn. National numbers; union pay can be higher.</div>`};
+  }
   const p=document.querySelector('#tradePanels .trade-panel[data-idx="'+i+'"]');
   if(!p)return null;
   return {i,key:GUIDE_KEYS[i],name:p.querySelector('.tp-h').textContent,pay:p.querySelector('.tp-pay').innerText.replace(/\s+/g,' ').trim(),
     desc:p.querySelector('.tp-desc').textContent,stats:p.querySelector('.trade-panel-right').innerHTML,
-    badge:p.querySelector('.tp-badge').innerHTML,photo:GUIDE_PHOTOS[i]};
+    badge:p.querySelector('.tp-badge').innerHTML,photo:GUIDE_PHOTOS[i],cat:GUIDE_CATS[i],
+    payShort:p.querySelector('.tp-pay').innerText.replace(/\s+/g,' ').trim().split(' an hour')[0]+'/hr journeyman'};
 }
-function guideCount(){return document.querySelectorAll('#tradePanels .trade-panel').length;}
+function guideCount(){return document.querySelectorAll('#tradePanels .trade-panel').length+BLS_TRADES.length;}
+// Comparison data for every trade without a quiz key: BLS model, or cement masons' union apprentice steps.
+// Runs from INIT, after PAYOFF and fmtUSD exist.
+function addTradePayoffs(){
+  BLS_TRADES.forEach((t,j)=>{PAYOFF['G'+(j+8)]=blsPayoff(t,j+8);});
+  Object.entries(BLS_EXISTING).forEach(([i,t])=>{PAYOFF['G'+i]=blsPayoff(t,+i);});
+  PAYOFF.G7={job:'cement mason',steps:[23.18,27.05,30.91,34.78],stepHrs:2080,pension:9.90,health:10.20,icon:'brick',
+    src:'Cement Masons and Plasterers Local 886 wage sheet, Toledo, Ohio, July 2026: apprentice pay rises yearly from $23.18 to $34.78 an hour; employer pension $9.90/hr and health $10.20/hr for journeymen.'};
+}
 const photoUrl=(id,w)=>`url('https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w||700}&q=60')`;
 function payoffNumbers(k){
   const d=PAYOFF[k];if(!d)return null;
@@ -1819,7 +1879,7 @@ async function renderHome(){
   const pct=next?Math.min(100,Math.round((pt.earned-cur.min)/(next.min-cur.min)*100)):100;
   const swipes=getState().swipesLeft;
   const tradesDone=[...Array(guideCount()).keys()].filter(i=>ev.has('trade:'+i)).length;
-  const payKeys=['E','P','H','W','C'],paysDone=payKeys.filter(k=>ev.has('payoff:'+k)).length;
+  const payKeys=[...Array(guideCount()).keys()].map(i=>guide(i)).filter(g=>g&&g.key&&PAYOFF[g.key]).map(g=>g.key),paysDone=payKeys.filter(k=>ev.has('payoff:'+k)).length;
   const qb=getState().quizResult;
   const item=(done,icon,t,sub,pts,btn)=>`<div class="earn${done?' done':''}"><div class="earn-ic">${ic(done?'check':icon)}</div><div class="earn-txt"><div class="earn-t">${t}</div><div class="earn-s">${sub}</div></div><div class="earn-pts">${done?'Done':pts}</div>${!done&&btn?btn:''}</div>`;
   body.innerHTML=`
@@ -1872,12 +1932,16 @@ async function renderTrades(){
   const grid=document.getElementById('tradesGrid');
   if(isStudent()&&!myPts)await loadPoints();
   const ev=new Set((myPts&&myPts.events)||[]);
-  grid.innerHTML=[...Array(guideCount()).keys()].map(i=>{
-    const g=guide(i);if(!g)return '';
-    const done=ev.has('trade:'+i);
-    return `<button class="tg-card" style="background-image:${photoUrl(g.photo,500)}" onclick="openTrade(${i})">
-      ${isStudent()?`<span class="tg-badge ${done?'done':'new'}">${done?ic('check')+' Explored':'+5 points'}</span>`:''}
-      <div class="tg-name">${esc(g.name)}</div><div class="tg-pay">${esc(g.pay.split(' an hour')[0])}/hr journeyman</div></button>`;
+  const all=[...Array(guideCount()).keys()].map(i=>guide(i)).filter(Boolean);
+  const cats=['Building & Construction','Mechanical & Automotive','Industrial & Energy','Service & Culinary'];
+  grid.innerHTML=cats.map(c=>{
+    const list=all.filter(g=>g.cat===c);if(!list.length)return '';
+    return `<div class="tg-cat">${esc(c)} <span>${list.length}</span></div>`+list.map(g=>{
+      const done=ev.has('trade:'+g.i);
+      return `<button class="tg-card" style="background-image:${photoUrl(g.photo,500)}" onclick="openTrade(${g.i})">
+        ${isStudent()?`<span class="tg-badge ${done?'done':'new'}">${done?ic('check')+' Explored':'+5 points'}</span>`:''}
+        <div class="tg-name">${esc(g.name)}</div><div class="tg-pay">${esc(g.payShort)}</div></button>`;
+    }).join('');
   }).join('');
 }
 function openTrade(i){
@@ -1887,7 +1951,8 @@ function openTrade(i){
   const n=g.key?payoffNumbers(g.key):null;
   const vs=n?`<div class="td-vs">
       <div class="hub-h" style="margin-top:0">You vs. a 4-year college, by age 22</div>
-      <div class="td-vs-row"><span>You as an apprentice, 4 years</span><strong style="color:var(--green)">+${fmtUSD(n.earned)}</strong></div>
+      <div class="td-vs-row"><span>${g.model?'You, first 4 years in the trade':'You as an apprentice, 4 years'}</span><strong style="color:var(--green)">+${fmtUSD(n.earned)}</strong></div>
+      ${g.model?`<div class="td-src" style="margin:-2px 0 6px">Estimate from BLS pay: starting pay rising to typical pay by year 4${PAYOFF[g.key].school?', after a first year in a training program':''}.</div>`:''}
       <div class="td-vs-row"><span>Friend at a public 4-year college</span><strong style="color:var(--red)">-${fmtUSD(n.spent)}</strong></div>
       <div class="td-vs-gap">${fmtUSD(n.gap)} ahead</div>
       <button class="btn btn-primary btn-full" onclick="showPayoff('${g.key}','tradeDetail')">See the full comparison · +10 points</button>
@@ -2103,9 +2168,10 @@ function showPayoff(forceKey,back){
   for(let y=0;y<4;y++){for(let s=0;s<perYear;s++)sum+=d.steps[y*perYear+s]*d.stepHrs;years.push(sum);}
   const earned=years[3], spent=COLLEGE_PER_YEAR*4, gap=earned+spent;
   poTimers.forEach(clearTimeout);poTimers=[];
-  const art=/^(electrician|HVAC)/.test(d.job)?'an':'a';
-  document.getElementById('poTitle').innerHTML=tradeIcon(k)+' You as '+art+' '+d.job+' apprentice';
-  document.getElementById('poYouLbl').textContent='You, '+d.job+' apprentice';
+  const art=/^[aeiouAEIOU]|^(HVAC|EMT)/.test(d.job)?'an':'a';
+  const icon=TRADES[k]?tradeIcon(k):ic(d.icon||'briefcase');
+  document.getElementById('poTitle').innerHTML=icon+(d.model?' You as '+art+' '+d.job:' You as '+art+' '+d.job+' apprentice');
+  document.getElementById('poYouLbl').textContent=d.model?'You, first 4 years as '+art+' '+d.job:'You, '+d.job+' apprentice';
   document.getElementById('poCta').textContent='Find companies hiring '+d.job+'s →';
   ['poYouNum','poThemNum','poGapNum'].forEach(id=>document.getElementById(id).textContent='$0');
   document.getElementById('poGap').classList.remove('show');
@@ -2115,7 +2181,12 @@ function showPayoff(forceKey,back){
     years.map((v,i)=>`<div class="po-row"><div class="po-age">Age ${19+i}</div>
       <div class="po-side left"><div class="po-bar red" id="poR${i}"><span>-${fmtUSD(COLLEGE_PER_YEAR*(i+1)/1000).replace('$','$')}K</span></div></div>
       <div class="po-side"><div class="po-bar green" id="poG${i}"><span>${fmtUSD(v/1000)}K</span></div></div></div>`).join('');
-  const benefits=[
+  document.getElementById('poSecH').textContent=d.pension==null?'What to expect':"And that's just the paycheck";
+  const benefits=d.pension==null?[
+    [fmtUSD(d.median),'a year, typical pay once you are trained (BLS median)'],
+    [(d.growth>0?'+':'')+d.growth+'%','expected job growth, 2025 to 2035 (BLS)'],
+    [d.school?'1 year':'Paid','training: '+String(d.training).charAt(0).toLowerCase()+String(d.training).slice(1)]
+  ]:[
     [fmtUSD(d.pension*2080),'a year paid into your pension by your employer as a journeyman'],
     [fmtUSD(d.pension*2080*30),'into your retirement over a 30-year career, before any investment growth'],
     [fmtUSD(d.health*2080),'a year toward your health insurance, paid by your employer']
@@ -3269,6 +3340,7 @@ const HERO_PLAY_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="curr
   // Make sure landing is shown
   document.getElementById('landing').scrollTop=0;
   startHeroVideo();
+  addTradePayoffs();
   refreshNav();
   startPhone();
   // Links from the other TradeSmart pages: app.html#signup, #quiz, #business, #login
