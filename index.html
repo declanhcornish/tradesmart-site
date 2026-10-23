@@ -242,6 +242,11 @@ textarea{resize:vertical;min-height:90px;}
 .tp-src{font-size:12px;color:var(--sub);margin-top:14px;line-height:1.5;}
 .tp-src a{color:var(--sub);}
 .trade-tab{display:inline-flex;align-items:center;gap:6px;}
+.tt-toggle{color:var(--orange2);border-color:rgba(237,159,21,.4);}
+.tt-chev{transition:transform .2s;}
+.tt-toggle[aria-expanded="true"] .tt-chev{transform:rotate(180deg);}
+.trade-tabs-more{flex-basis:100%;display:flex;gap:8px;flex-wrap:wrap;}
+.trade-tabs-more[hidden]{display:none;}
 .tp-badge{display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:14px;}
 .tp-h{font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;}
 .tp-pay{font-size:20px;font-weight:800;color:var(--orange);margin-bottom:16px;}
@@ -563,6 +568,13 @@ textarea{resize:vertical;min-height:90px;}
 .adm-pill{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .adm-pill.pending{background:rgba(237,159,21,.12);color:var(--orange);border:1px solid rgba(237,159,21,.35);}
 .adm-pill.approved{background:rgba(0,209,102,.12);color:var(--green);border:1px solid rgba(0,209,102,.35);}
+.biz-card-grid{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;}
+.biz-preview{position:relative;width:280px;height:400px;}
+.biz-preview .swipe-card{cursor:default;}
+.biz-plan-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.biz-plan{border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;}
+.biz-plan .adm-btn{margin-top:auto;flex:none;}
+@media(max-width:700px){.biz-card-grid{grid-template-columns:1fr;}.biz-preview{margin:0 auto;}.biz-plan-row{grid-template-columns:1fr;}}
 .adm-pill.rejected{background:rgba(255,59,59,.1);color:var(--red);border:1px solid rgba(255,59,59,.35);}
 .adm-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;margin:0;}
 .adm-dl dt{color:var(--sub);}
@@ -742,10 +754,13 @@ textarea{resize:vertical;min-height:90px;}
       <button class="trade-tab" data-idx="1" role="tab" aria-selected="false" onclick="switchTab(1)"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg> Plumbing</button>
       <button class="trade-tab" data-idx="2" role="tab" aria-selected="false" onclick="switchTab(2)"><svg class="ic" aria-hidden="true"><use href="#i-snowflake"/></svg> HVAC</button>
       <button class="trade-tab" data-idx="3" role="tab" aria-selected="false" onclick="switchTab(3)"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg> Welding</button>
-      <button class="trade-tab" data-idx="4" role="tab" aria-selected="false" onclick="switchTab(4)"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg> Carpentry</button>
-      <button class="trade-tab" data-idx="5" role="tab" aria-selected="false" onclick="switchTab(5)"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg> Operators</button>
-      <button class="trade-tab" data-idx="6" role="tab" aria-selected="false" onclick="switchTab(6)"><svg class="ic" aria-hidden="true"><use href="#i-hardhat"/></svg> Laborers</button>
-      <button class="trade-tab" data-idx="7" role="tab" aria-selected="false" onclick="switchTab(7)"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg> Cement Masons</button>
+      <button class="trade-tab tt-toggle" id="tradeTabsToggle" aria-expanded="false" aria-controls="tradeTabsMore" onclick="toggleTradeTabs()"><span>Browse All</span> <svg class="tt-chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="trade-tabs-more" id="tradeTabsMore" hidden>
+        <button class="trade-tab" data-idx="4" role="tab" aria-selected="false" onclick="switchTab(4)"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg> Carpentry</button>
+        <button class="trade-tab" data-idx="5" role="tab" aria-selected="false" onclick="switchTab(5)"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg> Operators</button>
+        <button class="trade-tab" data-idx="6" role="tab" aria-selected="false" onclick="switchTab(6)"><svg class="ic" aria-hidden="true"><use href="#i-hardhat"/></svg> Laborers</button>
+        <button class="trade-tab" data-idx="7" role="tab" aria-selected="false" onclick="switchTab(7)"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg> Cement Masons</button>
+      </div>
     </div>
     <div id="tradePanels">
       <div class="trade-panel active" data-idx="0">
@@ -1484,9 +1499,13 @@ function tradeKey(t){
 function tradeLabel(co){return tradeIcon(co.tradeKey)+' '+esc(co.tradeKey!=='X'?TRADES[co.tradeKey].name:(co.trade||'Skilled trades'));}
 function toCompany(row){
   const k=tradeKey(row.trade);
-  return {id:row.id,name:row.business_name,trade:row.trade,tradeKey:k,pay:row.starting_pay,city:row.city,miles:row.distance_miles,description:row.description,...TRADE_STYLE[k]};
+  return {id:row.id,name:row.business_name,trade:row.trade,tradeKey:k,pay:row.starting_pay,city:row.city,miles:row.distance_miles,description:row.description,photo:row.photo_path||null,...TRADE_STYLE[k]};
 }
+// A business's own card photo (public bucket business-photos), else a trade photo
+// photo_path is "<business id>/card.jpg?v=<version>", written only by set_my_card_photo()
+const bizPhotoUrl=p=>apiBase()+'/storage/v1/object/public/business-photos/'+p;
 function cardPhoto(co){
+  if(co.photo&&backendReady())return `linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 28%),url('${bizPhotoUrl(co.photo)}') center/cover no-repeat,${co.bg}`;
   const list=TRADE_PHOTOS[co.tradeKey];
   if(!list)return co.bg;
   // Same photo for the same business every time
@@ -1638,7 +1657,7 @@ async function loadAccount(force){
   if(stu&&stu.length){acct={role:'student',student:stu[0]};return acct;}
   const bid=await api('rpc/my_business_id',{method:'POST',body:'{}'});
   if(bid){
-    const b=await api('business_applications?select=id,business_name,trade,city,zip,hire_radius_miles,starting_pay,description&id=eq.'+encodeURIComponent(bid));
+    const b=await api('business_applications?select=id,business_name,email,trade,city,zip,hire_radius_miles,starting_pay,description,plan,plan_status,paid_at,photo_path&id=eq.'+encodeURIComponent(bid));
     if(b&&b.length){acct={role:'business',business:b[0]};return acct;}
   }
   acct={role:'none'};return acct;
@@ -1842,7 +1861,27 @@ function guide(i){
     badge:p.querySelector('.tp-badge').innerHTML,photo:GUIDE_PHOTOS[i],cat:GUIDE_CATS[i],
     payShort:p.querySelector('.tp-pay').innerText.replace(/\s+/g,' ').trim().split(' an hour')[0]+'/hr journeyman'};
 }
-function guideCount(){return document.querySelectorAll('#tradePanels .trade-panel').length+BLS_TRADES.length;}
+function guideCount(){return GUIDE_KEYS.length+BLS_TRADES.length;}
+// Homepage "Pick Your Path": a tab and panel for each BLS trade, after the 8 union-scale trades.
+// Runs from INIT, after fmtUSD and ic exist.
+const HOME_TAB_LABELS={roofing:'Roofing',masonry:'Masonry',drywall:'Drywall',glazing:'Glazing',iron:'Ironwork',elevator:'Elevators',auto:'Auto Tech',diesel:'Diesel',machinist:'Machinist',aircraft:'Aircraft',millwright:'Millwright',boiler:'Boilermaker',power:'Power Plant',culinary:'Culinary',cosmo:'Cosmetology',emt:'EMT'};
+function addHomeTrades(){
+  const tabs=document.getElementById('tradeTabsMore'),panels=document.getElementById('tradePanels');
+  if(!tabs||!panels||tabs.querySelector('[data-idx="8"]'))return;
+  BLS_TRADES.forEach((t,j)=>{
+    const i=j+8,g=guide(i);
+    tabs.insertAdjacentHTML('beforeend',`<button class="trade-tab" data-idx="${i}" role="tab" aria-selected="false" onclick="switchTab(${i})">${ic(t.icon)} ${esc(HOME_TAB_LABELS[t.id]||t.name)}</button>`);
+    panels.insertAdjacentHTML('beforeend',`<div class="trade-panel" data-idx="${i}">
+      <div class="trade-panel-left">
+        <div class="tp-badge" style="background:rgba(237,159,21,.12);color:var(--orange2)">${g.badge}</div>
+        <div class="tp-h">${esc(t.name)}</div>
+        <div class="tp-pay">${fmtUSD(t.median)} <span class="tp-pay-lbl">a year, typical pay</span></div>
+        <div class="tp-desc">${esc(t.desc)}</div>
+      </div>
+      <div class="trade-panel-right"><div class="tp-stat-h">Quick Stats</div>${g.stats}</div>
+    </div>`);
+  });
+}
 // Comparison data for every trade without a quiz key: BLS model, or cement masons' union apprentice steps.
 // Runs from INIT, after PAYOFF and fmtUSD exist.
 function addTradePayoffs(){
@@ -2697,9 +2736,13 @@ async function loadBizHome(){
   const el=document.getElementById('bizBody');
   el.innerHTML='<div class="adm-empty">Loading</div>';
   try{
-    const a=authSession()?await loadAccount():null;
+    let a=authSession()?await loadAccount():null;
     if(!a||a.role!=='business'){openLogin('business');return;}
-    const b=a.business,co=toCompany(b);
+    // Re-check the plan with Stripe (catches a payment whose return page never loaded, or a canceled plan)
+    const before=a.business.plan_status||null;
+    const sync=await bizSync();
+    if(sync&&!sync.error&&(sync.plan_status||null)!==before)a=await loadAccount(true);
+    const b=a.business,co=toCompany(b),paid=b.plan_status==='active';
     bizStudents=await api('rpc/interested_students',{method:'POST',body:'{}'})||[];
     const card=st=>`
       <div class="adm-card">
@@ -2718,15 +2761,31 @@ async function loadBizHome(){
       </div>`;
     el.innerHTML=`
       <div class="adm-h">${esc(b.business_name)}</div>
-      <div class="adm-sub">${b.zip?'Your listing is live for students within '+esc(b.hire_radius_miles)+' miles of ZIP '+esc(b.zip)+'.':'Add your ZIP code below. Until then, students cannot see your listing.'}</div>
-      <div class="adm-card" style="margin:16px 0 16px">
-        <dl class="adm-dl">
-          <dt>Trade</dt><dd>${esc(b.trade||'Not given')}</dd>
-          <dt>City</dt><dd>${esc(b.city||'Not given')}</dd>
-          <dt>Starting pay</dt><dd>${esc(b.starting_pay||'Not given')}</dd>
-          <dt>Card text</dt><dd>${esc(b.description||'Not given')}</dd>
-        </dl>
-        <div class="adm-money-note">To change these details, email the TradeSmart team.</div>
+      <div class="adm-sub">${!paid?'Your listing is not live yet. Choose a plan below and students near you start seeing your card.'
+        :b.zip?'Your listing is live for students within '+esc(b.hire_radius_miles)+' miles of ZIP '+esc(b.zip)+'.'
+        :'Add your ZIP code below. Until then, students cannot see your listing.'}</div>
+      ${bizPlanCard(b)}
+      <div class="adm-card" style="margin:0 0 16px">
+        <div class="adm-sec-h" style="margin:0 0 4px">Your swipe card</div>
+        <div class="adm-money-note" style="margin-bottom:14px">This is exactly what students see when they swipe.</div>
+        <div class="biz-card-grid">
+          <div class="biz-preview"><div class="swipe-card">${cardHTML(co)}</div></div>
+          <div>
+            <div class="fg"><label>Card photo</label>
+              ${paid
+                ?`<div class="adm-actions" style="margin-top:0"><button class="adm-btn approve" onclick="document.getElementById('bizPhotoFile').click()">${b.photo_path?'Change photo':'Upload photo'}</button>${b.photo_path?'<button class="adm-btn reject" onclick="bizRemovePhoto()">Remove</button>':''}</div>
+                   <input type="file" id="bizPhotoFile" accept="image/*" hidden onchange="bizUploadPhoto(this)">
+                   <div class="adm-money-note" id="bizPhotoNote">A photo of your crew, shop or work. It is cropped to fit the card. Until you add one, your card uses a trade photo.</div>`
+                :'<div class="adm-money-note">You can add your own photo once your plan is active.</div>'}
+            </div>
+            <div class="fg"><label for="bizTrade">Trade</label><input type="text" id="bizTrade" maxlength="60" value="${esc(b.trade||'')}" placeholder="Electrical"></div>
+            <div class="fg"><label for="bizCity">City</label><input type="text" id="bizCity" maxlength="80" value="${esc(b.city||'')}" placeholder="Detroit, MI"></div>
+            <div class="fg"><label for="bizPay">Starting pay</label><input type="text" id="bizPay" maxlength="40" value="${esc(b.starting_pay||'')}" placeholder="$20/hr"></div>
+            <div class="fg"><label for="bizDesc">Card text (up to 200 characters)</label><textarea id="bizDesc" maxlength="200" rows="3">${esc(b.description||'')}</textarea></div>
+            <div class="adm-actions"><button class="adm-btn approve" id="bizListingBtn" onclick="saveListing()">Save card</button></div>
+            <div class="adm-money-note">Your business name and email stay as approved. To change them, email the TradeSmart team.</div>
+          </div>
+        </div>
       </div>
       <div class="adm-card" style="margin:0 0 24px">
         <div class="adm-sec-h" style="margin:0 0 4px">Hiring area</div>
@@ -2749,6 +2808,110 @@ async function loadBizHome(){
     el.innerHTML='<div class="adm-notice err"><strong>Could not load your dashboard.</strong> Check your connection and try again.</div>';
   }
 }
+// ─── BUSINESS PLAN, CARD AND PHOTO ───
+// Plan columns are written only by the create-checkout function after Stripe confirms the payment.
+const BIZ_PLANS=[{k:'starter',name:'Starter',price:29,note:'Up to 5 active positions'},{k:'growth',name:'Growth',price:79,note:'Unlimited positions + priority listing'},{k:'enterprise',name:'Enterprise',price:149,note:'Multi-location + dedicated rep'}];
+function planText(r){
+  const n=PLAN_NAMES[r.plan]||'';
+  if(r.plan_status==='active')return esc(n+', paid'+(r.paid_at?' '+fmtDate(r.paid_at):''));
+  if(r.plan_status==='past_due')return esc(n+', payment failed');
+  if(r.plan_status==='canceled')return esc(n+', canceled');
+  return '<span style="color:var(--muted)">Not paid</span>';
+}
+function bizPlanCard(b){
+  if(b.plan_status==='active')return `
+      <div class="adm-card" style="margin:16px 0">
+        <div class="adm-card-top"><div><div class="adm-sec-h" style="margin:0">Your plan</div>
+          <div class="adm-meta">${esc(PLAN_NAMES[b.plan]||'Plan')}${b.paid_at?', paid '+fmtDate(b.paid_at):''}</div></div>
+          <span class="adm-pill approved">Active</span></div>
+        <div class="adm-money-note">Billing email: ${esc(b.email)}. To change or cancel your plan, email the TradeSmart team.</div>
+      </div>`;
+  const msg=b.plan_status==='past_due'?'Your last payment did not go through, so your card is hidden from students. Choose a plan to pay again.'
+    :b.plan_status==='canceled'?'Your plan was canceled, so your card is hidden from students. Choose a plan to go live again.'
+    :'Pick a plan to put your card in front of students near you. Monthly, cancel anytime.';
+  return `
+      <div class="adm-card" style="margin:16px 0">
+        <div class="adm-sec-h" style="margin:0 0 4px">Choose a plan</div>
+        <div class="adm-money-note" style="margin-bottom:14px">${msg}</div>
+        <div class="biz-plan-row">${BIZ_PLANS.map(p=>`
+          <div class="biz-plan">
+            <div class="biz-tier-name">${p.name.toUpperCase()}</div>
+            <div class="biz-tier-price">$${p.price} <span>/mo</span></div>
+            <div class="adm-money-note">${p.note}</div>
+            <button class="adm-btn approve" onclick="buyPlan('${p.k}')">Choose ${p.name}</button>
+          </div>`).join('')}</div>
+      </div>`;
+}
+async function bizSync(){
+  try{
+    const token=await authToken();if(!token)return null;
+    const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),6000);
+    const r=await fetch(checkoutUrl()+'?sync=1',{headers:{...checkoutHeaders(),Authorization:'Bearer '+token},signal:ctl.signal});
+    clearTimeout(t);
+    return await r.json();
+  }catch(e){return null;}
+}
+async function saveListing(){
+  const v=id=>document.getElementById(id).value.trim();
+  const btn=document.getElementById('bizListingBtn');btn.disabled=true;
+  try{
+    const ok=await api('rpc/update_my_listing',{method:'POST',body:JSON.stringify({p_trade:v('bizTrade'),p_city:v('bizCity'),p_starting_pay:v('bizPay'),p_description:v('bizDesc')})});
+    if(!ok)throw new Error('not_saved');
+    await loadAccount(true);await loadBizHome();
+    showCheckoutNote('Card saved. Students see the new details right away.');
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;openLogin('business');return;}
+    btn.disabled=false;showCheckoutNote('Your card did not save. Check your connection and try again.');
+  }
+}
+// Center-crop to a 3:4 card JPEG (the swipe card shape). Re-encoding drops hidden photo data like GPS.
+async function cardJpeg(file){
+  let img;
+  try{img=await createImageBitmap(file,{imageOrientation:'from-image'});}
+  catch(e){img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(file);});}
+  const W=900,H=1200,w=img.width,h=img.height,s=Math.min(w/3,h/4),cw=s*3,ch=s*4;
+  const c=document.createElement('canvas');c.width=W;c.height=H;
+  c.getContext('2d').drawImage(img,(w-cw)/2,(h-ch)/2,cw,ch,0,0,W,H);
+  return new Promise(res=>c.toBlob(res,'image/jpeg',0.82));
+}
+function bizPhotoNote(t){const el=document.getElementById('bizPhotoNote');if(el)el.textContent=t;}
+async function bizUploadPhoto(input){
+  const f=input.files&&input.files[0];input.value='';
+  if(!f)return;
+  if(!/^image\//.test(f.type)){bizPhotoNote('Choose a photo (JPG, PNG or WebP).');return;}
+  if(f.size>20e6){bizPhotoNote('That photo is too large. Choose one under 20 MB.');return;}
+  bizPhotoNote('Uploading...');
+  try{
+    let blob;
+    try{blob=await cardJpeg(f);}catch(e){bizPhotoNote('That photo type is not supported here. Try a JPG or PNG.');return;}
+    const token=await authToken();if(!token)throw new Error('signed_out');
+    const r=await fetch(apiBase()+'/storage/v1/object/business-photos/'+acct.business.id+'/card.jpg',{method:'POST',
+      headers:{apikey:anonKey(),Authorization:'Bearer '+token,'Content-Type':'image/jpeg','x-upsert':'true','cache-control':'3600'},body:blob});
+    if(!r.ok)throw new Error('status '+r.status);
+    const p=await api('rpc/set_my_card_photo',{method:'POST',body:JSON.stringify({p_has_photo:true})});
+    if(!p)throw new Error('not_saved');
+    await loadAccount(true);await loadBizHome();
+    showCheckoutNote('Photo saved. Your card now shows it to students.');
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;openLogin('business');return;}
+    console.warn(e);bizPhotoNote('Could not upload the photo. Try again.');
+  }
+}
+async function bizRemovePhoto(){
+  bizPhotoNote('Removing...');
+  try{
+    const token=await authToken();if(!token)throw new Error('signed_out');
+    const r=await fetch(apiBase()+'/storage/v1/object/business-photos/'+acct.business.id+'/card.jpg',{method:'DELETE',headers:{apikey:anonKey(),Authorization:'Bearer '+token}});
+    if(!r.ok&&r.status!==404)throw new Error('status '+r.status);
+    await api('rpc/set_my_card_photo',{method:'POST',body:JSON.stringify({p_has_photo:false})});
+    await loadAccount(true);await loadBizHome();
+    showCheckoutNote('Photo removed. Your card uses a trade photo again.');
+  }catch(e){
+    if(e.message==='signed_out'){acct=null;openLogin('business');return;}
+    bizPhotoNote('Could not remove the photo. Try again.');
+  }
+}
+
 // ─── MAPS (Leaflet from cdnjs, OpenStreetMap tiles; loaded the first time a map opens) ───
 let leafletP=null;
 function loadLeaflet(){
@@ -2893,17 +3056,31 @@ async function startCheckout(plan){
   if(!backendReady()){alert('Payments are not set up yet. Please try again later.');return;}
   checkoutBusy=true;document.body.style.cursor='progress';
   try{
-    const r=await fetch(checkoutUrl(),{method:'POST',headers:checkoutHeaders(),body:JSON.stringify({plan,return_url:location.href})});
+    const h=checkoutHeaders();
+    // Business plans ride on the business's login so the payment is tied to that business
+    if(plan.startsWith('biz_')){const t=await authToken();if(!t)throw new Error('sign_in_business');h.Authorization='Bearer '+t;}
+    const r=await fetch(checkoutUrl(),{method:'POST',headers:h,body:JSON.stringify({plan,return_url:location.href})});
     const d=await r.json().catch(()=>({}));
     if(!r.ok||!d.url)throw new Error(d.error||('Checkout failed ('+r.status+')'));
     location.href=d.url;
   }catch(e){
-    console.warn(e);alert('Could not open checkout. '+e.message);
+    console.warn(e);
     checkoutBusy=false;document.body.style.cursor='';
+    if(e.message==='sign_in_business'){acct=null;openLogin('business');showCheckoutNote('Log in to your business account to choose a plan.');return;}
+    if(e.message==='already_paid'){go('bizHome');showCheckoutNote('Your plan is already active.');return;}
+    alert('Could not open checkout. '+e.message);
   }
 }
 function buySwipes(pack){startCheckout(pack);}
-function buyPlan(plan){startCheckout('biz_'+plan);}
+// Homepage plan buttons: an approved, signed-in business pays here; anyone else applies or logs in first
+async function buyPlan(plan){
+  let a=null;
+  if(authSession()&&backendReady()){try{a=await loadAccount();}catch(e){}}
+  if(a&&a.role==='business'){startCheckout('biz_'+plan);return;}
+  if(a&&a.role==='student'){showCheckoutNote('Plans are for businesses. Log out and use your business account to choose one.');return;}
+  go('companyApply');
+  showCheckoutNote('Apply first. Once the TradeSmart team approves you, log in and choose your plan from your dashboard.');
+}
 
 // Coming back from Stripe Checkout: ?checkout=success&session_id=... or ?checkout=cancel&plan=...
 async function handleCheckoutReturn(){
@@ -2912,7 +3089,7 @@ async function handleCheckoutReturn(){
   history.replaceState(null,'',location.pathname);
   if(status==='cancel'){
     const plan=q.get('plan')||'';
-    go(plan.startsWith('biz_')?'landing':'paywall');
+    go(plan.startsWith('biz_')?'bizHome':'paywall');
     showCheckoutNote('Checkout canceled. You were not charged.');
     return true;
   }
@@ -2930,9 +3107,10 @@ async function handleCheckoutReturn(){
       go('swipeFeed');
       showCheckoutNote('Payment confirmed. '+name+' unlocked, '+(d.plan==='unlimited'?'unlimited swipes':PACK_SWIPES[d.plan]+' swipes')+' added.');
     }else{
-      if(!s.redeemed.includes(id)){s.redeemed.push(id);s.bizPlan=d.plan;saveState(s);}
-      go('landing');
-      showCheckoutNote('Payment confirmed. Your TradeSmart '+name+' is active. Our team will email '+(d.email||'you')+' to set up your listings.');
+      // The function has already recorded the plan on the business
+      acct=null;
+      go('bizHome');
+      showCheckoutNote('Payment confirmed. Your '+name+' is active. Add a card photo so students see your shop.');
     }
   }catch(e){
     console.warn(e);
@@ -2973,6 +3151,12 @@ function switchTab(idx){
   document.querySelectorAll('.trade-panel').forEach(p=>p.classList.remove('active'));
   const tab=document.querySelector(`.trade-tab[data-idx="${idx}"]`);tab.classList.add('active');tab.setAttribute('aria-selected','true');
   document.querySelector(`.trade-panel[data-idx="${idx}"]`).classList.add('active');
+}
+// "Browse All" drops the other 20 trades down under the top 4
+function toggleTradeTabs(){
+  const more=document.getElementById('tradeTabsMore'),btn=document.getElementById('tradeTabsToggle'),open=more.hidden;
+  more.hidden=!open;btn.setAttribute('aria-expanded',String(open));
+  btn.querySelector('span').textContent=open?'Show Less':'Browse All';
 }
 
 // ─── STUDENT / BUSINESS LOGIN ───
@@ -3228,6 +3412,7 @@ function renderAdminList(){
           <span class="adm-pill ${esc(r.status)}">${esc(r.status)}</span>
         </div>
         <dl class="adm-dl">
+          <dt>Plan</dt><dd>${planText(r)}</dd>
           <dt>Contact</dt><dd>${esc(r.contact_name)}</dd>
           <dt>Email</dt><dd>${opt(r.email,'mailto:'+encodeURIComponent(r.email))}</dd>
           <dt>Phone</dt><dd>${opt(r.phone,r.phone?'tel:'+r.phone.replace(/[^\d+]/g,''):'')}</dd>
@@ -3264,7 +3449,7 @@ async function admReview(id,status,btn){
 }
 function admExport(){
   const biz=adminView==='biz';
-  const cols=biz?['created_at','status','business_name','contact_name','email','phone','trade','city','zip','hire_radius_miles','starting_pay','why','reviewed_at']
+  const cols=biz?['created_at','status','business_name','contact_name','email','phone','trade','city','zip','hire_radius_miles','starting_pay','why','reviewed_at','plan','plan_status','paid_at','stripe_customer','stripe_subscription']
                 :['created_at','name','email','phone','school','grade','city','zip','quiz_best','why'];
   const rows=adminRows[adminView];
   const cell=v=>{v=v==null?'':String(typeof v==='object'?JSON.stringify(v):v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
@@ -3310,7 +3495,7 @@ async function startPhone(){
   window.addEventListener('resize',phoneScale);
   if(backendReady()){
     try{
-      const rows=await publicApi('approved_businesses?select=*&order=business_name.asc&limit=6');
+      const rows=await publicApi('approved_businesses?select=*&listed=is.true&order=business_name.asc&limit=6');
       if(rows&&rows.length){phoneCards=rows.map(toCompany);phoneIdx=0;renderPhoneStack();}
     }catch(e){/* keep the trade preview */}
   }
@@ -3345,6 +3530,7 @@ const HERO_PLAY_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="curr
   document.getElementById('landing').scrollTop=0;
   startHeroVideo();
   addTradePayoffs();
+  addHomeTrades();
   refreshNav();
   startPhone();
   // Links from the other TradeSmart pages: app.html#signup, #quiz, #business, #login
