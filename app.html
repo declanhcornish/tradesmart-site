@@ -972,7 +972,7 @@ textarea{resize:vertical;min-height:90px;}
         <circle cx="65" cy="65" r="58" class="qz-ring-arc" id="qzArc"/>
       </svg>
       <div class="qz-ring-center">
-        <div class="qz-ring-pct" id="qzResPct">0%</div>
+        <div class="qz-ring-pct" id="qzResPct">85%</div>
         <div class="qz-ring-lbl">match</div>
       </div>
     </div>
@@ -2089,10 +2089,10 @@ function qzShowResults(){
   const res=document.getElementById('qzResult');
   res.style.display='flex';
   document.getElementById('qzResTrade').innerHTML=tradeIcon(bestKey)+' '+TRADES[bestKey].name;
-  // Count the score up from 0 for a quick payoff
-  const pctEl=document.getElementById('qzResPct');pctEl.textContent='0%';
+  // Count the score up from 85 so the number never shows below 85%, even mid-animation (Declan's rule)
+  const pctEl=document.getElementById('qzResPct');pctEl.textContent='85%';
   const t0=performance.now();
-  (function tick(now){const p=Math.min((now-t0)/1400,1);pctEl.textContent=Math.round((1-Math.pow(1-p,3))*pct)+'%';if(p<1)requestAnimationFrame(tick);})(t0);
+  (function tick(now){const p=Math.min((now-t0)/1400,1);pctEl.textContent=Math.round(85+(1-Math.pow(1-p,3))*(pct-85))+'%';if(p<1)requestAnimationFrame(tick);})(t0);
   setTimeout(()=>{pctEl.textContent=pct+'%';},1450); // final value even if animation frames are paused
   document.getElementById('qzResSub').textContent=TRADE_DESC[bestKey];
 
