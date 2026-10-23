@@ -353,7 +353,7 @@ textarea{resize:vertical;min-height:90px;}
 .qz-ring-wrap{position:relative;width:160px;height:160px;margin-bottom:28px;}
 .qz-ring-svg{transform:rotate(-90deg);}
 .qz-ring-bg{fill:none;stroke:var(--s2);stroke-width:10;}
-.qz-ring-arc{fill:none;stroke:var(--green);stroke-width:10;stroke-linecap:round;stroke-dasharray:408;stroke-dashoffset:408;transition:stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1);}
+.qz-ring-arc{fill:none;stroke:var(--green);stroke-width:10;stroke-linecap:round;stroke-dasharray:364.42;stroke-dashoffset:54.66;transition:stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1);}
 .qz-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .qz-ring-pct{font-size:36px;font-weight:900;color:var(--green);}
 .qz-ring-lbl{font-size:12px;color:var(--sub);}
@@ -2105,6 +2105,10 @@ function qzShowResults(){
 
   // Animate ring
   const circ=2*Math.PI*58;
+  // Ring fills exactly the score: start at 85% (matching the number), then grow to the score
+  const arc=document.getElementById('qzArc');
+  arc.style.transition='none';arc.style.strokeDasharray=circ;arc.style.strokeDashoffset=circ*0.15;
+  void arc.getBoundingClientRect();arc.style.transition='';
   setTimeout(()=>{
     document.getElementById('qzArc').style.strokeDashoffset=circ-(circ*pct/100);
     sorted.forEach(([k,v])=>{
