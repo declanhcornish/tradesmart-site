@@ -119,7 +119,7 @@ button.pf-av::after{content:'';position:absolute;inset:0;border-radius:50%;box-s
 .td-vs-gap{font-size:28px;font-weight:900;color:var(--green);margin:6px 0 12px;}
 .td-src{font-size:11.5px;color:var(--sub);line-height:1.55;}
 .td-src a{color:var(--sub);}
-#tabBar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:repeat(5,1fr);background:rgba(6,8,18,.96);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+#tabBar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:repeat(6,1fr);background:rgba(6,8,18,.96);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
 body.has-tabs #tabBar{display:grid;}
 body.has-tabs .screen.active{bottom:calc(60px + env(safe-area-inset-bottom,0px));}
 .tab{background:none;border:none;color:var(--sub);font:inherit;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;cursor:pointer;}
@@ -568,6 +568,62 @@ textarea{resize:vertical;min-height:90px;}
 .adm-pill{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .adm-pill.pending{background:rgba(237,159,21,.12);color:var(--orange);border:1px solid rgba(237,159,21,.35);}
 .adm-pill.approved{background:rgba(0,209,102,.12);color:var(--green);border:1px solid rgba(0,209,102,.35);}
+.rs-home{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:linear-gradient(135deg,rgba(237,159,21,.18),rgba(237,159,21,.05));border:1px solid rgba(237,159,21,.45);border-radius:18px;padding:16px;margin:0 0 22px;cursor:pointer;color:#fff;font:inherit;}
+.rs-home-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--orange-g);color:var(--on-orange);flex:none;}
+.rs-home-ic .ic{width:22px;height:22px;}
+.rs-home-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.rs-home-txt strong{font-size:16px;font-weight:900;}
+.rs-home-txt span{font-size:13px;color:var(--sub);}
+.rs-home-go{font-size:14px;font-weight:800;color:var(--orange);white-space:nowrap;}
+.rs-wrap{max-width:1080px;}
+.rs-steps{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.rs-step{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--sub);font:inherit;font-size:13px;font-weight:700;cursor:pointer;}
+.rs-step span{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--s2);font-size:11px;}
+.rs-step.on{border-color:rgba(237,159,21,.5);color:#fff;background:rgba(237,159,21,.12);}
+.rs-step.on span,.rs-step.done span{background:var(--orange-g);color:var(--on-orange);}
+.rs-step:disabled{opacity:.45;cursor:default;}
+.rs-sug{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:8px;font-size:14px;}
+.rs-card{min-height:110px;}
+.rs-card.on{outline:2px solid var(--orange);}
+.rs-q{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;}
+.rs-q-h{font-size:15px;font-weight:800;margin-bottom:12px;}
+.rs-q-h span{font-size:12px;color:var(--sub);font-weight:600;margin-left:6px;}
+.rs-opts{display:flex;flex-wrap:wrap;gap:8px;}
+.rs-opt{padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--sub);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;text-align:left;}
+.rs-opt.on{background:rgba(237,159,21,.14);border-color:rgba(237,159,21,.55);color:#fff;}
+.rs-link{background:none;border:none;padding:0;color:var(--orange);font:inherit;font-size:13px;font-weight:700;cursor:pointer;text-decoration:underline;}
+.rs-for{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--orange2);margin-bottom:6px;}
+.rs-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.rs-guide{background:rgba(237,159,21,.08);border:1px solid rgba(237,159,21,.3);border-radius:16px;padding:14px 18px;margin-bottom:20px;}
+.rs-guide-h{font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--orange2);margin-bottom:6px;}
+.rs-guide ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--text);line-height:1.6;}
+.rs-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start;}
+.rs-form .hub-h{margin-top:14px;}
+.rs-count{font-size:12px;color:var(--sub);font-weight:600;margin-left:6px;}
+.rs-job{border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;}
+.rs-preview{position:sticky;top:0;}
+.rs-paper{background:#fff;color:#1a1a1a;border-radius:6px;padding:36px 38px;font-family:Georgia,'Times New Roman',serif;font-size:12.5px;line-height:1.45;box-shadow:0 20px 60px rgba(0,0,0,.45);}
+.rp-name{font-family:var(--font);font-size:26px;font-weight:900;letter-spacing:-.5px;color:#111;}
+.rp-contact{font-size:12px;color:#444;margin:4px 0 14px;}
+.rp-sec{margin-top:12px;}
+.rp-h{font-family:var(--font);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#B26F00;border-bottom:1.5px solid #E7C27A;padding-bottom:3px;margin-bottom:6px;}
+.rs-paper p{margin:0 0 4px;}
+.rs-paper ul{margin:2px 0 0;padding-left:18px;}
+.rs-paper ul.rp-cols{columns:2;column-gap:24px;}
+.rp-job{margin-bottom:8px;}
+.rp-job-top{display:flex;justify-content:space-between;gap:12px;}
+.rp-job-top span{color:#555;white-space:nowrap;}
+.rp-ref{margin-top:14px;font-size:11.5px;color:#555;font-style:italic;}
+@media(max-width:860px){.rs-grid{grid-template-columns:1fr;}.rs-preview{position:static;}.rs-paper{padding:24px;}}
+@media(max-width:420px){.rs-paper ul.rp-cols{columns:1;}}
+@media print{
+  @page{margin:.5in;}
+  html,body{height:auto;overflow:visible;background:#fff;}
+  body *{visibility:hidden;}
+  #fxCanvas,#tabBar,.checkout-note{display:none!important;}
+  #rsPaper,#rsPaper *{visibility:visible;}
+  #rsPaper{position:absolute;left:0;top:0;width:100%;box-shadow:none;border-radius:0;padding:0;}
+}
 .biz-card-grid{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;}
 .biz-preview{position:relative;width:280px;height:400px;}
 .biz-preview .swipe-card{cursor:default;}
@@ -652,7 +708,8 @@ textarea{resize:vertical;min-height:90px;}
   <symbol id="i-brick" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
   <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0zM20 3v4m2-2h-4"/></symbol>
 </svg>
 
@@ -1329,10 +1386,19 @@ textarea{resize:vertical;min-height:90px;}
   <div class="hub-body"><div class="hub-wrap" id="tdBody"></div></div>
 </div>
 
+<div id="resume" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('home')">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap rs-wrap" id="rsBody"></div></div>
+</div>
+
 <nav id="tabBar" aria-label="TradeSmart sections">
   <button class="tab" data-tab="home" onclick="go('home')"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Home</button>
   <button class="tab" data-tab="swipe" onclick="go('swipeFeed')"><svg class="ic" aria-hidden="true"><use href="#i-swipe"/></svg>Swipe</button>
   <button class="tab" data-tab="trades" onclick="go('trades')"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg>Trades</button>
+  <button class="tab" data-tab="resume" onclick="openResume()"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Resume</button>
   <button class="tab" data-tab="matches" onclick="go('connections')"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg>Matches</button>
   <button class="tab" data-tab="profile" onclick="openProfile()"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Profile</button>
 </nav>
@@ -1354,6 +1420,7 @@ textarea{resize:vertical;min-height:90px;}
       <div id="pfBody"><div class="adm-empty">Loading your profile...</div></div>
       <div class="pf-actions">
         <button class="btn btn-primary btn-full" onclick="go('swipeFeed')">Keep swiping →</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="openResume()">My resume</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="go('connections')">My matches</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="qzStart()">Retake the quiz</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="signOut()">Sign out</button>
@@ -1936,6 +2003,7 @@ async function renderHome(){
         <button class="btn btn-primary btn-sm" onclick="redeemPoints()" ${pt.balance<SWAP_COST?'disabled':''}>Trade ${SWAP_COST} points for ${SWAP_SWIPES} swipes</button>
       </div>
     </div>
+    <button class="rs-home" onclick="openResume()"><span class="rs-home-ic">${ic('file')}</span><span class="rs-home-txt"><strong>Resume builder</strong><span>${ev.has('resume')?'Update your resume anytime':'Pick your trade, answer 5 questions, get a resume made for it'}</span></span><span class="rs-home-go">${ev.has('resume')?'Open':'Start'} →</span></button>
     <div class="hub-h">Earn points</div>
     <div class="earn-list">
       ${item(ev.has(today),'sparkles','Daily check-in','Open TradeSmart each day','+10')}
@@ -1943,6 +2011,7 @@ async function renderHome(){
       ${item(tradesDone>=guideCount(),'briefcase','Explore every trade',tradesDone+' of '+guideCount()+' explored','+5 each','<button class="btn btn-dark btn-sm" onclick="go(\'trades\')">Explore</button>')}
       ${item(paysDone>=payKeys.length,'cash','See you vs. college',paysDone+' of '+payKeys.length+' trades compared','+10 each','<button class="btn btn-dark btn-sm" onclick="go(\'trades\')">Compare</button>')}
       ${item(ev.has('photo'),'user','Add a profile photo','Show companies who you are','+15','<button class="btn btn-dark btn-sm" onclick="openProfile()">Add</button>')}
+      ${item(ev.has('resume'),'file','Build your resume','Made for the trade you want','+20','<button class="btn btn-dark btn-sm" onclick="openResume()">Build</button>')}
     </div>
     <div class="hub-h">Jump back in</div>
     <div class="hub-links">
@@ -2009,8 +2078,252 @@ function openTrade(i){
   const statH=document.querySelector('#tdBody .td-stats .tp-stat-h');if(statH)statH.remove();
   award('trade:'+i,'Explored '+g.name);
 }
+// ─── RESUME BUILDER ───
+// Step 1 pick a trade, step 2 a short questionnaire about what they want in it, step 3 the
+// resume itself with trade-specific skills, certifications and tips. Saved to the student's
+// account (save_my_resume) and as a draft on this device. "Download PDF" uses the print dialog.
+const RS_IDS=['electrical','plumbing','hvac','welding','carpentry','operators','laborers','cement'];
+const RS={
+ electrical:{role:'electrical apprentice',skills:['Reading blueprints and wiring diagrams','Using a multimeter','Bending and running conduit','Wire stripping and terminations','Basic math and measuring','Following the National Electrical Code','Ladder and lift safety','Hand and power tools'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['Mention any shop, electronics or physics class, and your math grades if they are good.','Hands-on projects count: wiring a shed, building a PC, fixing lamps or car stereos.','Union apprenticeships (IBEW and NECA) look for algebra and a clean drug test, so say you are ready for the aptitude test.']},
+ plumbing:{role:'plumbing apprentice',skills:['Cutting and joining pipe (PVC, PEX, copper)','Soldering and sweating copper','Reading plans and measuring accurately','Using hand and power tools','Troubleshooting leaks and clogs','Working in tight spaces','Customer communication','Jobsite safety'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['Plumbers work in customers\' homes, so show you are polite, on time and trustworthy.','Any experience fixing things around the house counts. Name what you fixed.','A valid driver\'s license matters, since you will drive to job sites.']},
+ hvac:{role:'HVAC apprentice',skills:['Basic electrical and controls','Using gauges and meters','Brazing and soldering','Reading wiring diagrams','Airflow and ductwork basics','Troubleshooting step by step','Customer service','Ladder and roof safety'],certs:['EPA Section 608 (or studying for it)','OSHA 10 Construction',"Driver's license"],tips:['The EPA 608 certification is required to handle refrigerant. Studying for it puts you ahead.','Show you can work in heat, cold, attics and on roofs.','Mention any customer-facing job. HVAC techs talk to homeowners every day.']},
+ welding:{role:'welding apprentice',skills:['MIG welding','Stick welding','TIG welding basics','Reading weld symbols and blueprints','Cutting with a torch or plasma cutter','Grinding and fitting','Measuring and layout','Shop safety and PPE'],certs:['AWS welding certification (or in progress)','OSHA 10','Forklift certification'],tips:['List every process you have run (MIG, stick, TIG) and the metals and positions.','Photos of your welds help in an interview, so bring them on your phone.','Shop class or a welding program at a career center is real experience. List it.']},
+ carpentry:{role:'carpentry apprentice',skills:['Measuring and cutting accurately','Framing walls and floors','Reading blueprints','Using saws, nail guns and drills','Installing doors, trim and cabinets','Building to level and square','Material handling','Jobsite safety'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['List things you have built: decks, sheds, furniture, sets for a school play.','Show you are comfortable with physical work outdoors in any weather.','Woodshop or construction class at school belongs under Education.']},
+ operators:{role:'equipment operator trainee',skills:['Operating heavy equipment safely','Daily equipment inspections','Reading grade stakes and signals','Basic maintenance and greasing','Spatial awareness','Hand signals and radio use','Teamwork with ground crews','Jobsite safety'],certs:['OSHA 10 Construction','Forklift or skid steer training',"Driver's license (CDL later)"],tips:['Any time on a tractor, skid steer, mower or forklift counts. Say what you ran and for how long.','A clean driving record matters. Many operators later earn a CDL.','Show you are steady and careful. Safety is the first thing they hire for.']},
+ laborers:{role:'construction laborer',skills:['Material handling and lifting','Mixing and placing concrete','Setting up scaffolding','Using hand and power tools','Site cleanup and organization','Traffic control basics','Following directions on a crew','Jobsite safety'],certs:['OSHA 10 Construction','Flagger certification','CPR and First Aid'],tips:['Show you are reliable: on time, every day. Mention perfect attendance or sports practice.','Physical jobs like landscaping, moving or farm work are great experience.','Say you are willing to learn every part of the job site.']},
+ cement:{role:'cement mason apprentice',skills:['Pouring and spreading concrete','Finishing with floats and trowels','Setting forms','Reading plans and measuring','Mixing concrete and mortar','Working with a crew under time pressure','Hand and power tools','Jobsite safety'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['Concrete waits for no one. Show you work fast and finish what you start.','Mention any flatwork, patio or sidewalk you helped pour.','Early starts are normal, so say you are a morning person if you are.']},
+ roofing:{role:'roofing apprentice',skills:['Installing shingles and underlayment','Working safely at heights','Fall protection gear','Measuring and cutting materials','Using nail guns and hand tools','Tear-off and cleanup','Teamwork on a crew','Weather awareness'],certs:['OSHA 10 Construction','Fall protection training',"Driver's license"],tips:['Comfort with heights is the first question. Say it plainly.','Summer roofing or helper work counts even if it was for family.','Show you can do hard physical work in the heat.']},
+ masonry:{role:'masonry apprentice',skills:['Laying brick and block','Mixing mortar','Using a level, line and trowel','Reading plans','Cutting brick and stone','Building to plumb and level','Lifting and material handling','Jobsite safety'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['Any patio, wall, fire pit or garden bed you built counts.','Masons take pride in neat, straight work. Say you care about details.','Show you are strong and steady for long days on your feet.']},
+ drywall:{role:'drywall apprentice',skills:['Hanging drywall sheets','Taping and mudding seams','Sanding and finishing','Measuring and cutting','Using screw guns and lifts','Working on stilts and scaffolds','Patching and repairs','Clean, careful work'],certs:['OSHA 10 Construction','CPR and First Aid',"Driver's license"],tips:['Patching holes or painting rooms at home is real experience. Name the projects.','A smooth finish takes patience. Say you are detail oriented.','Mention any painting or remodeling work you have helped with.']},
+ glazing:{role:'glazier apprentice',skills:['Measuring and cutting glass','Installing windows and storefronts','Handling glass safely','Using caulk and sealants','Reading plans','Working at heights','Power tools','Teamwork when lifting'],certs:['OSHA 10 Construction','Fall protection training',"Driver's license"],tips:['Show you are careful. Glass is heavy and unforgiving.','Any window, mirror or picture-frame work counts.','Glaziers work at heights on big buildings, so mention you are comfortable up high.']},
+ iron:{role:'ironworker apprentice',skills:['Working safely at heights','Rigging and signaling cranes','Bolting and welding steel','Tying rebar','Reading blueprints','Using torches and grinders','Teamwork on a raising crew','Fall protection'],certs:['OSHA 10 Construction','Welding experience or certification','Fall protection training'],tips:['Comfort with heights and teamwork are everything here. Say both.','Welding class experience is a big plus. List the processes.','Physical fitness matters. Sports or training show you can handle it.']},
+ elevator:{role:'elevator mechanic helper',skills:['Basic electrical and electronics','Mechanical aptitude','Reading wiring diagrams','Troubleshooting step by step','Hand and power tools','Working in tight shafts','Following strict safety rules','Customer professionalism'],certs:['OSHA 10','CPR and First Aid',"Driver's license"],tips:['This apprenticeship is competitive. Strong math and mechanical test scores help most.','List electronics, robotics or physics classes and any projects.','Show you follow procedures exactly. Safety rules here are strict.']},
+ auto:{role:'automotive technician trainee',skills:['Oil changes and tire service','Brake inspections and repair','Using scan tools and diagnostics','Hand and air tools','Reading service manuals','Basic electrical testing','Keeping a clean bay','Customer communication'],certs:['ASE student certification (or in progress)','Automotive program at a career center',"Driver's license"],tips:['List cars you have worked on: your own, family, friends. Name the repairs.','Automotive class at a career center belongs right under Education.','Owning some of your own tools is a plus. Say so.']},
+ diesel:{role:'diesel technician trainee',skills:['Preventive maintenance','Diesel engine basics','Hydraulic systems','Air brake systems','Using diagnostic software','Hand and air tools','Welding and fabrication basics','Shop safety'],certs:['ASE student certification (or in progress)','OSHA 10',"Driver's license (CDL later)"],tips:['Farm equipment, trucks, tractors and small engines all count. Name what you fixed.','Show you are not afraid to get dirty and work on big machines.','A clean driving record helps, since many shops pay for a CDL later.']},
+ machinist:{role:'machinist trainee',skills:['Reading blueprints and GD&T basics','Using calipers and micrometers','Running a lathe and mill','CNC operation basics','Shop math and measuring','Quality checks','Following setup sheets','Shop safety'],certs:['NIMS credential (or in progress)','OSHA 10','CAD or CNC class'],tips:['Precision is the job. Say you like exact, careful work.','List machine shop, CAD, robotics or 3D printing classes and projects.','Good math grades matter. Include them if they are strong.']},
+ aircraft:{role:'aviation maintenance student',skills:['Mechanical aptitude','Reading technical manuals','Hand tools and torque specs','Following checklists exactly','Basic electrical','Sheet metal and riveting basics','Attention to detail','Teamwork'],certs:['Enrolled in an FAA Part 147 program','OSHA 10',"Driver's license"],tips:['The path starts at an FAA-approved school. Say which one you plan to attend.','Show you follow checklists exactly. Lives depend on it.','Model aircraft, drones, engines and robotics all show interest.']},
+ millwright:{role:'millwright apprentice',skills:['Mechanical troubleshooting','Rigging and moving machinery','Precision measuring and alignment','Welding and cutting','Reading blueprints','Hydraulics and pneumatics basics','Hand and power tools','Plant safety'],certs:['OSHA 10','Welding experience','Forklift certification'],tips:['Factory, farm or shop experience counts. Name the machines.','Welding and machine shop classes both apply here.','Show you like figuring out how machines work and why they break.']},
+ boiler:{role:'boilermaker apprentice',skills:['Welding and cutting','Rigging and signaling','Working at heights and in tight spaces','Reading blueprints','Grinding and fitting','Lifting and material handling','Teamwork','Industrial safety'],certs:['OSHA 10','Welding certification (or in progress)','Fall protection training'],tips:['Welding experience is the strongest thing you can list.','Show you are willing to travel. Boilermakers often work at plants out of town.','Physical fitness and comfort in hot, tight spaces matter.']},
+ power:{role:'power plant operator trainee',skills:['Monitoring gauges and controls','Following procedures exactly','Basic electrical and mechanical knowledge','Computer and control-room skills','Taking readings and keeping logs','Problem solving under pressure','Teamwork across shifts','Plant safety'],certs:['OSHA 10','CPR and First Aid',"Driver's license"],tips:['Strong math and science grades help with the entry test.','Show you are calm, careful and follow procedures.','Mention you are open to shift work, nights and weekends.']},
+ culinary:{role:'line cook',skills:['Knife skills','Food safety and sanitation','Following recipes and prep lists','Working the line during a rush','Kitchen equipment','Keeping a clean station','Teamwork and communication','Time management'],certs:['ServSafe Food Handler','Culinary class or program','CPR and First Aid'],tips:['Any restaurant, catering or food job counts, even dishwashing. Kitchens promote from within.','Name dishes you can make well. Chefs like real examples.','Show you can stay calm and fast during a rush.']},
+ cosmo:{role:'cosmetology student',skills:['Cutting and styling basics','Color and product knowledge','Sanitation and safety','Customer service','Listening to what clients want','Booking and scheduling','Social media for your work','Time management'],certs:['Enrolled in a state-licensed cosmetology program','State license (after school)','CPR and First Aid'],tips:['Build a photo portfolio of your work and link it on your resume.','Customer service jobs count. Cosmetologists build clients by being friendly.','Say which state-licensed program you plan to attend.']},
+ emt:{role:'EMT student',skills:['Staying calm under pressure','CPR and basic life support','Clear communication','Teamwork','Taking vital signs (after training)','Following protocols','Physical fitness','Compassion for patients'],certs:['CPR and BLS','Enrolled in a state-approved EMT course','NREMT exam (after the course)'],tips:['Volunteer work, lifeguarding and first aid training all count.','Show you stay calm when things go wrong. Give a real example.','Many fire departments and ambulance services sponsor EMT training. Ask about it.']}
+};
+const RS_PLACES={
+ 'Building & Construction':['Homes (residential)','Offices, stores and schools (commercial)','Factories and plants (industrial)','Not sure yet'],
+ 'Mechanical & Automotive':['A repair shop or dealership','Trucks and fleets','Factories and plants','Not sure yet'],
+ 'Industrial & Energy':['Factories and plants','Construction sites','Power and utilities','Not sure yet'],
+ 'Service & Culinary':['Restaurants and hotels','My own business someday','Hospitals and public service','Not sure yet']};
+const RS_GOALS=['A paid apprenticeship','An entry-level or helper job','A summer or part-time job','A training program, then a job'];
+const RS_STARTS=['Right now','This summer','After I graduate','Not sure yet'];
+const RS_DONE={shop:'Shop or career-tech class',job:'A part-time job',sports:'Sports or a team',volunteer:'Volunteering',fix:'Fixing or building things at home',family:'Helped in a family business',projects:'My own projects (cars, builds, crafts)'};
+const RS_BULLETS={shop:['Completed hands-on projects using shop tools and safety rules','Read plans and measured carefully to finish projects on time'],
+ job:['Showed up on time for every scheduled shift','Worked with customers and coworkers to get the job done'],
+ sports:['Practiced daily and stayed committed through a full season','Worked as part of a team toward a shared goal'],
+ volunteer:['Volunteered hours helping my community','Took direction from leaders and finished assigned tasks'],
+ fix:['Fixed and maintained things around the house','Learned to troubleshoot problems step by step'],
+ family:['Helped run day-to-day work in a family business','Handled tools, materials and customers with care'],
+ projects:['Planned and finished my own hands-on projects','Taught myself new skills using manuals and videos']};
+let rs=null,rsSaveT=null;
+const RS_KEY='ts_resume_draft';
+function rsTrades(){
+  return [...Array(guideCount()).keys()].map(i=>{const g=guide(i);return g&&{i,id:i<8?RS_IDS[i]:BLS_TRADES[i-8].id,name:g.name,cat:g.cat,photo:g.photo};}).filter(Boolean);
+}
+function rsTrade(){return rs&&rsTrades().find(t=>t.id===rs.trade);}
+function rsBlank(){return {step:1,trade:null,goal:'',place:'',start:'',done:[],have:[],name:'',email:'',phone:'',city:'',school:'',grad:'',classes:'',objective:'',skills:[],certs:[],jobs:[],finished:false};}
+function rsLocal(){try{return JSON.parse(localStorage.getItem(RS_KEY)||'null');}catch(e){return null;}}
+async function openResume(){
+  go('resume');
+  const body=document.getElementById('rsBody');
+  body.innerHTML='<div class="adm-empty">Loading your resume...</div>';
+  let saved=null,stu=null;
+  if(isStudent()){
+    try{
+      const s=authSession();
+      const [r,p]=await Promise.all([api('student_resumes?select=data&limit=1'),api('students?select=name,email,phone,school,grade,city&user_id=eq.'+encodeURIComponent(s.user.id))]);
+      saved=r&&r[0]&&r[0].data;stu=p&&p[0];
+    }catch(e){if(e.message==='signed_out'){openLogin('student');return;}}
+  }
+  rs=Object.assign(rsBlank(),saved||rsLocal()||{});
+  // Fill contact details from the student's profile the first time
+  if(stu){
+    if(!rs.name)rs.name=stu.name||'';if(!rs.email)rs.email=stu.email||'';if(!rs.phone)rs.phone=stu.phone||'';
+    if(!rs.city)rs.city=stu.city||'';if(!rs.school)rs.school=stu.school||'';if(!rs.grad)rs.grad=gradYear(stu.grade);
+  }
+  if(!rs.trade){const qb=getState().quizResult;if(qb&&TRADES[qb.best])rs.suggest=RS_IDS[GUIDE_KEYS.indexOf(qb.best)];}
+  rsRender();
+}
+// "11th Grade" -> expected graduation year, school year ending in June
+function gradYear(grade){
+  const n=parseInt(grade,10);if(!(n>=9&&n<=12))return '';
+  const d=new Date(),endYear=d.getMonth()>=6?d.getFullYear()+1:d.getFullYear();
+  return String(endYear+(12-n));
+}
+function rsSave(now){
+  if(!rs)return;
+  try{localStorage.setItem(RS_KEY,JSON.stringify(rs));}catch(e){}
+  clearTimeout(rsSaveT);
+  const push=async()=>{
+    const el=document.getElementById('rsSaved');
+    if(!isStudent()){if(el)el.textContent='Saved on this device';return;}
+    try{
+      const {suggest,...data}=rs;
+      const ok=await api('rpc/save_my_resume',{method:'POST',body:JSON.stringify({p_data:data})});
+      if(el)el.textContent=ok?'Saved to your account':'Could not save. Your draft is kept on this device.';
+    }catch(e){if(el)el.textContent='Could not save. Your draft is kept on this device.';}
+  };
+  if(now)return push();
+  rsSaveT=setTimeout(push,900);
+}
+function rsStep(n){rs.step=n;rsSave();rsRender();document.querySelector('#resume .hub-body').scrollTop=0;}
+function rsPickTrade(id){
+  const changed=rs.trade!==id;
+  rs.trade=id;
+  if(changed){rs.place='';rs.skills=[];rs.certs=[];rs.objective='';}
+  rsStep(2);
+}
+function rsChoose(field,val,btn){
+  if(Array.isArray(rs[field])){
+    const i=rs[field].indexOf(val);i<0?rs[field].push(val):rs[field].splice(i,1);
+    btn.classList.toggle('on',i<0);btn.setAttribute('aria-pressed',String(i<0));
+  }else{
+    rs[field]=val;
+    btn.parentElement.querySelectorAll('.rs-opt').forEach(b=>{b.classList.toggle('on',b===btn);b.setAttribute('aria-pressed',String(b===btn));});
+  }
+  rsSave();
+}
+function rsObjective(){
+  const t=rsTrade(),d=RS[rs.trade];if(!t||!d)return '';
+  const goal={'A paid apprenticeship':'a paid '+d.role.replace(/ (apprentice|trainee|helper|student)$/,'')+' apprenticeship','An entry-level or helper job':'an entry-level job as a '+d.role,'A summer or part-time job':'a summer or part-time job as a '+d.role,'A training program, then a job':'a spot in a training program on the way to a career as a '+d.role.replace(/ (apprentice|trainee|helper|student)$/,'')}[rs.goal]||('a position as a '+d.role);
+  const where=rs.place&&rs.place!=='Not sure yet'?' working in '+rs.place.replace(/ \(.*\)$/,'').toLowerCase():'';
+  const when={'Right now':'Available to start now.','This summer':'Available to start this summer.','After I graduate':'Available to start after graduation'+(rs.grad?' in '+rs.grad:'')+'.'}[rs.start]||'';
+  return `Hardworking student looking for ${goal}${where}. Ready to learn the trade, show up every day and work safely. ${when}`.trim();
+}
+// Questionnaire answers turn into a starting resume; the student edits from there
+function rsBuild(){
+  const d=RS[rs.trade];
+  if(!rs.objective)rs.objective=rsObjective();
+  if(!rs.skills.length)rs.skills=d.skills.slice(0,5);
+  const haveCerts={osha:'OSHA 10 Construction',cpr:'CPR and First Aid',license:"Driver's license"};
+  rs.have.forEach(h=>{const c=haveCerts[h];if(c&&!rs.certs.includes(c))rs.certs.push(c);});
+  if(!rs.jobs.length)rs.jobs=rs.done.filter(k=>k!=='shop').slice(0,2).map(k=>({title:RS_DONE[k],place:'',dates:'',bullets:RS_BULLETS[k].join('\n')}));
+  if(rs.done.includes('shop')&&!rs.classes)rs.classes='Shop / career-tech class';
+  if(rs.have.includes('tools')&&!rs.skills.includes('Own basic hand tools'))rs.skills.push('Own basic hand tools');
+  if(rs.have.includes('ride')&&!rs.skills.includes('Reliable transportation'))rs.skills.push('Reliable transportation');
+  rsStep(3);
+}
+function rsRender(){
+  const body=document.getElementById('rsBody');
+  const steps=['Pick a trade','About you','Your resume'];
+  const bar=`<div class="rs-steps">${steps.map((s,k)=>`<button class="rs-step${rs.step===k+1?' on':''}${rs.step>k+1?' done':''}" ${k+1>rsMaxStep()?'disabled':''} onclick="rsStep(${k+1})"><span>${k+1}</span>${s}</button>`).join('')}</div>`;
+  if(rs.step===1||!rs.trade){
+    const all=rsTrades(),cats=['Building & Construction','Mechanical & Automotive','Industrial & Energy','Service & Culinary'];
+    const sug=rs.suggest&&all.find(t=>t.id===rs.suggest);
+    body.innerHTML=`${bar}
+      <div class="hub-hello">Build your resume</div>
+      <div class="hub-sub">Pick the trade you want to work in. Your resume, skills and tips are built for that trade.</div>
+      ${sug?`<div class="rs-sug">Your quiz match is <strong>${esc(sug.name)}</strong>. <button class="btn btn-primary btn-sm" onclick="rsPickTrade('${sug.id}')">Use ${esc(sug.name)}</button></div>`:''}
+      <div class="tg-grid">${cats.map(c=>{const list=all.filter(t=>t.cat===c);return list.length?`<div class="tg-cat">${esc(c)} <span>${list.length}</span></div>`+list.map(t=>`
+        <button class="tg-card rs-card${rs.trade===t.id?' on':''}" style="background-image:${photoUrl(t.photo,500)}" onclick="rsPickTrade('${t.id}')">
+          ${rs.trade===t.id?`<span class="tg-badge done">${ic('check')} Picked</span>`:''}<div class="tg-name">${esc(t.name)}</div></button>`).join(''):'';}).join('')}</div>`;
+    return;
+  }
+  const t=rsTrade(),d=RS[rs.trade];
+  if(rs.step===2){
+    const opts=(field,list)=>list.map(v=>`<button class="rs-opt${(Array.isArray(rs[field])?rs[field].includes(v):rs[field]===v)?' on':''}" aria-pressed="${Array.isArray(rs[field])?rs[field].includes(v):rs[field]===v}" data-v="${esc(v)}" onclick="rsChoose('${field}',this.dataset.v,this)">${esc(v)}</button>`).join('');
+    const kopts=(field,map)=>Object.entries(map).map(([k,v])=>`<button class="rs-opt${rs[field].includes(k)?' on':''}" aria-pressed="${rs[field].includes(k)}" onclick="rsChoose('${field}','${k}',this)">${esc(v)}</button>`).join('');
+    const HAVE={license:"A driver's license",ride:'Reliable transportation',tools:'My own basic tools',osha:'OSHA 10 card',cpr:'CPR or First Aid'};
+    body.innerHTML=`${bar}
+      <div class="hub-hello">${esc(t.name)}</div>
+      <div class="hub-sub">Five quick questions. Your answers write the first draft of your resume. <button class="rs-link" onclick="rsStep(1)">Change trade</button></div>
+      <div class="rs-q"><div class="rs-q-h">1. What are you looking for first?</div><div class="rs-opts">${opts('goal',RS_GOALS)}</div></div>
+      <div class="rs-q"><div class="rs-q-h">2. Where would you like to work?</div><div class="rs-opts">${opts('place',RS_PLACES[t.cat]||RS_PLACES['Building & Construction'])}</div></div>
+      <div class="rs-q"><div class="rs-q-h">3. When can you start?</div><div class="rs-opts">${opts('start',RS_STARTS)}</div></div>
+      <div class="rs-q"><div class="rs-q-h">4. What have you already done? <span>Pick all that fit</span></div><div class="rs-opts">${kopts('done',RS_DONE)}</div></div>
+      <div class="rs-q"><div class="rs-q-h">5. Which of these do you have? <span>Pick all that fit</span></div><div class="rs-opts">${kopts('have',HAVE)}</div></div>
+      <button class="btn btn-primary btn-full" onclick="if(!rs.goal){showCheckoutNote('Pick what you are looking for first (question 1).');return;}rsBuild()">Build my resume →</button>`;
+    return;
+  }
+  // Step 3: editor + live preview + trade guide
+  const inp=(id,label,val,ph,type)=>`<div class="fg"><label for="rs_${id}">${label}</label><input type="${type||'text'}" id="rs_${id}" value="${esc(val||'')}" placeholder="${esc(ph||'')}" maxlength="120" oninput="rsField('${id}',this.value)"></div>`;
+  const skillList=[...new Set(d.skills.concat(rs.skills))];
+  const certList=[...new Set(d.certs.concat(['OSHA 10 Construction','CPR and First Aid',"Driver's license"],rs.certs))];
+  body.innerHTML=`${bar}
+    <div class="rs-top"><div><div class="hub-hello">Your resume</div><div class="rs-for">${ic('briefcase')} ${esc(t.name)}</div><div class="hub-sub" style="margin-bottom:0"><span id="rsSaved">Saves as you type</span> · <button class="rs-link" onclick="rsStep(2)">Change answers</button></div></div>
+      <div class="rs-actions"><button class="btn btn-primary btn-sm" onclick="rsPrint()">Download PDF</button></div></div>
+    <div class="rs-guide">
+      <div class="rs-guide-h">${ic('sparkles')} What ${esc(t.name.toLowerCase())} employers look for</div>
+      <ul>${d.tips.map(x=>`<li>${esc(x)}</li>`).join('')}<li>Keep it to one page. Use a school or personal email that sounds professional.</li></ul>
+    </div>
+    <div class="rs-grid">
+      <div class="rs-form">
+        <div class="hub-h">Contact</div>
+        ${inp('name','Full name',rs.name,'First and last name')}
+        <div class="row">${inp('phone','Phone',rs.phone,'(555) 555-5555','tel')}${inp('email','Email',rs.email,'you@example.com','email')}</div>
+        ${inp('city','City and state',rs.city,'Detroit, MI')}
+        <div class="hub-h">Objective</div>
+        <div class="fg"><textarea id="rs_objective" rows="4" maxlength="400" oninput="rsField('objective',this.value)">${esc(rs.objective)}</textarea>
+          <button class="rs-link" style="align-self:flex-start" onclick="rs.objective=rsObjective();rsSave();rsRender()">Rewrite from my answers</button></div>
+        <div class="hub-h">Skills <span class="rs-count">${rs.skills.length} picked</span></div>
+        <div class="rs-opts">${skillList.map(s=>`<button class="rs-opt${rs.skills.includes(s)?' on':''}" aria-pressed="${rs.skills.includes(s)}" data-v="${esc(s)}" onclick="rsChoose('skills',this.dataset.v,this);rsPaper()">${esc(s)}</button>`).join('')}</div>
+        <div class="row" style="margin-top:10px"><div class="fg"><input type="text" id="rs_newskill" maxlength="60" placeholder="Add your own skill" onkeydown="if(event.key==='Enter')rsAddSkill()"></div><button class="btn btn-dark btn-sm" style="align-self:flex-start" onclick="rsAddSkill()">Add</button></div>
+        <div class="hub-h">Experience</div>
+        <div class="adm-money-note" style="margin-bottom:10px">Jobs, sports, volunteering and projects all count. One line per thing you did.</div>
+        ${rs.jobs.map((j,k)=>`<div class="rs-job">
+          <div class="row">${['title','place'].map(f=>`<div class="fg"><label>${f==='title'?'What':'Where'}</label><input type="text" maxlength="80" value="${esc(j[f]||'')}" placeholder="${f==='title'?'Crew member':'Company or team'}" oninput="rsJob(${k},'${f}',this.value)"></div>`).join('')}</div>
+          <div class="fg"><label>When</label><input type="text" maxlength="40" value="${esc(j.dates||'')}" placeholder="June 2025 to now" oninput="rsJob(${k},'dates',this.value)"></div>
+          <div class="fg"><label>What you did</label><textarea rows="3" maxlength="500" oninput="rsJob(${k},'bullets',this.value)">${esc(j.bullets||'')}</textarea></div>
+          <button class="rs-link" onclick="rs.jobs.splice(${k},1);rsSave();rsRender()">Remove</button></div>`).join('')}
+        ${rs.jobs.length<4?'<button class="btn btn-dark btn-sm" onclick="rs.jobs.push({title:\'\',place:\'\',dates:\'\',bullets:\'\'});rsSave();rsRender()">+ Add experience</button>':''}
+        <div class="hub-h" style="margin-top:20px">Education</div>
+        <div class="row">${inp('school','High school',rs.school,'Your high school')}${inp('grad','Graduation year',rs.grad,'2027')}</div>
+        ${inp('classes','Classes that fit this trade',rs.classes,'Shop, algebra, physics')}
+        <div class="hub-h">Certifications and licenses</div>
+        <div class="adm-money-note" style="margin-bottom:10px">Only pick what you have or are working on. Add "(in progress)" in your own words if you are still studying.</div>
+        <div class="rs-opts">${certList.map(s=>`<button class="rs-opt${rs.certs.includes(s)?' on':''}" aria-pressed="${rs.certs.includes(s)}" data-v="${esc(s)}" onclick="rsChoose('certs',this.dataset.v,this);rsPaper()">${esc(s)}</button>`).join('')}</div>
+        <button class="btn btn-primary btn-full" style="margin-top:22px" onclick="rsFinish()">I'm done · Download PDF</button>
+      </div>
+      <div class="rs-preview"><div class="rs-paper" id="rsPaper"></div></div>
+    </div>`;
+  rsPaper();
+}
+// Furthest step the student can jump to
+function rsMaxStep(){return !rs.trade?1:rs.goal&&rs.objective?3:2;}
+function rsField(id,v){rs[id]=v;rsSave();rsPaper();}
+function rsJob(k,f,v){rs.jobs[k][f]=v;rsSave();rsPaper();}
+function rsAddSkill(){
+  const el=document.getElementById('rs_newskill'),v=el.value.trim();
+  if(!v)return;if(!rs.skills.includes(v))rs.skills.push(v);rsSave();rsRender();
+}
+function rsPaper(){
+  const el=document.getElementById('rsPaper');if(!el||!rs)return;
+  const contact=[rs.phone,rs.email,rs.city].filter(Boolean).map(esc).join(' &nbsp;|&nbsp; ');
+  const sec=(h,html)=>html?`<div class="rp-sec"><div class="rp-h">${h}</div>${html}</div>`:'';
+  const lines=s=>String(s||'').split('\n').map(x=>x.trim().replace(/^[-•*]\s*/,'')).filter(Boolean);
+  el.innerHTML=`
+    <div class="rp-name">${esc(rs.name||'Your Name')}</div>
+    ${contact?`<div class="rp-contact">${contact}</div>`:''}
+    ${sec('Objective',rs.objective?`<p>${esc(rs.objective)}</p>`:'')}
+    ${sec('Skills',rs.skills.length?`<ul class="rp-cols">${rs.skills.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:'')}
+    ${sec('Experience',rs.jobs.filter(j=>j.title||j.place||j.bullets).map(j=>`<div class="rp-job"><div class="rp-job-top"><strong>${esc(j.title||'')}</strong>${j.place?', '+esc(j.place):''}<span>${esc(j.dates||'')}</span></div>${lines(j.bullets).length?`<ul>${lines(j.bullets).map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`:''}</div>`).join(''))}
+    ${sec('Education',rs.school||rs.grad||rs.classes?`<div class="rp-job-top"><strong>${esc(rs.school||'High school')}</strong><span>${rs.grad?'Class of '+esc(rs.grad):''}</span></div>${rs.classes?`<p>Related classes: ${esc(rs.classes)}</p>`:''}`:'')}
+    ${sec('Certifications and Licenses',rs.certs.length?`<ul>${rs.certs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:'')}
+    <div class="rp-ref">References available on request.</div>`;
+}
+async function rsFinish(){
+  if(!rs.name.trim()||!(rs.phone.trim()||rs.email.trim())){showCheckoutNote('Add your name and a phone number or email first.');return;}
+  rs.finished=true;await rsSave(true);
+  if(isStudent())award('resume','Built your resume');
+  rsPrint();
+}
+function rsPrint(){
+  const prev=document.title;document.title=(rs.name||'Resume').replace(/[^\w ]/g,'')+' Resume';
+  window.print();
+  setTimeout(()=>{document.title=prev;},500);
+}
+
 // Bottom tabs for signed-in students
-const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
+const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',resume:'resume',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
 function updateTabBar(screenId){
   const show=isStudent()&&TAB_FOR[screenId]!==undefined;
   document.body.classList.toggle('has-tabs',show);
