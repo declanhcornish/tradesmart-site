@@ -568,6 +568,51 @@ textarea{resize:vertical;min-height:90px;}
 .adm-pill{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .adm-pill.pending{background:rgba(237,159,21,.12);color:var(--orange);border:1px solid rgba(237,159,21,.35);}
 .adm-pill.approved{background:rgba(0,209,102,.12);color:var(--green);border:1px solid rgba(0,209,102,.35);}
+.legal-text{font-size:15px;line-height:1.7;color:var(--text);}
+.legal-text h2{font-size:20px;font-weight:900;margin:24px 0 8px;}
+.legal-text h3{font-size:16px;font-weight:800;margin:18px 0 6px;}
+.legal-text p{margin:0 0 12px;}
+.legal-text ul{margin:0 0 12px;padding-left:20px;}
+.terms-row{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--sub);line-height:1.5;margin:6px 0 10px;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:500;}
+.terms-row input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--orange);}
+.terms-row a{color:var(--orange);}
+.pg-text{width:100%;font:inherit;font-size:14px;line-height:1.5;}
+.biz-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.biz-stats .admin-stat{padding:14px;}
+.biz-stats .admin-stat-num{font-size:24px;}
+.msg-iv{padding:0 16px;}
+.msg-iv:empty{display:none;}
+.iv-card{background:var(--s1);border:1px solid rgba(237,159,21,.45);border-radius:14px;padding:14px;margin:10px 0 0;}
+.iv-card.ok{border-color:rgba(0,209,102,.45);}
+.iv-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;margin-bottom:8px;}
+.iv-card.ok .iv-h{color:var(--green);}
+.iv-when{font-size:18px;font-weight:900;margin-bottom:4px;}
+.iv-line{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--text);margin:3px 0;}
+.iv-note{font-size:13px;color:var(--sub);margin-top:6px;}
+.iv-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+.iv-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.iv-in{width:100%;margin-bottom:8px;}
+.iv-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 0 0;font-size:13px;color:var(--sub);}
+.cs-grid{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start;}
+.cs-code{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:rgba(237,159,21,.08);border:1px solid rgba(237,159,21,.35);border-radius:16px;padding:16px 18px;margin-bottom:16px;}
+.cs-code-num{font-size:34px;font-weight:900;letter-spacing:.12em;color:var(--orange2);font-variant-numeric:tabular-nums;}
+.cs-code-help{flex:1;min-width:220px;font-size:13.5px;color:var(--sub);line-height:1.5;}
+.pf-cs{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:16px;margin-top:16px;font-size:14px;}
+.ap-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:14.5px;line-height:1.6;}
+.ap-step>span{width:24px;height:24px;border-radius:50%;background:var(--orange-g);color:var(--on-orange);display:grid;place-items:center;font-size:12px;font-weight:900;flex:none;margin-top:1px;}
+.ap-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:8px;border:1.5px solid rgba(237,159,21,.5);background:rgba(237,159,21,.12);color:#fff;font:inherit;font-weight:800;cursor:pointer;}
+.ap-chip .ic{width:14px;height:14px;color:var(--orange);}
+.ap-list{margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:var(--text);}
+.ap-list a{color:var(--orange);}
+.prep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.prep-grid .adm-sec-h{display:flex;align-items:center;gap:8px;}
+.pq-list{display:flex;flex-direction:column;gap:8px;}
+.pq{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.pq summary{font-weight:800;font-size:15px;cursor:pointer;}
+.pq div{margin-top:8px;font-size:14px;color:var(--sub);line-height:1.6;}
+.pq[open]{border-color:rgba(237,159,21,.45);}
+.cs-stats{grid-template-columns:repeat(4,1fr);}
+@media(max-width:760px){.cs-grid,.prep-grid{grid-template-columns:1fr;}.biz-stats{grid-template-columns:repeat(2,1fr);}}
 .rs-home{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:linear-gradient(135deg,rgba(237,159,21,.18),rgba(237,159,21,.05));border:1px solid rgba(237,159,21,.45);border-radius:18px;padding:16px;margin:0 0 22px;cursor:pointer;color:#fff;font:inherit;}
 .rs-home-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--orange-g);color:var(--on-orange);flex:none;}
 .rs-home-ic .ic{width:22px;height:22px;}
@@ -1011,6 +1056,9 @@ textarea{resize:vertical;min-height:90px;}
       <a href="#" onclick="openLogin('student');return false">Student Login</a>
       <a href="#" onclick="openLogin('business');return false">Business Login</a>
       <a href="#" onclick="go('companyApply');return false">For Businesses</a>
+      <a href="#" onclick="go('counselor');return false">For Counselors</a>
+      <a href="#" onclick="openLegal('privacy');return false">Privacy</a>
+      <a href="#" onclick="openLegal('terms');return false">Terms</a>
     </div>
   </div>
   <div class="lnd-admin"><a href="#" onclick="go('adminLogin');return false">Admin</a></div>
@@ -1139,6 +1187,7 @@ textarea{resize:vertical;min-height:90px;}
       <div class="fg"><label>Home ZIP Code</label><input type="text" id="setupZip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="48201" autocomplete="postal-code"></div>
       <div class="fg"><label>Why are you interested in trades?</label><textarea id="setupWhy" placeholder="Tell companies a little about yourself..."></textarea></div>
       <div class="setup-privacy" style="font-size:13px;color:var(--sub);line-height:1.5;margin:4px 0 8px">Companies see your first name, grade, city, quiz result and what you write above. Your email, phone, school and ZIP code stay private. Your ZIP is only used to show you companies hiring near you.</div>
+      <div data-terms="setupTerms"></div>
       <button class="btn btn-primary btn-full" id="setupBtn" onclick="submitSetup()" style="margin-top:8px">Start Swiping →</button>
       <div class="login-note" id="setupNote"></div>
     </div>
@@ -1224,6 +1273,7 @@ textarea{resize:vertical;min-height:90px;}
       <div class="msg-header-status" id="msgStatus"></div>
     </div>
   </div>
+  <div class="msg-iv" id="msgInterview"></div>
   <div class="msg-list" id="msgList"></div>
   <div class="msg-input-wrap">
     <input class="msg-input" id="msgInput" type="text" maxlength="2000" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendMessage()">
@@ -1321,6 +1371,7 @@ textarea{resize:vertical;min-height:90px;}
       <div class="fg"><label>Starting Pay for Apprentices</label><input type="text" id="a_pay" placeholder="$18–$24/hr"></div>
       <div class="fg"><label>Card Text for Students (optional)</label><input type="text" id="a_desc" maxlength="200" placeholder="Residential and commercial wiring, apprentices start on real jobs"></div>
       <div class="fg"><label>Why do you want to hire young workers?</label><textarea id="a_why" placeholder="Tell us what makes your company a great place to start a trade career..."></textarea></div>
+      <div data-terms="applyTerms"></div>
       <div style="display:flex;gap:12px;margin-top:8px">
         <button class="btn btn-primary btn-full" id="applyBtn" onclick="submitApplication()">Submit Application →</button>
       </div>
@@ -1386,6 +1437,38 @@ textarea{resize:vertical;min-height:90px;}
   <div class="hub-body"><div class="hub-wrap" id="tdBody"></div></div>
 </div>
 
+<div id="legal" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go(legalBack)">← Back</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="legalBody"></div></div>
+</div>
+
+<div id="counselor" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="goHome()">Home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="csBody" style="max-width:980px"></div></div>
+</div>
+
+<div id="appr" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="isStudent()?go('home'):goHome()">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="apprBody"></div></div>
+</div>
+
+<div id="prep" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="isStudent()?go('home'):goHome()">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="prepBody"></div></div>
+</div>
+
 <div id="resume" class="screen">
   <div class="top-nav">
     <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
@@ -1418,9 +1501,12 @@ textarea{resize:vertical;min-height:90px;}
         <span class="pf-photo-note" id="pfPhotoNote"></span>
       </div>
       <div id="pfBody"><div class="adm-empty">Loading your profile...</div></div>
+      <div id="pfCounselor"></div>
       <div class="pf-actions">
         <button class="btn btn-primary btn-full" onclick="go('swipeFeed')">Keep swiping →</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="openResume()">My resume</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="go('prep')">Interview prep</button>
+        <button class="btn btn-dark btn-full btn-sm" onclick="go('appr')">Find apprenticeships</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="go('connections')">My matches</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="qzStart()">Retake the quiz</button>
         <button class="btn btn-dark btn-full btn-sm" onclick="signOut()">Sign out</button>
@@ -1489,7 +1575,9 @@ textarea{resize:vertical;min-height:90px;}
         <div class="adm-tabs" role="tablist">
           <button class="adm-tab on" id="admTabBiz" role="tab" onclick="admTab('biz')">Businesses</button>
           <button class="adm-tab" id="admTabStu" role="tab" onclick="admTab('stu')">Students</button>
+          <button class="adm-tab" id="admTabCoun" role="tab" onclick="admTab('coun')">Counselors</button>
           <button class="adm-tab" id="admTabMoney" role="tab" onclick="admTab('money')">Money</button>
+          <button class="adm-tab" id="admTabPages" role="tab" onclick="admTab('pages')">Privacy and Terms</button>
         </div>
         <div class="adm-tools" id="admTools">
           <input type="search" id="admSearch" placeholder="Search name, email, city, trade..." oninput="renderAdminList()">
@@ -1503,6 +1591,7 @@ textarea{resize:vertical;min-height:90px;}
         </div>
         <div id="admList"></div>
         <div id="admMoney" style="display:none"></div>
+        <div id="admPages" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -1722,6 +1811,8 @@ async function loadAccount(force){
   if(!s){acct=null;return null;}
   const stu=await api('students?select=id,name,zip&user_id=eq.'+encodeURIComponent(s.user.id));
   if(stu&&stu.length){acct={role:'student',student:stu[0]};return acct;}
+  const cs=await api('rpc/my_counselor',{method:'POST',body:'{}'});
+  if(cs){acct={role:'counselor',counselor:cs};return acct;}
   const bid=await api('rpc/my_business_id',{method:'POST',body:'{}'});
   if(bid){
     const b=await api('business_applications?select=id,business_name,email,trade,city,zip,hire_radius_miles,starting_pay,description,plan,plan_status,paid_at,photo_path&id=eq.'+encodeURIComponent(bid));
@@ -1804,9 +1895,9 @@ async function refreshNav(){
   if(!out||!inn)return;
   let a=null;
   if(authSession()&&backendReady()){try{a=await loadAccount();}catch(e){a=acct;}}
-  const name=a&&a.role==='student'?String(a.student.name||'').split(' ')[0]:a&&a.role==='business'?a.business.business_name:adminSession()?'Admin':'';
+  const name=a&&a.role==='student'?String(a.student.name||'').split(' ')[0]:a&&a.role==='business'?a.business.business_name:a&&a.role==='counselor'?String(a.counselor.name||'').split(' ')[0]:adminSession()?'Admin':'';
   if(!name){out.style.display='';inn.style.display='none';navTarget=null;return;}
-  navTarget=a&&a.role==='student'?'student':a&&a.role==='business'?'business':'admin';
+  navTarget=a&&a.role==='student'?'student':a&&a.role==='business'?'business':a&&a.role==='counselor'?'counselor':'admin';
   document.getElementById('navName').textContent=name;
   document.getElementById('navAv').textContent=name.charAt(0).toUpperCase();
   if(navTarget==='student')loadAvatar().then(u=>{if(u)paintAvatar(document.getElementById('navAv'),name,u);}).catch(()=>{});
@@ -1814,8 +1905,9 @@ async function refreshNav(){
   out.style.display='none';inn.style.display='';
 }
 function goAccountHome(){
-  const t=navTarget||(acct&&acct.role==='student'?'student':acct&&acct.role==='business'?'business':null);
+  const t=navTarget||(acct&&acct.role==='student'?'student':acct&&acct.role==='business'?'business':acct&&acct.role==='counselor'?'counselor':null);
   if(t==='student')go('home');
+  else if(t==='counselor')go('counselor');
   else if(t==='business')go('bizHome');
   else if(t==='admin')go('admin');
   else{setAuthSession(null);openLogin('student');}
@@ -1823,6 +1915,7 @@ function goAccountHome(){
 async function openProfile(){
   if(navTarget==='business'){go('bizHome');return;}
   if(navTarget==='admin'){go('admin');return;}
+  if(navTarget==='counselor'){go('counselor');return;}
   go('profile');
   const s=authSession();
   document.getElementById('pfEmail').textContent=s&&s.user?s.user.email:'';
@@ -1836,6 +1929,7 @@ async function openProfile(){
     loadAvatar().then(()=>paintAllAvatars()).catch(()=>{});
     const row=(k,v)=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--muted)">Not given</span>'}</dd>`;
     document.getElementById('pfBody').innerHTML='<dl class="adm-dl">'+row('Best trade match',p.quiz_best)+row('School',p.school)+row('Grade',p.grade)+row('City',p.city)+row('ZIP code',p.zip)+'</dl>';
+    renderPfCounselor();
   }catch(e){
     if(e.message==='signed_out'){acct=null;refreshNav();openLogin('student');return;}
     document.getElementById('pfBody').innerHTML='<div class="adm-empty">Could not load your profile. Check your connection.</div>';
@@ -2018,6 +2112,9 @@ async function renderHome(){
       <button class="hub-link" onclick="go('swipeFeed')">${ic('swipe')}Swipe companies</button>
       <button class="hub-link" onclick="go('trades')">${ic('briefcase')}Explore trades</button>
       <button class="hub-link" onclick="go('connections')">${ic('message')}My matches</button>
+      <button class="hub-link" onclick="go('appr')">${ic('map')}Find apprenticeships</button>
+      <button class="hub-link" onclick="go('prep')">${ic('target')}Interview prep</button>
+      <button class="hub-link" onclick="openResume()">${ic('file')}My resume</button>
     </div>`;
   countPts(document.getElementById('ptsNum'),pt.balance);
   requestAnimationFrame(()=>{const b=document.getElementById('ptsBar');if(b)b.style.width=pct+'%';});
@@ -2250,7 +2347,7 @@ function rsRender(){
   const certList=[...new Set(d.certs.concat(['OSHA 10 Construction','CPR and First Aid',"Driver's license"],rs.certs))];
   body.innerHTML=`${bar}
     <div class="rs-top"><div><div class="hub-hello">Your resume</div><div class="rs-for">${ic('briefcase')} ${esc(t.name)}</div><div class="hub-sub" style="margin-bottom:0"><span id="rsSaved">Saves as you type</span> · <button class="rs-link" onclick="rsStep(2)">Change answers</button></div></div>
-      <div class="rs-actions"><button class="btn btn-primary btn-sm" onclick="rsPrint()">Download PDF</button></div></div>
+      <div class="rs-actions"><button class="btn btn-dark btn-sm" onclick="prepTrade=rs.trade;go('prep')">Interview prep</button><button class="btn btn-dark btn-sm" onclick="apprTrade=rs.trade;go('appr')">Find apprenticeships</button><button class="btn btn-primary btn-sm" onclick="rsPrint()">Download PDF</button></div></div>
     <div class="rs-guide">
       <div class="rs-guide-h">${ic('sparkles')} What ${esc(t.name.toLowerCase())} employers look for</div>
       <ul>${d.tips.map(x=>`<li>${esc(x)}</li>`).join('')}<li>Keep it to one page. Use a school or personal email that sounds professional.</li></ul>
@@ -2297,10 +2394,14 @@ function rsAddSkill(){
 }
 function rsPaper(){
   const el=document.getElementById('rsPaper');if(!el||!rs)return;
+  el.innerHTML=rsPaperHTML(rs);
+}
+// Resume page HTML for any saved resume (also used on the counselor dashboard)
+function rsPaperHTML(rs){
   const contact=[rs.phone,rs.email,rs.city].filter(Boolean).map(esc).join(' &nbsp;|&nbsp; ');
   const sec=(h,html)=>html?`<div class="rp-sec"><div class="rp-h">${h}</div>${html}</div>`:'';
   const lines=s=>String(s||'').split('\n').map(x=>x.trim().replace(/^[-•*]\s*/,'')).filter(Boolean);
-  el.innerHTML=`
+  return `
     <div class="rp-name">${esc(rs.name||'Your Name')}</div>
     ${contact?`<div class="rp-contact">${contact}</div>`:''}
     ${sec('Objective',rs.objective?`<p>${esc(rs.objective)}</p>`:'')}
@@ -2322,8 +2423,411 @@ function rsPrint(){
   setTimeout(()=>{document.title=prev;},500);
 }
 
+// ─── PRIVACY POLICY AND TERMS (text in site_pages, entered by an admin in the dashboard) ───
+let sitePages=null,legalBack='landing';
+const LEGAL_NAMES={privacy:'Privacy Policy',terms:'Terms of Service'};
+async function loadSitePages(force){
+  if(sitePages&&!force)return sitePages;
+  if(!backendReady())return sitePages={};
+  try{const rows=await publicApi('site_pages?select=slug,body,updated_at');sitePages={};(rows||[]).forEach(r=>{sitePages[r.slug]=r;});}
+  catch(e){sitePages=sitePages||{};}
+  return sitePages;
+}
+// The agree checkbox appears on sign-up forms only once both pages have text
+function termsReady(){return !!(sitePages&&['privacy','terms'].every(k=>sitePages[k]&&String(sitePages[k].body||'').trim()));}
+function paintTermsBoxes(){
+  document.querySelectorAll('[data-terms]').forEach(el=>{
+    el.innerHTML=termsReady()?`<label class="terms-row"><input type="checkbox" id="${el.dataset.terms}"> <span>I agree to the <a href="#" onclick="openLegal('terms');return false">Terms of Service</a> and <a href="#" onclick="openLegal('privacy');return false">Privacy Policy</a>.</span></label>`:'';
+  });
+}
+function termsOk(id){
+  if(!termsReady())return true;
+  const c=document.getElementById(id);if(c&&c.checked)return true;
+  alert('Please agree to the Terms of Service and Privacy Policy.');return false;
+}
+// Plain text to HTML: blank lines split paragraphs, "# " and "## " are headings, "- " lines are bullets
+function legalHTML(t){
+  return String(t).replace(/\r/g,'').split(/\n\s*\n/).map(b=>{
+    const lines=b.split('\n').filter(l=>l.trim());
+    if(!lines.length)return '';
+    if(lines.every(l=>/^\s*-\s+/.test(l)))return '<ul>'+lines.map(l=>'<li>'+esc(l.replace(/^\s*-\s+/,''))+'</li>').join('')+'</ul>';
+    if(/^##\s+/.test(lines[0])&&lines.length===1)return '<h3>'+esc(lines[0].replace(/^##\s+/,''))+'</h3>';
+    if(/^#\s+/.test(lines[0])&&lines.length===1)return '<h2>'+esc(lines[0].replace(/^#\s+/,''))+'</h2>';
+    return '<p>'+lines.map(esc).join('<br>')+'</p>';
+  }).join('');
+}
+async function openLegal(slug){
+  const cur=document.querySelector('.screen.active');
+  if(cur&&cur.id!=='legal')legalBack=cur.id;
+  go('legal');
+  const el=document.getElementById('legalBody');
+  el.innerHTML='<div class="adm-empty">Loading...</div>';
+  const p=(await loadSitePages(true))[slug],body=p&&String(p.body||'').trim();
+  el.innerHTML=`<div class="hub-hello">${LEGAL_NAMES[slug]}</div>`+(body
+    ?`<div class="hub-sub">Last updated ${fmtDate(p.updated_at)}</div><div class="legal-text">${legalHTML(body)}</div>`
+    :`<div class="adm-empty">The TradeSmart ${LEGAL_NAMES[slug]} is being finalized and will be posted here.</div>`);
+  document.querySelector('#legal .hub-body').scrollTop=0;
+}
+// Admin: edit the two pages
+async function loadAdmPages(){
+  const el=document.getElementById('admPages');
+  el.innerHTML='<div class="adm-empty">Loading...</div>';
+  const p=await loadSitePages(true);
+  el.innerHTML=['privacy','terms'].map(slug=>{
+    const pg=p[slug]||{body:''},has=String(pg.body||'').trim();
+    return `<div class="adm-card" style="margin-bottom:16px">
+      <div class="adm-sec-h" style="margin:0 0 4px">${LEGAL_NAMES[slug]}</div>
+      <div class="adm-money-note" style="margin-bottom:10px">${has?'Posted. Last saved '+fmtDate(pg.updated_at)+'.':'Not posted yet. The page says it is being finalized.'} Paste the final text. Blank lines start new paragraphs, a line starting with # is a heading, lines starting with - are bullets.</div>
+      <textarea id="pg_${slug}" rows="12" class="pg-text">${esc(pg.body||'')}</textarea>
+      <div class="adm-actions"><button class="adm-btn approve" onclick="savePage('${slug}',this)">Save</button><button class="adm-btn" onclick="openLegal('${slug}')">View page</button></div>
+    </div>`;}).join('')+`<div class="adm-money-note">Once both pages have text, student, business and counselor sign-up forms ask people to agree, and the date they agreed is saved with their account.</div>`;
+}
+async function savePage(slug,btn){
+  btn.disabled=true;
+  try{
+    await adminFetch('site_pages?slug=eq.'+slug,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({body:document.getElementById('pg_'+slug).value,updated_at:new Date().toISOString()})});
+    await loadSitePages(true);paintTermsBoxes();await loadAdmPages();
+    showCheckoutNote(LEGAL_NAMES[slug]+' saved.');
+  }catch(e){
+    if(e.message==='expired'){go('adminLogin');return;}
+    btn.disabled=false;showCheckoutNote('Could not save. Try again.');
+  }
+}
+
+// ─── BUSINESS STATS ───
+// A card view is logged once per student per day (log_card_view), counted on the business dashboard
+const viewedCards=new Set();
+function logCardView(id){
+  if(!id||viewedCards.has(id)||!isStudent()||String(id).startsWith('preview-'))return;
+  viewedCards.add(id);
+  api('rpc/log_card_view',{method:'POST',body:JSON.stringify({p_business:id})}).catch(()=>{viewedCards.delete(id);});
+}
+const plural=(n,one,many)=>Number(n||0).toLocaleString('en-US')+' '+(Number(n)===1?one:(many||one+'s'));
+function bizStatsCard(s){
+  if(!s)return '';
+  const tile=(n,l)=>`<div class="admin-stat"><div class="admin-stat-num">${Number(n||0).toLocaleString('en-US')}</div><div class="admin-stat-lbl">${l}</div></div>`;
+  const month=new Date().toLocaleDateString([],{month:'long'});
+  return `<div class="adm-card" style="margin:0 0 16px">
+    <div class="adm-sec-h" style="margin:0 0 4px">Your numbers, ${month}</div>
+    <div class="adm-money-note" style="margin-bottom:12px">Card views count each student once a day. All time: ${plural(s.views_all,'view')}, ${plural(s.likes_all,'right swipe')}, ${plural(s.matches_all,'match','matches')}, ${plural(s.interviews_all,'interview')} set.</div>
+    <div class="biz-stats">${tile(s.views_month,'Card views')}${tile(s.likes_month,'Right swipes')}${tile(s.passes_month,'Passes')}${tile(s.matches_month,'Matches')}${tile(s.msgs_month,'Messages from students')}${tile(s.interviews_month,'Interviews set')}</div>
+  </div>`;
+}
+
+// ─── INTERVIEW SCHEDULING (in the chat: the business offers up to 3 times, the student picks one) ───
+let chatInterview=null,ivFormOpen=false;
+const fmtWhen=d=>new Date(d).toLocaleString([],{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+async function loadInterview(){
+  if(!activeChat)return;
+  const id=activeChat.matchId;
+  try{
+    const rows=await api('interviews?select=*&match_id=eq.'+encodeURIComponent(id)+'&order=created_at.desc&limit=1');
+    if(!activeChat||activeChat.matchId!==id)return;
+    const next=rows&&rows[0]||null;
+    if(JSON.stringify(next)===JSON.stringify(chatInterview)&&document.getElementById('msgInterview').dataset.ready)return;
+    chatInterview=next;renderInterview();
+  }catch(e){}
+}
+function renderInterview(){
+  const el=document.getElementById('msgInterview');el.dataset.ready='1';
+  const iv=chatInterview,biz=activeChat&&activeChat.side==='business';
+  const place=iv&&iv.place?`<div class="iv-line">${ic('pin')} ${esc(iv.place)}</div>`:'';
+  const note=iv&&iv.note?`<div class="iv-note">${esc(iv.note)}</div>`:'';
+  let html='';
+  if(ivFormOpen&&biz){
+    const min=new Date(Date.now()+36e5).toISOString().slice(0,16);
+    html=`<div class="iv-card"><div class="iv-h">${ic('target')} Offer interview times</div>
+      <div class="adm-money-note" style="margin-bottom:10px">Give 1 to 3 times. The student picks the one that works.</div>
+      ${[0,1,2].map(k=>`<input type="datetime-local" class="iv-in" id="ivT${k}" min="${min}" aria-label="Time option ${k+1}">`).join('')}
+      <input type="text" class="iv-in" id="ivPlace" maxlength="200" placeholder="Where (address, or phone call)">
+      <textarea class="iv-in" id="ivNote" maxlength="500" rows="2" placeholder="What to bring or wear (optional)"></textarea>
+      <div class="iv-actions"><button class="btn btn-primary btn-sm" id="ivSend" onclick="proposeInterview()">Send times</button><button class="btn btn-dark btn-sm" onclick="ivFormOpen=false;renderInterview()">Cancel</button></div></div>`;
+  }else if(iv&&iv.status==='confirmed'){
+    html=`<div class="iv-card ok"><div class="iv-h">${ic('check')} Interview set</div><div class="iv-when">${fmtWhen(iv.chosen)}</div>${place}${note}
+      <div class="iv-actions"><button class="btn btn-dark btn-sm" onclick="ivCalendar()">Add to calendar</button>${activeChat.side==='student'?`<button class="btn btn-dark btn-sm" onclick="go('prep')">Interview prep</button>`:''}<button class="btn btn-dark btn-sm" onclick="cancelInterview()">Cancel interview</button></div></div>`;
+  }else if(iv&&iv.status==='proposed'){
+    html=biz
+      ?`<div class="iv-card"><div class="iv-h">${ic('target')} Waiting for the student to pick a time</div>${iv.options.map(t=>`<div class="iv-line">${fmtWhen(t)}</div>`).join('')}${place}
+         <div class="iv-actions"><button class="btn btn-dark btn-sm" onclick="ivFormOpen=true;renderInterview()">Change times</button><button class="btn btn-dark btn-sm" onclick="cancelInterview()">Cancel</button></div></div>`
+      :`<div class="iv-card"><div class="iv-h">${ic('sparkles')} They want to interview you. Pick a time:</div>
+         <div class="iv-opts">${iv.options.map(t=>`<button class="rs-opt" onclick="pickInterview('${esc(t)}',this)">${fmtWhen(t)}</button>`).join('')}</div>${place}${note}
+         <div class="adm-money-note" style="margin-top:8px">None of these work? Message them below.</div></div>`;
+  }else if(biz){
+    html=`<div class="iv-bar">${iv&&iv.status==='canceled'?'<span>Interview canceled by the '+(iv.canceled_by==='business'?'business':'student')+'.</span>':''}<button class="btn btn-dark btn-sm" onclick="ivFormOpen=true;renderInterview()">${ic('target')} Offer interview times</button></div>`;
+  }else if(iv&&iv.status==='canceled'){
+    html=`<div class="iv-bar"><span>The interview was canceled${iv.canceled_by==='student'?' by you':''}.</span></div>`;
+  }
+  el.innerHTML=html;
+}
+async function proposeInterview(){
+  const times=[0,1,2].map(k=>document.getElementById('ivT'+k).value).filter(Boolean).map(v=>new Date(v));
+  if(!times.length){showCheckoutNote('Pick at least one time.');return;}
+  if(times.some(t=>isNaN(t)||t<new Date())){showCheckoutNote('Interview times must be in the future.');return;}
+  const btn=document.getElementById('ivSend');btn.disabled=true;
+  try{
+    const id=await api('rpc/propose_interview',{method:'POST',body:JSON.stringify({p_match:activeChat.matchId,p_times:times.map(t=>t.toISOString()),p_place:document.getElementById('ivPlace').value,p_note:document.getElementById('ivNote').value})});
+    if(!id)throw new Error('not_saved');
+    ivFormOpen=false;await loadInterview();
+    showCheckoutNote('Times sent. The student picks one in this chat.');
+  }catch(e){btn.disabled=false;showCheckoutNote('Could not send the times. Try again.');}
+}
+async function pickInterview(t,btn){
+  btn.disabled=true;
+  try{
+    const ok=await api('rpc/pick_interview',{method:'POST',body:JSON.stringify({p_id:chatInterview.id,p_time:t})});
+    if(!ok)throw new Error('not_saved');
+    await loadInterview();showCheckoutNote('Interview set for '+fmtWhen(t)+'.');
+  }catch(e){btn.disabled=false;showCheckoutNote('Could not save that time. Try again.');}
+}
+async function cancelInterview(){
+  if(!chatInterview||!confirm('Cancel this interview?'))return;
+  try{await api('rpc/cancel_interview',{method:'POST',body:JSON.stringify({p_id:chatInterview.id})});await loadInterview();}
+  catch(e){showCheckoutNote('Could not cancel. Try again.');}
+}
+// One-hour calendar event (.ics) that opens in Apple, Google or Outlook calendars
+function ivCalendar(){
+  const iv=chatInterview;if(!iv||!iv.chosen)return;
+  const f=d=>new Date(d).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const who=document.getElementById('msgCompanyName').textContent;
+  const escI=s=>String(s||'').replace(/[\\;,]/g,m=>'\\'+m).replace(/\n/g,'\\n');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//TradeSmart//Interview//EN','BEGIN:VEVENT','UID:'+iv.id+'@tradesmart.llc','DTSTAMP:'+f(Date.now()),
+    'DTSTART:'+f(iv.chosen),'DTEND:'+f(new Date(iv.chosen).getTime()+36e5),'SUMMARY:'+escI('Interview: '+who),iv.place?'LOCATION:'+escI(iv.place):'',iv.note?'DESCRIPTION:'+escI(iv.note):'','END:VEVENT','END:VCALENDAR'].filter(Boolean).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='tradesmart-interview.ics';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+// ─── COUNSELORS ───
+// Counselors sign up, the TradeSmart team approves them, and students share progress by typing the counselor's code.
+async function renderCounselor(){
+  const el=document.getElementById('csBody');
+  el.innerHTML='<div class="adm-empty">Loading...</div>';
+  await loadSitePages();
+  let a=null;
+  if(authSession()&&backendReady()){try{a=await loadAccount(true);}catch(e){}}
+  if(!a||a.role!=='counselor'){
+    if(a&&a.role!=='none'){el.innerHTML=`<div class="adm-empty">You are signed in with a ${a.role} account. Sign out to use a counselor account. <button class="btn btn-dark btn-sm" onclick="signOut()">Sign out</button></div>`;return;}
+    el.innerHTML=`
+      <div class="hub-hello">For school counselors and teachers</div>
+      <div class="hub-sub">See how your students are doing on TradeSmart: their best trade match, trades they explored, matches with local companies, and their resumes. Students choose to share with you by typing your class code. Free for schools.</div>
+      <div class="cs-grid">
+        <div class="adm-card">
+          <div class="adm-sec-h" style="margin:0 0 12px">Create a counselor account</div>
+          <div class="fg"><label for="csName">Your name</label><input type="text" id="csName" maxlength="80" autocomplete="name"></div>
+          <div class="fg"><label for="csTitle">Your role</label><input type="text" id="csTitle" maxlength="80" placeholder="School counselor, CTE teacher..."></div>
+          <div class="fg"><label for="csSchool">School</label><input type="text" id="csSchool" maxlength="120"></div>
+          <div class="fg"><label for="csEmail">School email</label><input type="email" id="csEmail" autocomplete="email"></div>
+          <div class="fg"><label for="csPw">Create a password</label><input type="password" id="csPw" autocomplete="new-password" placeholder="At least 8 characters"></div>
+          <div data-terms="csTerms"></div>
+          <button class="btn btn-primary btn-full" id="csSignupBtn" onclick="counselorSignup()">Create account</button>
+          <div class="adm-money-note" style="margin-top:10px">The TradeSmart team checks every counselor account before it can see student information.</div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-sec-h" style="margin:0 0 12px">Already have an account?</div>
+          <button class="btn btn-dark btn-full" onclick="openLogin('student')">Log in</button>
+          <div class="adm-money-note" style="margin-top:10px">Use the same login page as everyone else. You land on your counselor dashboard.</div>
+        </div>
+      </div>
+      <div class="login-note" id="csNote"></div>`;
+    paintTermsBoxes();
+    return;
+  }
+  const c=a.counselor;
+  if(c.status!=='approved'){
+    el.innerHTML=`<div class="hub-hello">Hi, ${esc(c.name.split(' ')[0])}</div>
+      <div class="adm-notice">${c.status==='rejected'?'<strong>Your counselor account was not approved.</strong> If you think this is a mistake, contact the TradeSmart team.':'<strong>Your account is waiting for approval.</strong> The TradeSmart team checks every counselor account. Once approved, your class code shows here.'}</div>
+      <button class="btn btn-dark btn-sm" style="margin-top:16px" onclick="signOut()">Sign out</button>`;
+    return;
+  }
+  let list=[];
+  try{list=await api('rpc/counselor_students',{method:'POST',body:'{}'})||[];}catch(e){}
+  window.csList=list;
+  const done=list.filter(s=>s.resume_done).length;
+  el.innerHTML=`
+    <div class="hub-hello">${esc(c.school||'Your students')}</div>
+    <div class="hub-sub">${esc(c.name)}${c.title?' · '+esc(c.title):''}</div>
+    <div class="cs-code"><div><div class="adm-money-note">Your class code</div><div class="cs-code-num">${esc(c.code)}</div></div>
+      <div class="cs-code-help">Students log in, open <strong>Profile</strong>, tap <strong>Share with my counselor</strong> and type this code. They can stop sharing anytime.
+      <button class="btn btn-dark btn-sm" style="margin-top:8px" onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(c.code)}').then(()=>showCheckoutNote('Code copied.'))">Copy code</button></div></div>
+    <div class="biz-stats cs-stats" style="margin-bottom:16px">
+      <div class="admin-stat"><div class="admin-stat-num">${list.length}</div><div class="admin-stat-lbl">Students sharing</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">${list.filter(s=>s.quiz_best).length}</div><div class="admin-stat-lbl">Took the quiz</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">${done}</div><div class="admin-stat-lbl">Finished a resume</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">${list.reduce((n,s)=>n+s.matches,0)}</div><div class="admin-stat-lbl">Company matches</div></div>
+    </div>
+    ${list.length?`<div class="adm-table-wrap"><table class="adm-table"><thead><tr><th>Student</th><th>Grade</th><th>Best trade</th><th>Trades explored</th><th>Matches</th><th>Points</th><th>Resume</th></tr></thead><tbody>`+
+      list.map((s,k)=>`<tr><td>${esc(s.name)}</td><td>${esc(s.grade||'')}</td><td>${esc(s.quiz_best||'Not yet')}</td><td>${s.trades_explored}</td><td>${s.matches}</td><td>${s.points}</td><td>${s.resume_trade?`<button class="adm-btn approve" onclick="csResume(${k})">${s.resume_done?'View':'Draft'}</button>`:'Not started'}</td></tr>`).join('')+
+      '</tbody></table></div><div class="adm-actions"><button class="btn btn-dark btn-sm" onclick="csExport()">Download spreadsheet</button></div>'
+      :'<div class="adm-empty">No students are sharing with you yet. Give them your class code.</div>'}
+    <div id="csResumeBox"></div>
+    <button class="btn btn-dark btn-sm" style="margin-top:20px" onclick="signOut()">Sign out</button>`;
+}
+async function counselorSignup(){
+  const v=id=>document.getElementById(id).value.trim();
+  const name=v('csName'),school=v('csSchool'),email=v('csEmail'),pw=document.getElementById('csPw').value;
+  const note=document.getElementById('csNote');note.style.display='none';
+  if(!name||!school||!email||!pw){alert('Please fill in your name, school, email and password.');return;}
+  if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
+  if(pw.length<8){alert('Please choose a password with at least 8 characters.');return;}
+  if(!termsOk('csTerms'))return;
+  const btn=document.getElementById('csSignupBtn');btn.disabled=true;
+  try{
+    const r=await authCall('signup?redirect_to='+encodeURIComponent(confirmRedirect()),{email,password:pw,data:{role:'counselor',name,school,title:v('csTitle'),terms:termsReady()?'yes':''}});
+    if(!r.ok)throw new Error(r.d.msg||r.d.error_description||'Sign-up failed ('+r.status+')');
+    document.getElementById('csPw').value='';
+    if(r.d.access_token){setAuthSession(r.d);renderCounselor();return;}
+    const user=r.d.user||r.d;
+    note.innerHTML=user.identities&&user.identities.length===0
+      ?'That email already has a TradeSmart account. <a href="#" onclick="openLogin(\'student\');return false">Log in instead</a>.'
+      :'We sent a confirmation link to <strong>'+esc(email)+'</strong>. Open it, then the TradeSmart team reviews your account.';
+    note.style.display='block';
+  }catch(e){note.textContent='Could not create your account. '+e.message;note.style.display='block';}
+  finally{btn.disabled=false;}
+}
+async function csResume(k){
+  const s=window.csList[k],box=document.getElementById('csResumeBox');
+  box.innerHTML='<div class="adm-empty">Loading resume...</div>';
+  try{
+    const d=await api('rpc/counselor_student_resume',{method:'POST',body:JSON.stringify({p_student:s.student_id})});
+    if(!d){box.innerHTML='<div class="adm-empty">This student has no resume yet.</div>';return;}
+    box.innerHTML=`<div class="adm-sec-h" style="margin-top:20px">${esc(s.name)}'s resume${d.finished?'':' (draft)'}</div><div class="rs-paper">${rsPaperHTML(Object.assign(rsBlank(),d))}</div>`;
+    box.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){box.innerHTML='<div class="adm-empty">Could not load the resume. Try again.</div>';}
+}
+function csExport(){
+  const cols=['name','grade','school','quiz_best','trades_explored','matches','points','resume_trade','resume_done'];
+  const cell=v=>{v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  const csv=[cols.join(',')].concat((window.csList||[]).map(r=>cols.map(c=>cell(r[c])).join(','))).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='tradesmart-students-'+new Date().toLocaleDateString('en-CA')+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+// Student profile: share progress with a counselor
+async function renderPfCounselor(){
+  const el=document.getElementById('pfCounselor');if(!el)return;
+  let c=null;try{c=await api('rpc/my_student_counselor',{method:'POST',body:'{}'});}catch(e){}
+  el.innerHTML=c
+    ?`<div class="pf-cs"><div><strong>Sharing with your counselor</strong><div class="adm-money-note">${esc(c.name)}${c.school?', '+esc(c.school):''} sees your quiz match, trades explored, matches, points and resume.</div></div><button class="btn btn-dark btn-sm" onclick="leaveCounselor()">Stop sharing</button></div>`
+    :`<div class="pf-cs"><div style="flex:1"><strong>Share with my counselor</strong><div class="adm-money-note">Type the code your counselor or teacher gave you. They see your quiz match, trades explored, matches, points and resume. Never your messages.</div>
+       <div class="row" style="margin-top:8px"><div class="fg" style="margin:0"><input type="text" id="pfCode" maxlength="6" placeholder="Class code" style="text-transform:uppercase"></div><button class="btn btn-dark btn-sm" onclick="joinCounselor()">Share</button></div></div></div>`;
+}
+async function joinCounselor(){
+  const code=document.getElementById('pfCode').value.trim();
+  if(code.length<6){showCheckoutNote('Class codes have 6 characters.');return;}
+  try{
+    const c=await api('rpc/join_counselor',{method:'POST',body:JSON.stringify({p_code:code})});
+    if(!c){showCheckoutNote('That code did not match a counselor. Check it and try again.');return;}
+    showCheckoutNote('Now sharing with '+c.name+'.');renderPfCounselor();
+  }catch(e){showCheckoutNote('Could not join. Try again.');}
+}
+async function leaveCounselor(){
+  if(!confirm('Stop sharing your progress with your counselor?'))return;
+  try{await api('rpc/leave_counselor',{method:'POST',body:'{}'});renderPfCounselor();}catch(e){showCheckoutNote('Could not update. Try again.');}
+}
+// Admin: review counselor accounts
+async function admCounselorReview(id,status,btn){
+  const card=btn.closest('.adm-card');card.querySelectorAll('button').forEach(b=>b.disabled=true);
+  try{
+    await adminFetch('counselors?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({status,reviewed_at:new Date().toISOString()})});
+    adminRows.coun=await adminFetch('counselors?select=*&order=created_at.desc')||[];
+    renderAdminStats();renderAdminList();
+  }catch(e){
+    if(e.message==='expired'){go('adminLogin');return;}
+    card.querySelectorAll('button').forEach(b=>b.disabled=false);showCheckoutNote('Could not save. Try again.');
+  }
+}
+
+// ─── APPRENTICESHIP FINDER ───
+// apprenticeship.gov keeps its search inside the page (no link format or public data feed), so we hand the
+// student the exact words to search and open the official U.S. Department of Labor finder.
+const APPR_TERMS={electrical:'Electrician',plumbing:'Plumber',hvac:'HVAC',welding:'Welder',carpentry:'Carpenter',operators:'Operating Engineer',laborers:'Construction Laborer',cement:'Cement Mason',roofing:'Roofer',masonry:'Bricklayer',drywall:'Drywall',glazing:'Glazier',iron:'Ironworker',elevator:'Elevator',auto:'Automotive Technician',diesel:'Diesel Mechanic',machinist:'Machinist',aircraft:'Aircraft Mechanic',millwright:'Millwright',boiler:'Boilermaker',power:'Power Plant Operator',culinary:'Cook',cosmo:'Cosmetologist',emt:'Emergency Medical Technician'};
+let apprTrade=null;
+function careerTrade(){
+  if(apprTrade)return apprTrade;
+  const d=(typeof rs!=='undefined'&&rs&&rs.trade)||(()=>{try{return (JSON.parse(localStorage.getItem(RS_KEY)||'null')||{}).trade;}catch(e){return null;}})();
+  if(d)return d;
+  const qb=getState().quizResult;
+  return qb&&TRADES[qb.best]?RS_IDS[GUIDE_KEYS.indexOf(qb.best)]:'electrical';
+}
+function tradeSelect(id,cur,onchange){
+  return `<select id="${id}" onchange="${onchange}">${rsTrades().map(t=>`<option value="${t.id}" ${t.id===cur?'selected':''}>${esc(t.name)}</option>`).join('')}</select>`;
+}
+function copyText(t){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>showCheckoutNote('Copied "'+t+'"')).catch(()=>showCheckoutNote(t));}
+async function renderFinder(){
+  const el=document.getElementById('apprBody'),tr=careerTrade(),term=APPR_TERMS[tr]||'Apprentice';
+  let zip='';
+  if(isStudent()){try{const a=await loadAccount();zip=a.student.zip||'';}catch(e){}}
+  el.innerHTML=`
+    <div class="hub-hello">Find apprenticeships</div>
+    <div class="hub-sub">Registered apprenticeships are approved by the U.S. Department of Labor or your state. You get paid while you learn, and you finish with a credential employers recognize.</div>
+    <div class="adm-card" style="margin-bottom:16px">
+      <div class="fg"><label for="apprSel">Trade</label>${tradeSelect('apprSel',tr,'apprTrade=this.value;renderFinder()')}</div>
+      <div class="adm-sec-h" style="margin:4px 0 10px">Search the official finder in 3 steps</div>
+      <div class="ap-step"><span>1</span><div>Open the Apprenticeship Finder on apprenticeship.gov.</div></div>
+      <div class="ap-step"><span>2</span><div>In the first box, type <button class="ap-chip" onclick="copyText('${esc(term)}')">${esc(term)} ${ic('check')}</button></div></div>
+      <div class="ap-step"><span>3</span><div>In the location box, type ${zip?`your ZIP <button class="ap-chip" onclick="copyText('${esc(zip)}')">${esc(zip)} ${ic('check')}</button>`:'your city or ZIP code'}, then tap Search.</div></div>
+      <div class="adm-money-note" style="margin:6px 0 14px">Tap a word above to copy it.</div>
+      <a class="btn btn-primary btn-full" href="https://www.apprenticeship.gov/apprenticeship-job-finder" target="_blank" rel="noopener">Open the Apprenticeship Finder</a>
+      <a class="btn btn-dark btn-full btn-sm" style="margin-top:10px" href="https://www.apprenticeship.gov/partner-finder" target="_blank" rel="noopener">Find program sponsors and training centers</a>
+    </div>
+    <div class="adm-card">
+      <div class="adm-sec-h" style="margin:0 0 6px">Before you apply</div>
+      <ul class="ap-list"><li>Finish your <a href="#" onclick="openResume();return false">resume</a> so you can attach it.</li><li>Many programs give a math or reading test. Brush up on algebra and measuring.</li><li>Read <a href="#" onclick="go('prep');return false">interview prep</a> for your trade.</li><li>Keep swiping too. Companies on TradeSmart near you are hiring now.</li></ul>
+    </div>`;
+}
+
+// ─── INTERVIEW PREP ───
+const PREP_GENERAL=[
+ {q:'Tell me about yourself.',a:'Keep it to 30 seconds: your grade or school, one hands-on thing you have done, and why this trade. Practice it out loud.'},
+ {q:'Why do you want to work here?',a:'Look up the company first. Mention something real: the kind of jobs they do, how long they have been around, or that they train apprentices.'},
+ {q:'Are you reliable?',a:'Give proof: perfect attendance, a job you never missed, a sport you never skipped practice for. Showing up on time is the first thing trades hire for.'},
+ {q:'Tell me about a time you made a mistake.',a:'Pick a small, real one. Say what happened, how you fixed it, and what you do differently now. Owning it is what they want to hear.'},
+ {q:'Do you have any questions for us?',a:'Always say yes. Ask what a normal day looks like, what the first year of training covers, and how raises work.'}];
+const PREP_TRADE={
+ electrical:[{q:'Why electrical work?',a:'Talk about problem solving and safety. Mention any wiring, electronics or physics you have done.'},{q:'How are your math skills?',a:'Be honest. Electricians use algebra and measuring daily. Say which classes you took and that you are ready for the aptitude test.'},{q:'How do you stay safe around electricity?',a:'Say you always treat a circuit as live until you test it, and you follow lockout and tagout rules.'}],
+ plumbing:[{q:'Are you OK working in tight or dirty spaces?',a:'Say yes and mean it: crawl spaces, basements and under sinks are part of the job.'},{q:'How do you treat a customer\'s home?',a:'Shoe covers, clean up after yourself, explain what you did. Customers remember respect.'},{q:'Have you fixed anything with pipes or water?',a:'Even a toilet flapper or a leaky faucet counts. Walk through how you figured it out.'}],
+ hvac:[{q:'Can you work in heat, cold, attics and on roofs?',a:'Say yes and give an example of hard physical work in bad weather.'},{q:'Do you know what the EPA 608 certification is?',a:'It is required to handle refrigerant. Say you know about it and want to earn it.'},{q:'How would you explain a repair to a homeowner?',a:'Simple words, no jargon, and you tell them the cost before you start.'}],
+ welding:[{q:'Which welding processes have you used?',a:'Name them: MIG, stick, TIG, and the metals and positions. Bring photos of your welds on your phone.'},{q:'How do you check a weld?',a:'Look for even beads, no cracks or holes, and good fusion. Say you are always open to feedback.'},{q:'What safety gear do you wear?',a:'Helmet, gloves, jacket, boots, and good ventilation. Never weld near flammables.'}],
+ carpentry:[{q:'What have you built?',a:'Decks, sheds, furniture, sets for a play. Bring photos if you can.'},{q:'How do you measure and cut accurately?',a:'Measure twice, cut once. Mention squares, levels and reading a tape to the 1/16 inch.'},{q:'Can you work outside in any weather?',a:'Say yes, and that you show up ready for it.'}],
+ operators:[{q:'What equipment have you run?',a:'Tractors, skid steers, mowers, forklifts all count. Say what and for how long.'},{q:'What do you check before starting a machine?',a:'Walk around it: fluids, tires or tracks, leaks, lights and the area around you.'},{q:'How do you work with a ground crew?',a:'Hand signals, radios and never moving until you know where everyone is.'}],
+ laborers:[{q:'Are you ready for hard physical work?',a:'Say yes and give proof: sports, landscaping, moving, farm work.'},{q:'How do you follow directions on a busy site?',a:'Listen, repeat back what you heard, and ask when unsure. Never guess on safety.'},{q:'What would you want to learn here?',a:'Concrete, scaffolding, equipment. Show you want to grow into a skilled role.'}],
+ cement:[{q:'Have you poured or finished concrete before?',a:'Any patio, sidewalk or fence post counts. Say what tools you used.'},{q:'Are you OK with very early starts?',a:'Concrete crews often start at sunrise. Say you are ready for it.'},{q:'How do you work when the pour is on a clock?',a:'Stay fast and focused, finish what you start, and help the crew where needed.'}],
+ roofing:[{q:'Are you comfortable working at heights?',a:'Say so plainly, and that you always wear fall protection.'},{q:'Can you handle heat and hard physical work?',a:'Give an example, like a summer job or sports in the heat.'},{q:'How do you stay safe on a roof?',a:'Harness, anchors, clean walkways, and never rushing near an edge.'}],
+ masonry:[{q:'Have you laid brick, block or stone?',a:'A garden wall, fire pit or patio counts. Describe it.'},{q:'How do you keep work level and straight?',a:'String lines, levels, and checking often. Neat work is the job.'},{q:'Are you ready for long days on your feet?',a:'Say yes and back it up with a job or sport.'}],
+ drywall:[{q:'Have you hung or finished drywall?',a:'Patching holes or helping remodel counts. Explain the steps you know.'},{q:'How do you get a smooth finish?',a:'Thin coats, patience and good sanding. Say you care about details.'},{q:'Are you comfortable on stilts or scaffolds?',a:'Say you are, or that you are ready to learn safely.'}],
+ glazing:[{q:'How do you handle glass safely?',a:'Gloves, suction cups, two people for big pieces, and never rushing.'},{q:'Are you comfortable working at heights?',a:'Glaziers work high on big buildings. Say so plainly.'},{q:'How do you measure for a window?',a:'Measure in more than one spot, write it down, and double check.'}],
+ iron:[{q:'Are you comfortable working at heights?',a:'This is the first question. Answer clearly and mention fall protection.'},{q:'Have you welded or cut steel?',a:'List any welding class or shop work.'},{q:'How do you work as part of a raising crew?',a:'Clear communication, hand signals and trust. Everyone depends on everyone.'}],
+ elevator:[{q:'How are your mechanical and electrical skills?',a:'Mention electronics, robotics, physics or car work and what you built or fixed.'},{q:'How do you follow a procedure exactly?',a:'Give an example of following steps carefully, like a lab or a recipe at work.'},{q:'Are you OK in tight shafts and machine rooms?',a:'Say yes, and that you follow safety rules every time.'}],
+ auto:[{q:'What cars have you worked on?',a:'Your own, family or friends. Name the repairs.'},{q:'How would you figure out a problem you have not seen before?',a:'Check the basics, use the scan tool, read the service info, then ask a senior tech.'},{q:'Do you have your own tools?',a:'Say what you have, and that you plan to build your set.'}],
+ diesel:[{q:'Have you worked on trucks, tractors or small engines?',a:'Any of them counts. Describe a repair.'},{q:'What do you know about preventive maintenance?',a:'Oil, filters, fluids, belts and inspections keep big machines running and save money.'},{q:'Would you want a CDL later?',a:'Many shops pay for it. Say you are interested.'}],
+ machinist:[{q:'How do you measure a part?',a:'Calipers and micrometers, and checking against the print.'},{q:'Have you run a lathe, mill or CNC?',a:'Say what and in what class or shop.'},{q:'Why does precision matter?',a:'Parts must fit exactly. A small mistake can scrap a part or cause a failure.'}],
+ aircraft:[{q:'Why aviation maintenance?',a:'Talk about safety, precision and loving how machines work.'},{q:'Which FAA-approved school do you plan to attend?',a:'Name one and say why.'},{q:'How do you follow checklists?',a:'Every step, every time, and you sign off only on work you checked.'}],
+ millwright:[{q:'What machines have you worked on?',a:'Factory, farm or shop equipment all count.'},{q:'How do you troubleshoot a machine that stopped?',a:'Safety lockout first, then check power, fluids and moving parts one at a time.'},{q:'Can you weld or run shop tools?',a:'List what you have used.'}],
+ boiler:[{q:'Are you willing to travel for work?',a:'Boilermakers often work at plants out of town. Say if you can.'},{q:'What welding have you done?',a:'List processes and any certifications.'},{q:'Are you OK in hot, tight spaces?',a:'Say yes and give an example of tough conditions.'}],
+ power:[{q:'Are you OK with shift work?',a:'Plants run day and night. Say you are ready for nights and weekends.'},{q:'How do you stay calm when something goes wrong?',a:'Give a real example where you followed steps instead of panicking.'},{q:'How are your math and science grades?',a:'Be honest and say what you are doing to get ready for the entry test.'}],
+ culinary:[{q:'What dishes can you make well?',a:'Name two or three and how you make them.'},{q:'How do you handle a rush?',a:'Stay calm, keep your station clean, communicate with the line.'},{q:'What do you know about food safety?',a:'Hand washing, temperatures, no cross contamination. Mention ServSafe if you have it.'}],
+ cosmo:[{q:'Do you have photos of your work?',a:'Bring a portfolio on your phone: cuts, color, styles.'},{q:'How do you make a client feel comfortable?',a:'Listen first, repeat back what they want, and be honest about what will work.'},{q:'Which licensed program will you attend?',a:'Name it and when you start.'}],
+ emt:[{q:'How do you stay calm under pressure?',a:'Give a real example: a sports injury, an emergency at work, a hard situation at home.'},{q:'Why do you want to be an EMT?',a:'Talk about helping people and teamwork. Be genuine.'},{q:'Do you have CPR or first aid training?',a:'Say what you have and when it expires.'}]};
+let prepTrade=null;
+function renderPrep(){
+  const el=document.getElementById('prepBody'),tr=prepTrade||careerTrade(),name=(rsTrades().find(t=>t.id===tr)||{}).name||'';
+  const qa=(list)=>list.map(x=>`<details class="pq"><summary>${esc(x.q)}</summary><div>${esc(x.a)}</div></details>`).join('');
+  el.innerHTML=`
+    <div class="hub-hello">Interview prep</div>
+    <div class="hub-sub">What to wear, what to bring, and how to answer the questions trade employers ask.</div>
+    <div class="fg"><label for="prepSel">Trade</label>${tradeSelect('prepSel',tr,'prepTrade=this.value;renderPrep()')}</div>
+    <div class="prep-grid">
+      <div class="adm-card"><div class="adm-sec-h" style="margin:0 0 6px">${ic('user')} What to wear</div><ul class="ap-list"><li>Clean work pants or jeans with no rips</li><li>A plain, clean shirt. A collar is a plus.</li><li>Clean boots or closed-toe shoes</li><li>No hat or sunglasses indoors</li></ul></div>
+      <div class="adm-card"><div class="adm-sec-h" style="margin:0 0 6px">${ic('briefcase')} What to bring</div><ul class="ap-list"><li>Two printed copies of your <a href="#" onclick="openResume();return false">resume</a></li><li>Your ID or driver's license</li><li>Any certificates (OSHA 10, CPR)</li><li>A pen and a list of 2 or 3 references</li></ul></div>
+      <div class="adm-card"><div class="adm-sec-h" style="margin:0 0 6px">${ic('target')} Day of</div><ul class="ap-list"><li>Arrive 10 to 15 minutes early</li><li>Phone on silent and put away</li><li>Firm handshake, eye contact, smile</li><li>Send a thank-you message the same day</li></ul></div>
+    </div>
+    <div class="hub-h" style="margin-top:20px">${esc(name)} questions</div>
+    <div class="pq-list">${qa(PREP_TRADE[tr]||[])}</div>
+    <div class="hub-h" style="margin-top:20px">Questions every employer asks</div>
+    <div class="pq-list">${qa(PREP_GENERAL)}</div>
+    <button class="btn btn-dark btn-full btn-sm" style="margin-top:20px" onclick="go('appr')">Find apprenticeships near you</button>`;
+}
+
 // Bottom tabs for signed-in students
-const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',resume:'resume',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
+const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',resume:'resume',prep:'resume',appr:'resume',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
 function updateTabBar(screenId){
   const show=isStudent()&&TAB_FOR[screenId]!==undefined;
   document.body.classList.toggle('has-tabs',show);
@@ -2348,6 +2852,7 @@ async function routeSignedIn(){
     const a=await loadAccount(true);
     if(a.role==='student'){go('home');showCheckoutNote('Signed in. Your points, matches and messages are saved to your account.');return;}
     if(a.role==='business'){go('bizHome');return;}
+    if(a.role==='counselor'){go('counselor');return;}
     const email=(authSession()||{}).user.email||'this email';
     setAuthSession(null);
     openLogin('business');
@@ -2373,6 +2878,9 @@ function go(screenId){
   if(screenId==='landing'){document.getElementById('landing').scrollTop=0;refreshNav();}
   if(screenId==='home')renderHome();
   if(screenId==='trades')renderTrades();
+  if(screenId==='counselor')renderCounselor();
+  if(screenId==='appr')renderFinder();
+  if(screenId==='prep')renderPrep();
   updateTabBar(screenId);
 }
 
@@ -2588,11 +3096,12 @@ async function submitSetup(){
   if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
   if(!ZIP_RE.test(zip)){alert('Please enter your 5-digit ZIP code.');return;}
   if(pw.length<8){alert('Please choose a password with at least 8 characters.');return;}
+  if(!termsOk('setupTerms'))return;
   if(!backendReady()){alert('Accounts are not set up yet. Please try again later.');return;}
   const btn=document.getElementById('setupBtn');btn.disabled=true;
   const q=getState().quizResult||{};
   const data={role:'student',name,phone:v('setupPhone'),school,grade,city:v('setupCity'),zip,why:v('setupWhy'),
-    quiz_best:q.best?TRADES[q.best].name:'',quiz_scores:q.scores||null};
+    quiz_best:q.best?TRADES[q.best].name:'',quiz_scores:q.scores||null,terms:termsReady()?'yes':''};
   try{
     if(!await zipKnown(zip))throw new Error(ZIP_UNKNOWN);
     const r=await authCall('signup?redirect_to='+encodeURIComponent(confirmRedirect()),{email,password:pw,data});
@@ -2716,6 +3225,7 @@ function buildStack(){
     card.innerHTML=cardHTML(co);
     if(i===0){
       card.addEventListener('pointerdown',onDragStart);
+      logCardView(co.id);
     }
     stack.appendChild(card);
   }
@@ -2986,14 +3496,15 @@ let activeChat=null; // {matchId, side, back}
 let chatMsgs=[],chatTimer=null;
 function stopChatPoll(){clearInterval(chatTimer);chatTimer=null;}
 function openChat(matchId,side,title,sub,avatar,back){
-  activeChat={matchId,side,back};chatMsgs=[];
+  activeChat={matchId,side,back};chatMsgs=[];chatInterview=null;ivFormOpen=false;
+  const ivEl=document.getElementById('msgInterview');ivEl.innerHTML='';delete ivEl.dataset.ready;
   document.getElementById('msgCompanyName').textContent=title;
   document.getElementById('msgStatus').textContent=sub||'';
   document.getElementById('msgAvatar').innerHTML=avatar; // trusted icon HTML or escaped initial
   document.getElementById('msgList').innerHTML='';
   go('messaging');
-  loadMessages();
-  stopChatPoll();chatTimer=setInterval(loadMessages,5000);
+  loadMessages();loadInterview();
+  stopChatPoll();chatTimer=setInterval(()=>{loadMessages();if(!ivFormOpen)loadInterview();},5000);
 }
 function openStudentChat(matchId){
   const c=bizById[studentMatches[matchId]]||{name:'Your match',tradeKey:'X'};
@@ -3056,7 +3567,8 @@ async function loadBizHome(){
     const sync=await bizSync();
     if(sync&&!sync.error&&(sync.plan_status||null)!==before)a=await loadAccount(true);
     const b=a.business,co=toCompany(b),paid=b.plan_status==='active';
-    bizStudents=await api('rpc/interested_students',{method:'POST',body:'{}'})||[];
+    const [bs,stats]=await Promise.all([api('rpc/interested_students',{method:'POST',body:'{}'}),api('rpc/my_business_stats',{method:'POST',body:'{}'}).catch(()=>null)]);
+    bizStudents=bs||[];
     const card=st=>`
       <div class="adm-card">
         <div class="adm-card-top">
@@ -3078,6 +3590,7 @@ async function loadBizHome(){
         :b.zip?'Your listing is live for students within '+esc(b.hire_radius_miles)+' miles of ZIP '+esc(b.zip)+'.'
         :'Add your ZIP code below. Until then, students cannot see your listing.'}</div>
       ${bizPlanCard(b)}
+      ${bizStatsCard(stats)}
       <div class="adm-card" style="margin:0 0 16px">
         <div class="adm-sec-h" style="margin:0 0 4px">Your swipe card</div>
         <div class="adm-money-note" style="margin-bottom:14px">This is exactly what students see when they swipe.</div>
@@ -3446,11 +3959,12 @@ async function submitApplication(){
   if(!name||!biz||!email||!zip){alert('Please fill in your name, business name, email, and ZIP code.');return;}
   if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
   if(!ZIP_RE.test(zip)){alert('Please enter your business\'s 5-digit ZIP code.');return;}
+  if(!termsOk('applyTerms'))return;
   const btn=document.getElementById('applyBtn');btn.disabled=true;
   // If the database cannot be reached the application still saves (outbox), so only a definite "unknown" stops it
   if(backendReady()){let known=true;try{known=await zipKnown(zip);}catch(e){}
     if(!known){btn.disabled=false;alert(ZIP_UNKNOWN);return;}}
-  await saveRecord('business_applications',{contact_name:name,business_name:biz,email,phone:v('a_phone')||null,trade:v('a_trade')||null,city:v('a_location')||null,zip,hire_radius_miles:radius,starting_pay:v('a_pay')||null,description:v('a_desc')||null,why:v('a_why')||null});
+  await saveRecord('business_applications',{contact_name:name,business_name:biz,email,phone:v('a_phone')||null,trade:v('a_trade')||null,city:v('a_location')||null,zip,hire_radius_miles:radius,starting_pay:v('a_pay')||null,description:v('a_desc')||null,why:v('a_why')||null,terms_accepted_at:termsReady()?new Date().toISOString():null});
   btn.disabled=false;
   ids.forEach(id=>{document.getElementById(id).value='';});
   document.getElementById('a_radius').value='25';
@@ -3527,6 +4041,7 @@ async function submitLogin(){
     const a=await loadAccount(true);
     if(a.role==='student'){go('home');return;}
     if(a.role==='business'){go('bizHome');return;}
+    if(a.role==='counselor'){go('counselor');return;}
     setAuthSession(null);
     showLoginNote(loginRole==='business'
       ?'We could not find an approved business application for '+esc(email)+'. If you applied, the TradeSmart team is still reviewing it.'
@@ -3541,7 +4056,7 @@ async function submitLogin(){
 // With Supabase connected, admins sign in with their Supabase email and password and the
 // database decides what they can see (supabase/schema.sql).
 const ADMIN_SESSION_KEY='ts_admin_session';
-let adminRows={biz:[],stu:[]};
+let adminRows={biz:[],stu:[],coun:[]};
 let adminView='biz';
 
 // The admin login is kept until Sign out; an expired access token is renewed with the refresh token.
@@ -3599,7 +4114,7 @@ async function adminLogin(){
 }
 function adminSignOut(){
   clearAdminSession();
-  adminRows={biz:[],stu:[]};
+  adminRows={biz:[],stu:[],coun:[]};
   goHome();
 }
 function adminNotice(html,isErr){
@@ -3627,15 +4142,16 @@ async function loadAdmin(){
   if(!sess){go('adminLogin');return;}
   const btn=document.getElementById('adminRefresh');btn.disabled=true;
   try{
-    const [biz,stu]=await Promise.all([
+    const [biz,stu,coun]=await Promise.all([
       adminFetch('business_applications?select=*&order=created_at.desc'),
-      adminFetch('students?select=*&order=created_at.desc')]);
-    adminRows={biz:biz||[],stu:stu||[]};
+      adminFetch('students?select=*&order=created_at.desc'),
+      adminFetch('counselors?select=*&order=created_at.desc').catch(()=>[])]);
+    adminRows={biz:biz||[],stu:stu||[],coun:coun||[]};
     adminNotice('');
     data.style.display='';
     document.getElementById('adminUpdated').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
     renderAdminStats();
-    if(adminView==='money')loadMoney();else renderAdminList();
+    if(adminView==='money')loadMoney();else if(adminView==='pages')loadAdmPages();else renderAdminList();
   }catch(e){
     if(e.message==='expired'){clearAdminSession();go('adminLogin');document.getElementById('adminErr').textContent='Your session ended. Sign in again.';return;}
     adminNotice('<strong>Could not load the dashboard.</strong> The database did not respond ('+esc(e.message)+'). Try Refresh in a moment.',true);
@@ -3648,18 +4164,19 @@ function renderAdminStats(){
     tile(b.length,'Business applications')+tile(n('pending'),'Pending review')+tile(n('approved'),'Approved businesses')+tile(adminRows.stu.length,'Student sign-ups');
   document.getElementById('admTabBiz').textContent='Businesses ('+b.length+')';
   document.getElementById('admTabStu').textContent='Students ('+adminRows.stu.length+')';
+  const pend=(adminRows.coun||[]).filter(r=>r.status==='pending').length;
+  document.getElementById('admTabCoun').textContent='Counselors ('+(adminRows.coun||[]).length+(pend?', '+pend+' new':'')+')';
 }
 function admTab(v){
   adminView=v;
-  document.getElementById('admTabBiz').classList.toggle('on',v==='biz');
-  document.getElementById('admTabStu').classList.toggle('on',v==='stu');
-  document.getElementById('admTabMoney').classList.toggle('on',v==='money');
-  const money=v==='money';
-  document.getElementById('admTools').style.display=money?'none':'';
-  document.getElementById('admList').style.display=money?'none':'';
-  document.getElementById('admMoney').style.display=money?'':'none';
-  document.getElementById('admStatus').style.display=v==='biz'?'':'none';
-  if(money)loadMoney();else renderAdminList();
+  ['Biz','Stu','Coun','Money','Pages'].forEach(k=>document.getElementById('admTab'+k).classList.toggle('on',v===k.toLowerCase()));
+  const list=['biz','stu','coun'].includes(v);
+  document.getElementById('admTools').style.display=list?'':'none';
+  document.getElementById('admList').style.display=list?'':'none';
+  document.getElementById('admMoney').style.display=v==='money'?'':'none';
+  document.getElementById('admPages').style.display=v==='pages'?'':'none';
+  document.getElementById('admStatus').style.display=v==='biz'||v==='coun'?'':'none';
+  if(v==='money')loadMoney();else if(v==='pages')loadAdmPages();else renderAdminList();
 }
 
 // ─── ADMIN: MONEY (Stripe, through supabase/functions/stripe-summary) ───
@@ -3737,6 +4254,22 @@ function renderAdminList(){
         <div class="adm-actions">
           <button class="adm-btn approve" onclick="admReview('${esc(r.id)}','approved',this)" ${r.status==='approved'?'disabled':''}>Approve</button>
           <button class="adm-btn reject" onclick="admReview('${esc(r.id)}','rejected',this)" ${r.status==='rejected'?'disabled':''}>Reject</button>
+        </div>
+      </div>`).join('')+'</div>';
+  }else if(adminView==='coun'){
+    const rows=(adminRows.coun||[]).filter(r=>(!st||r.status===st)&&admMatches(r,q));
+    if(!rows.length){el.innerHTML=`<div class="adm-empty">${(adminRows.coun||[]).length?'No counselors match this search.':'No counselor accounts yet. Counselors sign up from the For Counselors link at the bottom of the homepage.'}</div>`;return;}
+    el.innerHTML='<div class="adm-list">'+rows.map(r=>`
+      <div class="adm-card">
+        <div class="adm-card-top">
+          <div><div class="adm-name">${esc(r.name)}</div><div class="adm-meta">${esc([r.title,r.school,'Signed up '+fmtDate(r.created_at)].filter(Boolean).join(' · '))}</div></div>
+          <span class="adm-pill ${esc(r.status)}">${esc(r.status)}</span>
+        </div>
+        <dl class="adm-dl"><dt>Email</dt><dd><a href="mailto:${encodeURIComponent(r.email)}">${esc(r.email)}</a></dd><dt>Class code</dt><dd>${r.code?esc(r.code):'<span style="color:var(--muted)">Made when approved</span>'}</dd></dl>
+        <div class="adm-money-note">Approve only after you confirm this person works at the school (for example, the email matches the school's domain). Approved counselors see the students who share with them.</div>
+        <div class="adm-actions">
+          <button class="adm-btn approve" onclick="admCounselorReview('${esc(r.id)}','approved',this)" ${r.status==='approved'?'disabled':''}>Approve</button>
+          <button class="adm-btn reject" onclick="admCounselorReview('${esc(r.id)}','rejected',this)" ${r.status==='rejected'?'disabled':''}>Reject</button>
         </div>
       </div>`).join('')+'</div>';
   }else{
@@ -3844,6 +4377,7 @@ const HERO_PLAY_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="curr
   startHeroVideo();
   addTradePayoffs();
   addHomeTrades();
+  loadSitePages().then(paintTermsBoxes);
   refreshNav();
   startPhone();
   // Links from the other TradeSmart pages: app.html#signup, #quiz, #business, #login
