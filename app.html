@@ -280,6 +280,9 @@ textarea{resize:vertical;min-height:90px;}
 .lnd-final-sub{font-size:16px;color:var(--sub);margin-bottom:36px;}
 .lnd-final-sub a{color:var(--orange);text-decoration:none;}
 .lnd-footer{padding:24px 6%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);}
+.lnd-footer{flex-wrap:wrap;gap:12px;}
+.lnd-footer-links{display:flex;flex-wrap:wrap;gap:10px 20px;}
+@media(max-width:600px){.lnd-footer{flex-direction:column;align-items:flex-start;}}
 .lnd-footer a{color:var(--muted);text-decoration:none;transition:.15s;}
 .lnd-footer a:hover{color:var(--sub);}
 
@@ -1077,7 +1080,7 @@ button.job-card{cursor:pointer;width:100%;}
 
   <div class="lnd-footer">
     <span>© 2026 TradeSmart</span>
-    <div style="display:flex;gap:20px">
+    <div class="lnd-footer-links">
       <a href="#" onclick="openLogin('student');return false">Student Login</a>
       <a href="#" onclick="openLogin('business');return false">Business Login</a>
       <a href="#" onclick="go('companyApply');return false">For Businesses</a>
