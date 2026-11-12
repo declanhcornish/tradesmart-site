@@ -568,6 +568,31 @@ textarea{resize:vertical;min-height:90px;}
 .adm-pill{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;}
 .adm-pill.pending{background:rgba(237,159,21,.12);color:var(--orange);border:1px solid rgba(237,159,21,.35);}
 .adm-pill.approved{background:rgba(0,209,102,.12);color:var(--green);border:1px solid rgba(0,209,102,.35);}
+.alert-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:500;color:var(--text);}
+.alert-row input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--orange);}
+#agMinor[hidden]{display:none;}
+.ag-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.ag-while{margin-top:20px;}
+.ag-banner{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:rgba(0,168,232,.1);border:1px solid rgba(0,168,232,.45);border-radius:18px;padding:16px;margin:0 0 16px;cursor:pointer;color:#fff;font:inherit;}
+.ag-banner>.ic{width:26px;height:26px;color:#00A8E8;flex:none;}
+.ag-banner>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.ag-banner strong{font-size:15px;}
+.ag-banner span span{font-size:13px;color:var(--sub);}
+.card-jobs{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;background:rgba(0,209,102,.16);border:1px solid rgba(0,209,102,.4);border-radius:100px;padding:5px 12px;margin:0 0 10px;max-width:100%;}
+.card-jobs .ic{width:14px;height:14px;color:var(--green);flex:none;}
+.card-jobs span{color:var(--sub);font-weight:700;}
+.job-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--border);padding:12px 0;}
+.job-row.closed{opacity:.6;}
+.job-btns{display:flex;gap:6px;flex:none;}
+.job-title{font-size:15px;font-weight:800;}
+.job-meta{font-size:12.5px;color:var(--sub);margin-top:2px;}
+.job-co{font-size:13px;color:var(--orange2);font-weight:700;margin-top:2px;}
+.job-details{font-size:13.5px;color:var(--text);line-height:1.55;margin-top:8px;white-space:pre-line;}
+.job-form{border:1px solid rgba(237,159,21,.4);border-radius:14px;padding:14px;margin-bottom:12px;}
+.job-closed summary{cursor:pointer;font-size:13px;color:var(--sub);padding:10px 0 4px;}
+.job-list{display:flex;flex-direction:column;gap:10px;}
+.job-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:left;color:#fff;font:inherit;}
+button.job-card{cursor:pointer;width:100%;}
 .legal-text{font-size:15px;line-height:1.7;color:var(--text);}
 .legal-text h2{font-size:20px;font-weight:900;margin:24px 0 8px;}
 .legal-text h3{font-size:16px;font-weight:800;margin:18px 0 6px;}
@@ -1187,6 +1212,17 @@ textarea{resize:vertical;min-height:90px;}
       <div class="fg"><label>Home ZIP Code</label><input type="text" id="setupZip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="48201" autocomplete="postal-code"></div>
       <div class="fg"><label>Why are you interested in trades?</label><textarea id="setupWhy" placeholder="Tell companies a little about yourself..."></textarea></div>
       <div class="setup-privacy" style="font-size:13px;color:var(--sub);line-height:1.5;margin:4px 0 8px">Companies see your first name, grade, city, quiz result and what you write above. Your email, phone, school and ZIP code stay private. Your ZIP is only used to show you companies hiring near you.</div>
+      <div class="fg"><label>Are you 18 or older?</label>
+        <input type="hidden" id="setupAdult" value="">
+        <div class="rs-opts" id="setupAgeBtns"><button type="button" class="rs-opt" data-v="yes" aria-pressed="false" onclick="setupAge(true)">Yes, 18 or older</button><button type="button" class="rs-opt" data-v="no" aria-pressed="false" onclick="setupAge(false)">No, under 18</button></div>
+      </div>
+      <div id="setupParent" hidden>
+        <div class="setup-privacy" style="font-size:13px;color:var(--sub);line-height:1.5;margin:-4px 0 12px">Under 18, a parent or guardian says yes by email before you can match or message companies. We email them after you confirm your own email.</div>
+        <div class="row">
+          <div class="fg"><label>Parent or Guardian's Name</label><input type="text" id="setupParentName" maxlength="80" autocomplete="off"></div>
+          <div class="fg"><label>Parent or Guardian's Email</label><input type="email" id="setupParentEmail" maxlength="200" autocomplete="off"></div>
+        </div>
+      </div>
       <div data-terms="setupTerms"></div>
       <button class="btn btn-primary btn-full" id="setupBtn" onclick="submitSetup()" style="margin-top:8px">Start Swiping →</button>
       <div class="login-note" id="setupNote"></div>
@@ -1437,6 +1473,30 @@ textarea{resize:vertical;min-height:90px;}
   <div class="hub-body"><div class="hub-wrap" id="tdBody"></div></div>
 </div>
 
+<div id="ageGate" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('home')">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="agBody" style="max-width:620px"></div></div>
+</div>
+
+<div id="parentConsent" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="goHome()">Home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="pcBody" style="max-width:620px"></div></div>
+</div>
+
+<div id="jobs" class="screen">
+  <div class="top-nav">
+    <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
+    <button class="nav-ghost" onclick="go('home')">My home</button>
+  </div>
+  <div class="hub-body"><div class="hub-wrap" id="jobsBody"></div></div>
+</div>
+
 <div id="legal" class="screen">
   <div class="top-nav">
     <a class="logo" href="#" onclick="goHome();return false" aria-label="TradeSmart home"><img class="lm" src="site/assets/logo-mark-dark.png" alt=""><img class="lw" src="site/assets/logo-word-dark.png" alt="TradeSmart"></a>
@@ -1501,6 +1561,7 @@ textarea{resize:vertical;min-height:90px;}
         <span class="pf-photo-note" id="pfPhotoNote"></span>
       </div>
       <div id="pfBody"><div class="adm-empty">Loading your profile...</div></div>
+      <div id="pfAlerts"></div>
       <div id="pfCounselor"></div>
       <div class="pf-actions">
         <button class="btn btn-primary btn-full" onclick="go('swipeFeed')">Keep swiping →</button>
@@ -1815,7 +1876,7 @@ async function loadAccount(force){
   if(cs){acct={role:'counselor',counselor:cs};return acct;}
   const bid=await api('rpc/my_business_id',{method:'POST',body:'{}'});
   if(bid){
-    const b=await api('business_applications?select=id,business_name,email,trade,city,zip,hire_radius_miles,starting_pay,description,plan,plan_status,paid_at,photo_path&id=eq.'+encodeURIComponent(bid));
+    const b=await api('business_applications?select=id,business_name,email,trade,city,zip,hire_radius_miles,starting_pay,description,plan,plan_status,paid_at,photo_path,email_alerts&id=eq.'+encodeURIComponent(bid));
     if(b&&b.length){acct={role:'business',business:b[0]};return acct;}
   }
   acct={role:'none'};return acct;
@@ -1930,6 +1991,7 @@ async function openProfile(){
     const row=(k,v)=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--muted)">Not given</span>'}</dd>`;
     document.getElementById('pfBody').innerHTML='<dl class="adm-dl">'+row('Best trade match',p.quiz_best)+row('School',p.school)+row('Grade',p.grade)+row('City',p.city)+row('ZIP code',p.zip)+'</dl>';
     renderPfCounselor();
+    myConsent(true).then(c=>{if(c)document.getElementById('pfAlerts').innerHTML='<div class="pf-cs">'+alertToggle(c.email_alerts!==false)+'</div>'+(c.cleared?'':'<div class="pf-cs"><div><strong>Matching is off</strong><div class="adm-money-note">'+(c.is_adult===false?'Waiting for your parent or guardian to say yes.':'Tell us if you are 18 or older.')+'</div></div><button class="btn btn-dark btn-sm" onclick="go(\'ageGate\')">Open</button></div>');}).catch(()=>{});
   }catch(e){
     if(e.message==='signed_out'){acct=null;refreshNav();openLogin('student');return;}
     document.getElementById('pfBody').innerHTML='<div class="adm-empty">Could not load your profile. Check your connection.</div>';
@@ -2081,6 +2143,7 @@ async function renderHome(){
   const tradesDone=[...Array(guideCount()).keys()].filter(i=>ev.has('trade:'+i)).length;
   const payKeys=[...Array(guideCount()).keys()].map(i=>guide(i)).filter(g=>g&&g.key&&PAYOFF[g.key]).map(g=>g.key),paysDone=payKeys.filter(k=>ev.has('payoff:'+k)).length;
   const qb=getState().quizResult;
+  const [cs,jobsNear]=await Promise.all([myConsent(true).catch(()=>null),a.student.zip?loadNearJobs():Promise.resolve([])]);
   const item=(done,icon,t,sub,pts,btn)=>`<div class="earn${done?' done':''}"><div class="earn-ic">${ic(done?'check':icon)}</div><div class="earn-txt"><div class="earn-t">${t}</div><div class="earn-s">${sub}</div></div><div class="earn-pts">${done?'Done':pts}</div>${!done&&btn?btn:''}</div>`;
   body.innerHTML=`
     <div class="hub-hello">Hey, ${esc(first)}</div>
@@ -2097,6 +2160,8 @@ async function renderHome(){
         <button class="btn btn-primary btn-sm" onclick="redeemPoints()" ${pt.balance<SWAP_COST?'disabled':''}>Trade ${SWAP_COST} points for ${SWAP_SWIPES} swipes</button>
       </div>
     </div>
+    ${cs&&!cs.cleared?`<button class="ag-banner" onclick="go('ageGate')">${ic('user')}<span><strong>${cs.is_adult===false?'Waiting for your parent or guardian':'One quick question'}</strong><span>${cs.is_adult===false?'Matching with companies opens once they say yes by email.':'Tell us if you are 18 or older to start matching.'}</span></span><span class="rs-home-go">Open →</span></button>`:''}
+    ${jobsNear.length?`<div class="hub-h">Openings near you</div><div class="job-list" style="margin-bottom:12px">${jobsNear.slice(0,2).map(j=>`<button class="job-card job-mini" onclick="go('jobs')"><div class="job-title">${esc(j.title)}</div><div class="job-co">${esc(j.business_name)} · ${j.distance_miles<1?'under 1 mi':j.distance_miles+' mi'}</div><div class="job-meta">${jobLine(j)}</div></button>`).join('')}</div>${jobsNear.length>2?`<button class="btn btn-dark btn-sm" style="margin-bottom:22px" onclick="go('jobs')">See all ${jobsNear.length} openings</button>`:''}`:''}
     <button class="rs-home" onclick="openResume()"><span class="rs-home-ic">${ic('file')}</span><span class="rs-home-txt"><strong>Resume builder</strong><span>${ev.has('resume')?'Update your resume anytime':'Pick your trade, answer 5 questions, get a resume made for it'}</span></span><span class="rs-home-go">${ev.has('resume')?'Open':'Start'} →</span></button>
     <div class="hub-h">Earn points</div>
     <div class="earn-list">
@@ -2112,6 +2177,7 @@ async function renderHome(){
       <button class="hub-link" onclick="go('swipeFeed')">${ic('swipe')}Swipe companies</button>
       <button class="hub-link" onclick="go('trades')">${ic('briefcase')}Explore trades</button>
       <button class="hub-link" onclick="go('connections')">${ic('message')}My matches</button>
+      <button class="hub-link" onclick="go('jobs')">${ic('briefcase')}Openings near you</button>
       <button class="hub-link" onclick="go('appr')">${ic('map')}Find apprenticeships</button>
       <button class="hub-link" onclick="go('prep')">${ic('target')}Interview prep</button>
       <button class="hub-link" onclick="openResume()">${ic('file')}My resume</button>
@@ -2826,8 +2892,266 @@ function renderPrep(){
     <button class="btn btn-dark btn-full btn-sm" style="margin-top:20px" onclick="go('appr')">Find apprenticeships near you</button>`;
 }
 
+// ─── EMAILS (queued by the database, sent by supabase/functions/notify through Resend) ───
+// Fire and forget after anything that queues mail. Safe to call often; it only sends what is queued.
+function kickEmails(){
+  if(!backendReady())return;
+  fetch(apiBase()+'/functions/v1/notify',{method:'POST',headers:{'Content-Type':'application/json',apikey:anonKey(),Authorization:'Bearer '+anonKey()},body:'{}'}).catch(()=>{});
+}
+function alertToggle(on){
+  return `<label class="alert-row"><input type="checkbox" ${on?'checked':''} onchange="setEmailAlerts(this)"> <span><strong>Email me</strong> when I get a new match or message</span></label>`;
+}
+async function setEmailAlerts(box){
+  box.disabled=true;
+  try{
+    const ok=await api('rpc/set_my_email_alerts',{method:'POST',body:JSON.stringify({p_on:box.checked})});
+    if(!ok)throw new Error('not_saved');
+    if(acct&&acct.business)acct.business.email_alerts=box.checked;
+    if(myConsentCache)myConsentCache.email_alerts=box.checked;
+    showCheckoutNote(box.checked?'Email alerts on.':'Email alerts off.');
+  }catch(e){box.checked=!box.checked;showCheckoutNote('Could not save. Try again.');}
+  box.disabled=false;
+}
+
+// ─── AGE CHECK AND PARENT OR GUARDIAN CONSENT ───
+// Students say if they are 18 or older. Under 18, a parent or guardian approves by email before the
+// student can swipe, match or message (enforced by the database too, not just here).
+let myConsentCache=null;
+async function myConsent(force){
+  if(myConsentCache&&!force)return myConsentCache;
+  myConsentCache=await api('rpc/my_consent',{method:'POST',body:'{}'});
+  return myConsentCache;
+}
+// Sign-up form: show the parent fields only for "No"
+function setupAge(adult){
+  document.getElementById('setupAdult').value=adult?'yes':'no';
+  document.querySelectorAll('#setupAgeBtns .rs-opt').forEach(b=>{const on=b.dataset.v===(adult?'yes':'no');b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on));});
+  document.getElementById('setupParent').hidden=adult;
+}
+// Where a signed-in student goes: the consent screen until cleared, otherwise their home
+async function routeStudent(){
+  try{const c=await myConsent(true);if(c&&!c.cleared){go('ageGate');return;}}catch(e){}
+  go('home');
+}
+async function renderAgeGate(){
+  const el=document.getElementById('agBody');
+  el.innerHTML='<div class="adm-empty">Loading...</div>';
+  let c;
+  try{c=await myConsent(true);}catch(e){if(e.message==='signed_out'){openLogin('student');return;}el.innerHTML='<div class="adm-empty">Could not load. Check your connection.</div>';return;}
+  if(!c){go('home');return;}
+  if(c.cleared){el.innerHTML=`<div class="hub-hello">You're all set</div><div class="hub-sub">You can swipe, match and message companies.</div><button class="btn btn-primary" onclick="go('swipeFeed')">Start swiping →</button>`;return;}
+  // Named a parent at sign-up: send that request now that the student's own email is confirmed
+  if(c.is_adult===false&&c.pending_parent&&!c.request){
+    await sendConsent(c.pending_parent.name||'',c.pending_parent.email,true);return;
+  }
+  const parentForm=(btn)=>`
+      <div class="fg"><label for="agPName">Parent or guardian's name</label><input type="text" id="agPName" maxlength="80" autocomplete="off"></div>
+      <div class="fg"><label for="agPEmail">Parent or guardian's email</label><input type="email" id="agPEmail" maxlength="200" autocomplete="off"></div>
+      <button class="btn btn-primary btn-full" id="agSend" onclick="sendConsent(document.getElementById('agPName').value,document.getElementById('agPEmail').value)">${btn}</button>`;
+  if(c.is_adult===null||c.is_adult===undefined){
+    el.innerHTML=`
+      <div class="hub-hello">One quick question</div>
+      <div class="hub-sub">Before you match with companies: are you 18 or older?</div>
+      <div class="ag-btns"><button class="btn btn-primary" onclick="answerAge(true)">Yes, I'm 18 or older</button><button class="btn btn-dark" onclick="document.getElementById('agMinor').hidden=false">No, I'm under 18</button></div>
+      <div class="adm-card" id="agMinor" hidden style="margin-top:16px">
+        <div class="adm-sec-h" style="margin:0 0 4px">Ask a parent or guardian</div>
+        <div class="adm-money-note" style="margin-bottom:12px">We email them a link to say yes. Until they do, you can take the quiz, explore trades and build your resume, but not match or message companies.</div>
+        ${parentForm('Send the request')}
+      </div>`;
+    return;
+  }
+  const r=c.request;
+  el.innerHTML=`
+    <div class="hub-hello">${r&&r.status==='declined'?'Your parent or guardian said no':'Waiting for your parent or guardian'}</div>
+    <div class="hub-sub">${r&&r.status==='declined'
+      ?'Matching and messaging stay off for now. Talk with them, then send a new request.'
+      :r?'We emailed <strong>'+esc(r.parent_email)+'</strong> on '+fmtDate(r.sent)+'. As soon as they say yes, you can swipe, match and message companies. Ask them to check their spam folder too.'
+      :'Add your parent or guardian so they can say yes.'}</div>
+    <div class="ag-while">
+      <div class="adm-sec-h" style="margin:0 0 8px">While you wait</div>
+      <div class="hub-links">
+        <button class="hub-link" onclick="go('home')">${ic('home')}My home</button>
+        <button class="hub-link" onclick="openResume()">${ic('file')}Build your resume</button>
+        <button class="hub-link" onclick="go('trades')">${ic('briefcase')}Explore trades</button>
+      </div>
+    </div>
+    <details class="pq" style="margin-top:18px" ${r?'':'open'}><summary>${r?'Send to a different email, or send again':'Add your parent or guardian'}</summary><div>${parentForm(r?'Send again':'Send the request')}</div></details>`;
+}
+async function answerAge(adult){
+  try{
+    const r=await api('rpc/set_my_age',{method:'POST',body:JSON.stringify({p_adult:adult,p_parent_name:'',p_parent_email:''})});
+    myConsentCache=null;
+    if(r&&r.cleared){go('home');showCheckoutNote('Thanks. You can start swiping.');return;}
+    renderAgeGate();
+  }catch(e){showCheckoutNote('Could not save. Try again.');}
+}
+async function sendConsent(name,email,auto){
+  email=String(email||'').trim();
+  if(!EMAIL_RE.test(email)){showCheckoutNote("Enter your parent or guardian's email.");if(auto){myConsentCache=null;}return;}
+  const btn=document.getElementById('agSend');if(btn)btn.disabled=true;
+  try{
+    const r=await api('rpc/set_my_age',{method:'POST',body:JSON.stringify({p_adult:false,p_parent_name:name,p_parent_email:email})});
+    if(r&&r.error==='same_email'){showCheckoutNote('Use your parent or guardian\'s email, not your own.');if(btn)btn.disabled=false;return;}
+    if(r&&r.error==='too_many'){showCheckoutNote('You have sent 5 requests today. Try again tomorrow.');if(btn)btn.disabled=false;return;}
+    if(r&&r.error){showCheckoutNote("Check your parent or guardian's email.");if(btn)btn.disabled=false;return;}
+    kickEmails();
+    myConsentCache=null;await renderAgeGate();
+    showCheckoutNote('Sent to '+email+'.');
+  }catch(e){if(btn)btn.disabled=false;showCheckoutNote('Could not send. Try again.');}
+}
+// The parent's page, from the link in their email: tradesmart.llc/#consent=TOKEN
+let consentToken=null;
+async function openParentConsent(token){
+  consentToken=token;
+  go('parentConsent');
+  const el=document.getElementById('pcBody');
+  el.innerHTML='<div class="adm-empty">Loading...</div>';
+  let d=null;
+  try{
+    const r=await fetch(apiBase()+'/rest/v1/rpc/consent_request',{method:'POST',headers:{'Content-Type':'application/json',apikey:anonKey(),Authorization:'Bearer '+anonKey()},body:JSON.stringify({p_token:token})});
+    d=r.ok?await r.json():null;
+  }catch(e){}
+  if(!d){el.innerHTML='<div class="hub-hello">This link has expired</div><div class="hub-sub">Ask your student to send a new request from TradeSmart.</div>';return;}
+  if(d.status!=='sent'){el.innerHTML=`<div class="hub-hello">Thank you</div><div class="hub-sub">You already ${d.status==='approved'?'said yes':'said no'} for ${esc(d.student)}. If you want to change your answer, ask ${esc(d.student)} to send a new request.</div>`;return;}
+  el.innerHTML=`
+    <div class="hub-hello">${esc(d.student)} wants to use TradeSmart</div>
+    <div class="hub-sub">${esc([d.grade,d.school].filter(Boolean).join(', '))}</div>
+    <div class="adm-card" style="margin-bottom:16px">
+      <div class="adm-sec-h" style="margin:0 0 8px">What TradeSmart is</div>
+      <ul class="ap-list">
+        <li>A free app that helps high school students find careers in the skilled trades, like electrical, plumbing, HVAC and welding.</li>
+        <li>Students take a trade quiz, explore trades and pay, and build a resume.</li>
+        <li>Students can like local trade companies that are hiring. When a company likes them back, they can message each other.</li>
+        <li>Every company is reviewed by the TradeSmart team before students can see it.</li>
+      </ul>
+      <div class="adm-sec-h" style="margin:14px 0 8px">What companies see</div>
+      <ul class="ap-list"><li>First name, grade, city, quiz result, and what ${esc(d.student)} wrote about themselves.</li><li>Never their email, phone number, school or home ZIP code.</li></ul>
+      ${termsReady()?`<div class="adm-money-note" style="margin-top:10px">Read our <a href="#" onclick="openLegal('privacy');return false">Privacy Policy</a> and <a href="#" onclick="openLegal('terms');return false">Terms of Service</a>.</div>`:''}
+    </div>
+    <div class="fg"><label for="pcName">Your full name</label><input type="text" id="pcName" maxlength="80" autocomplete="name" value="${esc(d.parent||'')}"></div>
+    <label class="terms-row"><input type="checkbox" id="pcConfirm"> <span>I am ${esc(d.student)}'s parent or legal guardian.</span></label>
+    <div class="ag-btns"><button class="btn btn-primary" id="pcYes" onclick="answerParent(true)">Yes, ${esc(d.student)} can use TradeSmart</button><button class="btn btn-dark" onclick="answerParent(false)">No</button></div>`;
+}
+async function answerParent(approve){
+  const name=document.getElementById('pcName').value.trim();
+  if(!name){alert('Please type your full name.');return;}
+  if(!document.getElementById('pcConfirm').checked){alert('Please confirm you are the parent or legal guardian.');return;}
+  document.querySelectorAll('#pcBody .ag-btns button').forEach(b=>b.disabled=true);
+  try{
+    const r=await fetch(apiBase()+'/rest/v1/rpc/answer_consent',{method:'POST',headers:{'Content-Type':'application/json',apikey:anonKey(),Authorization:'Bearer '+anonKey()},body:JSON.stringify({p_token:consentToken,p_approve:approve,p_name:name})});
+    const res=r.ok?await r.json():'error';
+    if(res!=='approved'&&res!=='declined')throw new Error(res);
+    kickEmails();
+    document.getElementById('pcBody').innerHTML=approve
+      ?'<div class="hub-hello">Thank you</div><div class="hub-sub">You said yes. We let your student know by email, and they can start matching with companies now.</div>'
+      :'<div class="hub-hello">Thank you</div><div class="hub-sub">You said no. Matching and messaging stay off. Your student can still use the quiz, trade guides and resume builder, and can send a new request later.</div>';
+  }catch(e){
+    document.querySelectorAll('#pcBody .ag-btns button').forEach(b=>b.disabled=false);
+    showCheckoutNote('Could not save your answer. Try again.');
+  }
+}
+
+// ─── JOB AND APPRENTICESHIP POSTS (paid businesses; Starter plan: 5 open) ───
+const JOB_KINDS={apprenticeship:'Apprenticeship',full_time:'Full-time job',part_time:'Part-time job',summer:'Summer job'};
+let bizJobs=[],jobEditId=null;
+function jobLine(j){return [JOB_KINDS[j.kind],j.pay,j.hours,j.start_when?'Starts '+j.start_when:''].filter(Boolean).map(esc).join(' · ');}
+function bizJobsCard(b,paid){
+  if(!paid)return `<div class="adm-card" style="margin:0 0 16px"><div class="adm-sec-h" style="margin:0 0 4px">Your openings</div><div class="adm-money-note">Choose a plan above to post apprenticeships and jobs. Students see them on your swipe card.</div></div>`;
+  const open=bizJobs.filter(j=>j.status==='open'),closed=bizJobs.filter(j=>j.status!=='open');
+  const limit=b.plan==='biz_starter'?5:null;
+  const row=j=>`<div class="job-row${j.status!=='open'?' closed':''}">
+      <div style="min-width:0"><div class="job-title">${esc(j.title)}</div><div class="job-meta">${jobLine(j)}</div></div>
+      <div class="job-btns"><button class="adm-btn" onclick="editJob('${j.id}')">Edit</button><button class="adm-btn${j.status==='open'?' reject':' approve'}" onclick="toggleJob('${j.id}',${j.status!=='open'})">${j.status==='open'?'Close':'Reopen'}</button></div></div>`;
+  return `<div class="adm-card" style="margin:0 0 16px">
+    <div class="adm-card-top"><div><div class="adm-sec-h" style="margin:0">Your openings</div><div class="adm-meta">${open.length} open${limit?' of '+limit+' on the Starter plan':''}</div></div>
+      ${!limit||open.length<limit?`<button class="adm-btn approve" onclick="editJob(null)">+ Add opening</button>`:''}</div>
+    <div class="adm-money-note" style="margin:6px 0 12px">Students see your open positions on your swipe card and in "Openings near you".</div>
+    <div id="jobForm"></div>
+    ${open.length?open.map(row).join(''):'<div class="adm-empty" style="padding:14px">No open positions yet. Add your first apprenticeship or job.</div>'}
+    ${closed.length?`<details class="job-closed"><summary>Closed (${closed.length})</summary>${closed.map(row).join('')}</details>`:''}
+  </div>`;
+}
+function editJob(id){
+  jobEditId=id;const j=bizJobs.find(x=>x.id===id)||{kind:'apprenticeship'};
+  const f=(fid,label,val,ph,max)=>`<div class="fg"><label for="${fid}">${label}</label><input type="text" id="${fid}" maxlength="${max}" value="${esc(val||'')}" placeholder="${esc(ph)}"></div>`;
+  document.getElementById('jobForm').innerHTML=`<div class="job-form">
+    ${f('jbTitle','Position',j.title,'Electrical apprentice',80)}
+    <div class="row"><div class="fg"><label for="jbKind">Type</label><select id="jbKind">${Object.entries(JOB_KINDS).map(([k,v])=>`<option value="${k}" ${j.kind===k?'selected':''}>${v}</option>`).join('')}</select></div>${f('jbPay','Pay',j.pay,'$18 to $22/hr',40)}</div>
+    <div class="row">${f('jbHours','Hours',j.hours,'40 hrs/week, days',40)}${f('jbStart','Start',j.start_when,'June 2027 or right away',40)}</div>
+    <div class="fg"><label for="jbDetails">Details</label><textarea id="jbDetails" maxlength="600" rows="3" placeholder="What they will do, what you are looking for, training you provide">${esc(j.details||'')}</textarea></div>
+    <div class="adm-actions"><button class="adm-btn approve" id="jbSave" onclick="saveJob()">${id?'Save changes':'Post opening'}</button><button class="adm-btn" onclick="document.getElementById('jobForm').innerHTML=''">Cancel</button></div></div>`;
+  document.getElementById('jbTitle').focus();
+}
+const JOB_ERRORS={not_paid:'Choose a plan to post openings.',limit:'The Starter plan includes 5 open positions. Close one or upgrade your plan.',title:'Add a position title.',kind:'Pick a type.',not_found:'That opening was not found. Refresh and try again.'};
+async function saveJob(){
+  const v=id=>document.getElementById(id).value;
+  const btn=document.getElementById('jbSave');btn.disabled=true;
+  try{
+    const r=await api('rpc/save_job_post',{method:'POST',body:JSON.stringify({p_id:jobEditId,p_title:v('jbTitle'),p_kind:v('jbKind'),p_pay:v('jbPay'),p_start:v('jbStart'),p_hours:v('jbHours'),p_details:v('jbDetails')})});
+    if(r!=='ok'){btn.disabled=false;showCheckoutNote(JOB_ERRORS[r]||'Could not save. Try again.');return;}
+    await loadBizHome();showCheckoutNote(jobEditId?'Opening updated.':'Opening posted. Students can see it now.');
+  }catch(e){btn.disabled=false;showCheckoutNote('Could not save. Try again.');}
+}
+async function toggleJob(id,open){
+  try{
+    const r=await api('rpc/set_job_post_status',{method:'POST',body:JSON.stringify({p_id:id,p_open:open})});
+    if(r!=='ok'){showCheckoutNote(JOB_ERRORS[r]||'Could not save. Try again.');return;}
+    await loadBizHome();
+  }catch(e){showCheckoutNote('Could not save. Try again.');}
+}
+// Open positions for a set of companies (swipe cards)
+async function attachJobs(cos){
+  const ids=cos.map(c=>c.id).filter(id=>!String(id).startsWith('preview-'));
+  if(!ids.length)return;
+  try{
+    const rows=await publicApi('rpc/open_jobs?p_business='+encodeURIComponent('{'+ids.join(',')+'}'));
+    cos.forEach(c=>{c.jobs=(rows||[]).filter(j=>j.business_id===c.id);});
+  }catch(e){}
+}
+// Student: openings near them, with a like button for the company
+let nearJobs=[];
+async function loadNearJobs(){
+  try{nearJobs=await api('rpc/nearby_jobs',{method:'POST',body:'{}'})||[];}catch(e){nearJobs=[];}
+  return nearJobs;
+}
+function jobCard(j,liked){
+  return `<div class="job-card">
+    <div class="job-title">${esc(j.title)}</div>
+    <div class="job-co">${esc(j.business_name)}${j.city?' · '+esc(j.city):''} · ${j.distance_miles<1?'under 1 mi':j.distance_miles+' mi'}</div>
+    <div class="job-meta">${jobLine(j)}</div>
+    ${j.details?`<div class="job-details">${esc(j.details)}</div>`:''}
+    <div class="adm-actions">${liked?`<span class="adm-pill approved">You liked ${esc(j.business_name)}</span>`:`<button class="btn btn-primary btn-sm" onclick="likeFromJob('${j.business_id}',this)">${ic('heart')} Like ${esc(j.business_name)}</button>`}</div>
+  </div>`;
+}
+async function renderJobs(){
+  const el=document.getElementById('jobsBody');
+  el.innerHTML='<div class="adm-empty">Loading openings...</div>';
+  let a=null;try{a=await loadAccount();}catch(e){}
+  if(!a||a.role!=='student'){el.innerHTML='<div class="adm-empty">Log in with your student account to see openings near you.</div>';return;}
+  if(!a.student.zip){el.innerHTML='<div class="adm-empty">Add your ZIP code on the Swipe tab to see openings near you.</div>';return;}
+  const [jobs,mine]=await Promise.all([loadNearJobs(),api('likes?select=business_id&from_side=eq.student&liked=is.true').catch(()=>[])]);
+  const liked=new Set((mine||[]).map(l=>l.business_id));
+  el.innerHTML=`<div class="hub-hello">Openings near you</div>
+    <div class="hub-sub">Apprenticeships and jobs from companies hiring within reach of ZIP ${esc(a.student.zip)}. Liking a company uses one swipe, just like swiping right.</div>
+    ${jobs.length?'<div class="job-list">'+jobs.map(j=>jobCard(j,liked.has(j.business_id))).join('')+'</div>'
+      :'<div class="adm-empty">No openings posted near you yet. New ones show up here as companies post them.</div>'}`;
+}
+async function likeFromJob(bid,btn){
+  let c=null;try{c=await myConsent();}catch(e){}
+  if(c&&!c.cleared){go('ageGate');return;}
+  const s=getState();
+  if(s.swipesLeft<=0){go('paywall');return;}
+  btn.disabled=true;
+  try{
+    await saveSwipe(bid,true);
+    s.swipesLeft=Math.max(0,s.swipesLeft-1);saveState(s);
+    showCheckoutNote('Liked. If they like you back, you can message them.');
+    renderJobs();
+  }catch(e){btn.disabled=false;showCheckoutNote('That like did not save. Try again.');}
+}
+
 // Bottom tabs for signed-in students
-const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',resume:'resume',prep:'resume',appr:'resume',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
+const TAB_FOR={home:'home',swipeFeed:'swipe',trades:'trades',tradeDetail:'trades',resume:'resume',prep:'resume',appr:'resume',jobs:'swipe',connections:'matches',profile:'profile',payoff:'trades',matchScreen:'matches'};
 function updateTabBar(screenId){
   const show=isStudent()&&TAB_FOR[screenId]!==undefined;
   document.body.classList.toggle('has-tabs',show);
@@ -2850,7 +3174,7 @@ async function handleAuthRedirect(){
 async function routeSignedIn(){
   try{
     const a=await loadAccount(true);
-    if(a.role==='student'){go('home');showCheckoutNote('Signed in. Your points, matches and messages are saved to your account.');return;}
+    if(a.role==='student'){await routeStudent();showCheckoutNote('Signed in. Your points, matches and messages are saved to your account.');return;}
     if(a.role==='business'){go('bizHome');return;}
     if(a.role==='counselor'){go('counselor');return;}
     const email=(authSession()||{}).user.email||'this email';
@@ -2879,6 +3203,8 @@ function go(screenId){
   if(screenId==='home')renderHome();
   if(screenId==='trades')renderTrades();
   if(screenId==='counselor')renderCounselor();
+  if(screenId==='ageGate')renderAgeGate();
+  if(screenId==='jobs')renderJobs();
   if(screenId==='appr')renderFinder();
   if(screenId==='prep')renderPrep();
   updateTabBar(screenId);
@@ -3096,18 +3422,26 @@ async function submitSetup(){
   if(!EMAIL_RE.test(email)){alert('Please enter a valid email address.');return;}
   if(!ZIP_RE.test(zip)){alert('Please enter your 5-digit ZIP code.');return;}
   if(pw.length<8){alert('Please choose a password with at least 8 characters.');return;}
+  const adult=v('setupAdult');
+  if(!adult){alert('Please answer: are you 18 or older?');return;}
+  if(adult==='no'){
+    const pe=v('setupParentEmail');
+    if(!EMAIL_RE.test(pe)){alert("Please enter your parent or guardian's email.");return;}
+    if(pe.toLowerCase()===email.toLowerCase()){alert("Please use your parent or guardian's email, not your own.");return;}
+  }
   if(!termsOk('setupTerms'))return;
   if(!backendReady()){alert('Accounts are not set up yet. Please try again later.');return;}
   const btn=document.getElementById('setupBtn');btn.disabled=true;
   const q=getState().quizResult||{};
   const data={role:'student',name,phone:v('setupPhone'),school,grade,city:v('setupCity'),zip,why:v('setupWhy'),
-    quiz_best:q.best?TRADES[q.best].name:'',quiz_scores:q.scores||null,terms:termsReady()?'yes':''};
+    quiz_best:q.best?TRADES[q.best].name:'',quiz_scores:q.scores||null,terms:termsReady()?'yes':'',
+    adult,parent_name:adult==='no'?v('setupParentName'):'',parent_email:adult==='no'?v('setupParentEmail'):''};
   try{
     if(!await zipKnown(zip))throw new Error(ZIP_UNKNOWN);
     const r=await authCall('signup?redirect_to='+encodeURIComponent(confirmRedirect()),{email,password:pw,data});
     if(!r.ok)throw new Error(r.d.msg||r.d.error_description||'Sign-up failed ('+r.status+')');
     document.getElementById('setupPw').value='';
-    if(r.d.access_token){setAuthSession(r.d);try{await loadAccount(true);}catch(e){}go('home');return;}
+    if(r.d.access_token){setAuthSession(r.d);try{await loadAccount(true);}catch(e){}routeStudent();return;}
     const user=r.d.user||r.d;
     note.innerHTML=(user.identities&&user.identities.length===0)
       ?'That email already has a TradeSmart account. <a href="#" onclick="openLogin(\'student\');return false">Log in instead</a>.'
@@ -3147,6 +3481,13 @@ async function initSwipeFeed(){
       return;
     }
     if(!a.student.zip){showZipPrompt('');return;}
+    const cs=await myConsent().catch(()=>null);
+    if(cs&&!cs.cleared){
+      feedMessage(cs.is_adult===false?'Waiting for your parent or guardian':'One quick question first',
+        cs.is_adult===false?'Matching with companies opens as soon as your parent or guardian says yes by email.':'Tell us if you are 18 or older before you start matching.',
+        '<button class="btn btn-primary" style="margin-top:16px" onclick="go(\'ageGate\')">'+(cs.is_adult===false?'See the request':'Answer')+'</button>');
+      return;
+    }
     // Only approved companies whose hiring radius reaches this student's ZIP, nearest first
     const [rows,mine]=await Promise.all([
       api('rpc/nearby_businesses',{method:'POST',body:'{}'}),
@@ -3154,6 +3495,7 @@ async function initSwipeFeed(){
     rows.forEach(r=>{bizById[r.id]=toCompany(r);});
     const seen=new Set((mine||[]).map(l=>l.business_id));
     swipeCards=rows.filter(r=>!seen.has(r.id)).map(toCompany);
+    await attachJobs(swipeCards);
     if(!rows.length){
       feedMessage('No trade companies hiring near you yet','We show companies whose hiring area reaches ZIP '+esc(a.student.zip)+'. Every company is reviewed by the TradeSmart team before it shows up here. Check back soon.',
         '<button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="go(\'connections\')">View your matches</button><button class="btn btn-ghost btn-sm map-btn" style="margin-top:8px" onclick="go(\'likedMap\')">'+ic('map')+' See your map</button><button class="nav-ghost btn-sm" style="margin-top:8px" onclick="showZipPrompt(acct.student.zip)">Change ZIP code</button>');
@@ -3199,6 +3541,7 @@ function cardHTML(co){
       <div class="card-info">
         <div class="card-company">${esc(co.name)}</div>
         ${co.description?`<div class="card-tagline">${esc(co.description)}</div>`:''}
+        ${co.jobs&&co.jobs.length?`<div class="card-jobs">${ic('briefcase')} Hiring: ${esc(co.jobs[0].title)}${co.jobs.length>1?` <span>+${co.jobs.length-1} more</span>`:''}</div>`:''}
         <div class="card-pills">
           ${co.pay?`<div class="card-pill pay">${ic('cash')} ${esc(co.pay)}</div>`:''}
           ${co.city||co.miles!=null?`<div class="card-pill">${ic('pin')} ${esc([co.city,co.miles==null?'':co.miles<1?'under 1 mi':co.miles+' mi'].filter(Boolean).join(' · '))}</div>`:''}
@@ -3545,6 +3888,7 @@ async function sendMessage(){
     const rows=await api('messages',{method:'POST',headers:{Prefer:'return=representation'},
       body:JSON.stringify({match_id:activeChat.matchId,sender:activeChat.side,body:text})});
     if(rows&&rows[0]&&!chatMsgs.some(m=>m.id===rows[0].id)){chatMsgs.push(rows[0]);renderMessages();}
+    kickEmails();
   }catch(e){
     console.warn(e);input.value=text;
     showCheckoutNote('Your message did not send. Check your connection and try again.');
@@ -3567,8 +3911,8 @@ async function loadBizHome(){
     const sync=await bizSync();
     if(sync&&!sync.error&&(sync.plan_status||null)!==before)a=await loadAccount(true);
     const b=a.business,co=toCompany(b),paid=b.plan_status==='active';
-    const [bs,stats]=await Promise.all([api('rpc/interested_students',{method:'POST',body:'{}'}),api('rpc/my_business_stats',{method:'POST',body:'{}'}).catch(()=>null)]);
-    bizStudents=bs||[];
+    const [bs,stats,jobs]=await Promise.all([api('rpc/interested_students',{method:'POST',body:'{}'}),api('rpc/my_business_stats',{method:'POST',body:'{}'}).catch(()=>null),api('job_posts?select=*&order=created_at.desc').catch(()=>[])]);
+    bizStudents=bs||[];bizJobs=jobs||[];co.jobs=paid?bizJobs.filter(j=>j.status==='open'):[];
     const card=st=>`
       <div class="adm-card">
         <div class="adm-card-top">
@@ -3591,6 +3935,8 @@ async function loadBizHome(){
         :'Add your ZIP code below. Until then, students cannot see your listing.'}</div>
       ${bizPlanCard(b)}
       ${bizStatsCard(stats)}
+      ${bizJobsCard(b,paid)}
+      <div class="adm-card" style="margin:0 0 16px">${alertToggle(b.email_alerts!==false)}</div>
       <div class="adm-card" style="margin:0 0 16px">
         <div class="adm-sec-h" style="margin:0 0 4px">Your swipe card</div>
         <div class="adm-money-note" style="margin-bottom:14px">This is exactly what students see when they swipe.</div>
@@ -3856,6 +4202,7 @@ async function bizLikeBack(studentId,btn){
       await api('likes',{method:'POST',headers:{Prefer:'return=minimal'},
         body:JSON.stringify({student_id:studentId,business_id:acct.business.id,from_side:'business',liked:true})});
     }catch(e){if(e.status!==409)throw e;}
+    kickEmails();
     await loadBizHome();
     showCheckoutNote("It's a match. You can message this student now.");
   }catch(e){
@@ -4039,7 +4386,7 @@ async function submitLogin(){
     pwEl.value='';
     setAuthSession(r.d);
     const a=await loadAccount(true);
-    if(a.role==='student'){go('home');return;}
+    if(a.role==='student'){myConsentCache=null;routeStudent();return;}
     if(a.role==='business'){go('bizHome');return;}
     if(a.role==='counselor'){go('counselor');return;}
     setAuthSession(null);
@@ -4342,7 +4689,7 @@ async function startPhone(){
   if(backendReady()){
     try{
       const rows=await publicApi('approved_businesses?select=*&listed=is.true&order=business_name.asc&limit=6');
-      if(rows&&rows.length){phoneCards=rows.map(toCompany);phoneIdx=0;renderPhoneStack();}
+      if(rows&&rows.length){phoneCards=rows.map(toCompany);await attachJobs(phoneCards);phoneIdx=0;renderPhoneStack();}
     }catch(e){/* keep the trade preview */}
   }
   if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)&&phoneCards.length>1)
@@ -4386,6 +4733,7 @@ const HERO_PLAY_ICON='<svg viewBox="0 0 24 24" width="16" height="16" fill="curr
   else if(h==='quiz')qzStart();
   else if(h==='business')go('companyApply');
   else if(h==='login')openLogin('student');
+  else if(h.startsWith('consent=')){const t=decodeURIComponent(h.slice(8));history.replaceState(null,'',location.pathname);openParentConsent(t);}
   handleCheckoutReturn();
   if(backendReady())handleAuthRedirect();
   flushOutbox();
